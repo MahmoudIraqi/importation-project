@@ -1,0 +1,43 @@
+
+<div class="row">
+  <div class="col-12">
+    <div class="amountOfAllRequests">
+
+      <ul class="d-flex align-items-center justify-content-space-evenly">
+        <li *ngFor="let request of numberOFAllRequestObject; let i = index"
+            class="{{i !== numberOFAllRequestObject.length -1 ? currentLang === 'ar' ? 'ml-4':'mr-4': ''}}"
+            (click)="selectCharts(request.id, i)"
+            [ngClass]="{'active': request.active}">
+          <div class="d-flex align-items-center justify-content-space-evenly">
+            <div class="icon">
+              <i class="{{request.icon}}"></i>
+            </div>
+            <div class="title">
+              <h4>{{  request.title | translate}}</h4>
+              <p>
+                <span class="NumberValue" #count>{{request.numberOfRequest}}</span>
+                <span class="numberTitle">
+                  {{'common.' + (request.numberOfRequest > 1 ? 'requests' : 'request')  | translate}}
+                </span>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-12">
+    <app-charts-component [data]="dataForBarChart" [pieData]="dataForPieCharts" [currentLang]="currentLang"></app-charts-component>
+  </div>
+</div>
+
+
+<alert type="danger" dismissible="true" class="AlertForAllRequests" (onClosed)="onClosedErrorAlert()"
+       *ngIf="alertErrorNotificationStatus">
+  <strong>Error Message</strong> <br> {{alertErrorNotification.msg}}
+</alert>
+
+ <app-loader-component [loadingStatus]="isLoading"></app-loader-component>
+
+
+

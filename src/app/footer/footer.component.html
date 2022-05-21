@@ -1,0 +1,45 @@
+<div class="footerContainer">
+  <div class="row d-flex align-items-center justify-content-center">
+    <div class="col-sm-3 col-12 logo-img">
+      <div class="logo">
+        <img src="assets/img/logoFooter.png">
+      </div>
+    </div>
+    <!-- <div class="col-2"></div> -->
+    <div class="col-sm-9 col-12">
+      <div class="row">
+        <div class="col-12 p-0 pt-3 pb-3">
+          <div class="{{screenWidth > 640 ? currentLang === 'ar' ? 'text-left':'text-right':''}}"
+               [ngClass]="{'text-center': screenWidth <= 425}">
+            <div class="socialMediaList">
+              <ul>
+                <li *ngFor="let icon of socialMediaList;let i = index"
+                    class="{{i !== socialMediaList?.length-1  ? currentLang === 'ar' ? 'ml-4':'mr-4' : ''}}">
+                  <a href="#" target="_blank">
+                    <span>
+                      <i class="{{icon}}"></i>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="phoneNumberContainer {{currentLang === 'ar' ? 'mr-4':'ml-4'}}">
+              <span>
+                <i class="fas fa-phone-volume"></i>
+              </span>
+              <span> 15301</span>
+            </div>
+            <div class="emailIcon {{currentLang === 'ar' ? 'mr-4':'ml-4'}}" [ngClass]="{'mt-3': screenWidth <= 425}">
+              <a href="mailto: info@edaegypt.gov.eg" target="_blank">
+                <span>
+                 <i class="fas fa-envelope"></i>
+                </span>
+                <span> info@edaegypt.gov.eg</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.property-comment {
+    // background-color: rgba(0, 0, 0, 0.05);
+}
+
+:host {
+    ::ng-deep {
+        .nav-item {
+            width: 49% !important;
+        }
+
+        .nav-pills {
+            margin-bottom: 16px;
+        }
+    }
+
+    .invoice-container:not(:last-child) {
+        border-bottom: 1px solid #e0d4d4;
+        margin-bottom: 16px;
+    }
+}

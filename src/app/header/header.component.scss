@@ -1,0 +1,406 @@
+.headerContainer {
+  width: 100%;
+  padding: 0 3em;
+}
+
+/* ------------ Logo Style ----------- */
+
+.logo {
+  width: 100%;
+  padding: 15px 0px;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+  }
+}
+
+/* -------------------------- title Styling ------------------- */
+.TitleContainer {
+  text-align: center;
+
+  h2 {
+    background: -webkit-linear-gradient(90deg, #a66c15, #d6b679);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.4rem;
+    margin-bottom: 0;
+  }
+}
+
+/* --------------------- social media List ----------------------- */
+.socialMediaList {
+  display: inline-block;
+  vertical-align: top;
+
+  ul {
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 15px;
+
+      a {
+        color: #c28a30;
+      }
+
+      a:hover {
+        color: #fff;
+      }
+
+      span {
+        font-size: 22px;
+      }
+    }
+
+    li:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+/* ----------------------------- phone container ------------ */
+.phoneNumberContainer {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 1.5em;
+  color: #c28a30;
+  font-weight: bolder;
+  font-size: 22px;
+
+  i {
+    transform: rotate(-45deg);
+  }
+}
+
+
+/* ----------------------------- change Lang ------------------- */
+.changeLang {
+  display: inline-block;
+  vertical-align: top;
+  color: #c28a30;
+  font-weight: bolder;
+  font-size: 22px;
+
+  select {
+    border: none;
+    background: none;
+    color: #c28a30;
+    font-weight: bold;
+    border-radius: 0;
+    padding: 0px 4px;
+    width: 60px;
+    font-size: 18px;
+    height: calc(1.5em + 0.25rem + 2px);
+    cursor: pointer;
+    box-shadow: 0px 0px 0.2rem #c28a30;
+    border-radius: 10px 0px 10px 10px;
+  }
+
+  select:active, select:focus {
+    box-shadow: 0px 0px 0.2rem #fff;
+  }
+}
+
+/* ----------------- search Icon --------------------- */
+.searchIcon {
+  display: inline-block;
+  vertical-align: top;
+
+  a {
+    color: #c28a30;
+    font-weight: bolder;
+    font-size: 22px;
+  }
+}
+
+/* ---------------------------- menu ---------------------- */
+.menu {
+  display: inline-block;
+
+  ul {
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      vertical-align: top;
+
+      a {
+        color: #fff;
+        font-weight: 500;
+        font-size: 14.4px;
+        padding-bottom: 5px;
+      }
+
+      a:hover {
+        color: #c28a30;
+        text-decoration: none;
+      }
+
+      a.active {
+        color: #c28a30;
+      }
+    }
+  }
+}
+
+/* ------------------------ my profile icon --------------------*/
+.profile {
+  display: inline-block;
+  vertical-align: top;
+
+  .profileIcon {
+    display: inline-block;
+    vertical-align: top;
+    background: #c28a30;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 3em;
+    overflow: hidden;
+
+    span {
+      font-size: 2em;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 5px 0;
+
+      span {
+        margin-left: 10px;
+        color: #c28a30;
+      }
+    }
+
+    button:after {
+      content: '';
+      display: none;
+    }
+  }
+
+  .profileMenu {
+    button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 5px 0;
+
+      span {
+        margin-left: 10px;
+        color: #c28a30;
+        direction: ltr;
+      }
+    }
+
+    button:after {
+      content: '';
+      display: none;
+    }
+  }
+}
+
+/*---------------------Drop Down Navbar ----------------*/
+.dropbtn {
+  background-color: transparent;
+  color: #c28a30;
+  cursor: pointer;
+
+}
+
+.menu-title {
+  color: #000000 !important;
+}
+
+.menu-title:hover {
+  color: #ffffff !important;
+}
+
+.dropdown {
+  position: relative;
+
+  a {
+    i.fa-chevron-down {
+      font-size: 10px;
+      margin-left: 0.2rem;
+    }
+  }
+}
+
+[lang="ar"] .dropdown {
+  a {
+    i {
+      margin-right: 1em;
+    }
+  }
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  min-width: 200px;
+  right: 0;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+
+  ul {
+    transform: translateY(24px) !important;
+    padding: 0.5em;
+    border-radius: 10px 0px 10px 10px !important;
+    border: 1px solid #161c30;
+    background: rgba(22, 28, 48, 0.51);
+
+    li {
+      list-style-type: none;
+      width: 100%;
+      border-radius: 10px 0px 10px 10px;
+      border: 1px solid #c28a30;
+      margin-top: 0.2em;
+      background: #fff;
+
+      a {
+        color: #000000;
+        padding: 9px;
+        text-decoration: none;
+        display: block;
+        font-size: 14px;
+      }
+
+      a:hover {
+        background-color: #a06731 !important;
+        color: #fff !important;
+        border-radius: 10px 0px 10px 10px !important;
+      }
+    }
+
+    li:first-child {
+      margin-top: 0em;
+    }
+  }
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #a06731 !important;
+  color: #fff !important;
+  border-radius: 10px 0px 10px 10px !important;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #92918e;
+}
+
+/* -------------------------- for Resposnive Menu ----------------------- */
+
+.dropdown.forResponsiveMenu {
+  display: none;
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    min-width: 200px;
+    right: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+
+    ul {
+      li {
+        list-style-type: none;
+
+        a {
+          color: #000000;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+
+        a:hover {
+          color: #fff;
+        }
+      }
+    }
+
+    a:hover, .dropdown-item.active, .dropdown-item:active {
+      background-color: #a06731 !important;
+      color: #fff !important;
+    }
+  }
+
+  .profile-menu {
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+
+[lang="ar"] .dropdown.forResponsiveMenu {
+  display: none;
+
+  .dropdown-content {
+    left: 0;
+  }
+
+  .profile-menu {
+    margin-right: 15px;
+  }
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #a06731 !important;
+  color: #fff !important;
+}
+
+.dropdown:hover {
+  .dropdown-content {
+    display: block;
+  }
+
+  .dropbtn {
+
+    background-color: #92918e;
+  }
+}
+
+/* ---------------- Notification ------------- */
+.notification {
+  /*color: #c28a30;*/
+  color: #f00;
+  font-size: 50px;
+
+  .bellContainer {
+    position: relative;
+    text-shadow: 0px 0px 20px #fff;
+
+    .notificationCountClass {
+      font-size: 17px;
+      color: #fff;
+      position: absolute;
+      font-weight: bold;
+      top: 13px;
+      right: 8px;
+      width: 30px;
+    }
+  }
+}
+
+[lang="ar"] .notification {
+  .bellContainer {
+    .notificationCountClass {
+      left: 8px;
+    }
+  }
+}

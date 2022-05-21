@@ -1,0 +1,108 @@
+[33mcommit 29049269d6576c863d1ed9d9e3098ae585b3f1ce[m[33m ([m[1;31morigin/FeaturesUpdate[m[33m)[m
+Merge: f2f6af6 712b8ae
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Wed Mar 16 23:09:29 2022 +0200
+
+    merge develop to sara tasks
+
+[33mcommit f2f6af6d1cd37162f9d93f5ebe768d0383c46355[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Wed Mar 16 22:25:28 2022 +0200
+
+    returned root to as default
+
+[33mcommit b62196703cb123cc94083cb6a40aa7353dbaeb1a[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Wed Mar 16 22:24:43 2022 +0200
+
+    try to fix root
+
+[33mcommit d22a4d03e9a783d45c4cff9bd3b906d36ffa3956[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Wed Mar 16 22:16:28 2022 +0200
+
+    update fix root issue
+
+[33mcommit 9193ef24f5742d2e085dc4e6d3db46ed660df71b[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Wed Mar 16 21:36:04 2022 +0200
+
+    apply some feature
+
+[33mcommit a76c200e58da0d82dc555b41e03d28c5cdb90442[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Tue Mar 15 19:14:46 2022 +0200
+
+    apply some comments
+
+[33mcommit 8878be55c83f74af0d76fc099e5554a6657f9a5b[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Tue Mar 15 14:43:30 2022 +0200
+
+    edit request from draft and edit saving method
+
+[33mcommit 2bcaa8343eca2e9b8f70b137e9daf52ad83e4a34[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Wed Mar 9 14:37:07 2022 +0200
+
+    apply some changes
+
+[33mcommit c98eae7709c58d10dae20d375684b15f558087b1[m[33m ([m[1;32mdevelop[m[33m)[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Sat Mar 5 22:55:49 2022 +0200
+
+    finish save and draft list
+
+[33mcommit 801134d258c8f97d62f390709de697fef3886def[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Sat Mar 5 22:33:01 2022 +0200
+
+    apply some comments
+
+[33mcommit dac8bf3efede49f33dd23ee26317cf11ffa1e7d8[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Thu Feb 3 18:08:42 2022 +0200
+
+    finalize the first module for first link of header
+
+[33mcommit df8daf31ad5615eb5a6f6fff1a5f29ba18228a92[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Thu Feb 3 14:07:12 2022 +0200
+
+    create the card list screen
+
+[33mcommit 6a6aa1b956af5b5ebebb0acfd7733b3fe8769fca[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Mon Jan 31 18:54:47 2022 +0200
+
+    add all files
+
+[33mcommit 0f406b676e1fbc8b2c4b141e509966da89d831f9[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Mon Jan 31 18:41:36 2022 +0200
+
+    apply ui comments and add new structure
+
+[33mcommit 7108057a73dc869c746f0e0f2c88a2c90708b322[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Sun Jan 23 21:29:41 2022 +0200
+
+    finalize arabic styling for all created screens
+
+[33mcommit 37febce4625489e485a280bd8e751af79ab3f093[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Sun Jan 23 10:07:17 2022 +0200
+
+    update latest version on git
+
+[33mcommit 3c78046a867481526683961809fe11a81dd2c6ef[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Mon Jan 17 17:35:44 2022 +0200
+
+    kick off the phase two application
+
+[33mcommit 91ffad1ce7e24ea19c3b6226d66d13e119ce9742[m
+Author: Mahmoud Elsayed <mahmoud.elsayed@simon-kucher.com>
+Date:   Thu Dec 2 20:18:19 2021 +0200
+
+    add multi-language feature

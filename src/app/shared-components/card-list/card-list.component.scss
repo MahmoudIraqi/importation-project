@@ -1,0 +1,19 @@
+ul {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style-type: none;
+
+    .cardContainer {
+      width: 100%;
+      border-radius: 10px 0 10px 10px;
+      border: 1px solid #c28a30;
+      cursor: pointer;
+    }
+  }
+
+  li:nth-child(n+4) {
+    margin-top: 1rem;
+  }
+}

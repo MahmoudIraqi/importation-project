@@ -1,0 +1,7 @@
+<div class="loadingContainer" *ngIf="loadingStatus && forWhat !== 'attachmentFields'">
+  <mat-spinner mode="indeterminate"></mat-spinner>
+</div>
+
+<div class="loadingContainerForAttachment" *ngIf="loadingStatus && forWhat === 'attachmentFields'">
+  <mat-spinner mode="indeterminate"></mat-spinner>
+</div>

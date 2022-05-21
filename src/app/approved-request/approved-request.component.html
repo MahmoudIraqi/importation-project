@@ -1,0 +1,78 @@
+<div class="whiteContainer">
+  <div class="row">
+    <div class="col-12">
+      <app-title [title]="'Registered products'" [bigTitle]="true"></app-title>
+    </div>
+    <div class="col-12 mt-5">
+      <div class="tableContainer ApprovedTable">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-4">
+            <button type="button"
+                    class="btn btn-primary form-control"
+                    [ngClass]="{'active': typeOfApprovedList === 'approvedProduct'}">
+              Approved Product
+            </button>
+          </div>
+          <div class="col-12 col-sm-6 col-md-4">
+            <button type="button"
+                    class="btn btn-primary form-control"
+                    [ngClass]="{'active': typeOfApprovedList === 'approvedProductWithComment'}">
+              Approved Product With Comments
+            </button>
+          </div>
+          <div class="col-12 col-sm-6 col-md-4">
+            <button type="button"
+                    class="btn btn-primary form-control"
+                    [ngClass]="{'active': typeOfApprovedList === 'holdProducts'}">
+              Hold Products
+            </button>
+          </div>
+        </div>
+        <div class="row mt-4 subBtnContainer" *ngIf="typeOfApprovedList === 'holdProducts'">
+          <div class="col-12 col-sm-6">
+            <button type="button"
+                    class="btn btn-primary form-control"
+                    [ngClass]="{'active': typeOfApprovedHoldList === 'approvedHoldProductWithRegComment'}">
+              Hold Product from Registration
+            </button>
+          </div>
+          <div class="col-12 col-sm-6">
+            <button type="button"
+                    class="btn btn-primary form-control"
+                    [ngClass]="{'active': typeOfApprovedHoldList === 'approvedHoldProductWithVariationComments'}">
+              Hold Product from Variation
+            </button>
+          </div>
+        </div>
+        <div class="row mt-4 subBtnContainer" *ngIf="typeOfApprovedList === 'approvedProductWithComment'">
+          <div class="col-12 col-sm-6">
+            <button type="button"
+                    class="btn btn-primary form-control"
+                    [ngClass]="{'active': typeOfApprovedListWithComments === 'approvedProductWithRegComment'}">
+              Approved Product With Comments from Registration
+            </button>
+          </div>
+          <div class="col-12 col-sm-6">
+            <button type="button"
+                    class="btn btn-primary form-control"
+                    [ngClass]="{'active': typeOfApprovedListWithComments === 'approvedProductWithVariationComment'}">
+              Approved Product With Comments from Variation
+            </button>
+          </div>
+        </div>
+        <div class="mt-3">
+          <app-table-list [data]="approvedListRequests"
+                          [whichTable]="'approved'"
+                          [approvedType]="typeOfApprovedList === 'holdProducts'? typeOfApprovedHoldList : typeOfApprovedList === 'approvedProductWithComment'? typeOfApprovedListWithComments : typeOfApprovedList"></app-table-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<alert type="danger" dismissible="true" class="AlertForAllRequests" (onClosed)="onClosedErrorAlert()"
+       *ngIf="alertErrorNotificationStatus">
+  <strong>Error Message</strong> <br> {{alertErrorNotification.msg}}
+</alert>
+
+<app-loader-component [loadingStatus]="isLoading"></app-loader-component>

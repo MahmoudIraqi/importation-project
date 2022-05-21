@@ -1,0 +1,18 @@
+<div class="whiteContainer">
+  <div class="row">
+    <div class="col-12">
+      <app-title [title]="'Notification List'" [bigTitle]="true"></app-title>
+    </div>
+    <div class="col-12 mt-2">
+      <div class="tableContainer NotificationList">
+        <app-table-list [data]="notificationListRequest" [whichTable]="'notificationList'" (seenNotification)="seeNotification($event)"></app-table-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<alert type="danger" dismissible="true" class="AlertForAllRequests" (onClosed)="onClosedErrorAlert()" *ngIf="alertErrorNotificationStatus">
+  <strong>Error Message</strong> <br> {{alertErrorNotification.msg}}
+</alert>
+
+<app-loader-component [loadingStatus]="isLoading"></app-loader-component>

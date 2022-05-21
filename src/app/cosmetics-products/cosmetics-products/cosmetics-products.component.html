@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-12">
+    <app-title
+      *ngIf="routingPath === 'importation-services'"
+      title="{{'header.cosmeticsProducts' | translate}} - {{'header.importationServices' | translate}}"
+      [bigTitle]="true"></app-title>
+
+    <app-title
+      *ngIf="routingPath === 'release-services'"
+      title="{{'header.cosmeticsProducts' | translate}} - {{'header.releaseServices' | translate}}"
+      [bigTitle]="true"></app-title>
+  </div>
+  <div class="col-12 mt-5">
+    <app-card-list [data]="cosmeticsProductsServices"
+                   [serviceTypeId]="departSecId"
+                   *ngIf="routingPath === 'importation-services'"></app-card-list>
+
+    <app-card-list [data]="cosmeticsProductsServices"
+                   [serviceTypeId]="departSecId"
+                   *ngIf="routingPath === 'release-services'"></app-card-list>
+  </div>
+</div>
+
+
+<alert type="danger" class="AlertForAllRequests" dismissible="true" (onClosed)="onClosedErrorAlert()"
+       [dir]="currentLang === 'ar' ? 'rtl' : 'ltr'"
+       *ngIf="alertErrorNotificationStatus">
+  <strong>Error message</strong> <br> {{alertErrorNotification.msg}}
+</alert>
+
+<app-loader-component [loadingStatus]="isLoading"></app-loader-component>

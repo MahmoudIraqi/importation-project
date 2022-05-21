@@ -1,0 +1,9 @@
+<ul>
+  <div class="row">
+    <li class="col-12 col-sm-4" *ngFor="let item of data; let i = index">
+      <div class="cardContainer">
+        <app-card [itemData]="item" [serviceTypeId]="serviceTypeId"></app-card>
+      </div>
+    </li>
+  </div>
+</ul>

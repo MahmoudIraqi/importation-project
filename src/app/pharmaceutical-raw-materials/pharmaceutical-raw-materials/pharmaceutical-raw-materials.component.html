@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-12">
+    <app-title
+      *ngIf="routingPath === 'importation-services'"
+      title="{{'header.pharmaceuticalRawMaterial' | translate}} - {{'header.importationServices' | translate}}"
+      [bigTitle]="true"></app-title>
+
+    <app-title
+      *ngIf="routingPath === 'release-services'"
+      title="{{'header.pharmaceuticalRawMaterial' | translate}} - {{'header.releaseServices' | translate}}"
+      [bigTitle]="true"></app-title>
+  </div>
+  <div class="col-12 mt-5">
+    <app-card-list [data]="pharmaceuticalRawMaterialImportationServices"
+                   *ngIf="routingPath === 'importation-services'"></app-card-list>
+
+    <app-card-list [data]="pharmaceuticalRawMaterialReleaseServices"
+                   *ngIf="routingPath === 'release-services'"></app-card-list>
+  </div>
+</div>

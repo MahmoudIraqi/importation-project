@@ -1,0 +1,1231 @@
+<div class="row">
+    <div class="col-12">
+        <app-title [title]="'header.customRelease' | translate" [bigTitle]="true"></app-title>
+    </div>
+    <div class="col-12 mt-5 formTableContainer">
+        <div class="formTable">
+            <form class="mt-2" name="form" class="example-form" method="post" [formGroup]="regCustomReleaseForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()" novalidate xmlns="http://www.w3.org/1999/html" autocomplete="off">
+                <tabset class="tabs {{currentLang === 'ar' ? 'arabicTabs':''}}" type="pills" #formTabs>
+                    <tab [heading]="'customRelease.wizardSteps.releaseRequest' | translate">
+                        <div class="mt-5">
+                            <div class="row">
+                                <div class="col-12">
+                                    <app-title [smallTitle]="true" [title]="'customRelease.wizardSteps.requestDetails' | translate"></app-title>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>{{'customRelease.formLabel.requestedReleaseType' | translate}}</mat-label>
+                                        <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.requestedReleaseType' | translate}}" matInput formControlName="releaseTypeId" [matAutocomplete]="requestedReleaseTypeList" required>
+                                        <mat-autocomplete #requestedReleaseTypeList="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptionsForRequestedReleaseType | async" [value]="option.name[this.currentLang]">
+                                                <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <div *ngIf="regCustomReleaseForm.get('releaseTypeId').invalid && (regCustomReleaseForm.get('releaseTypeId').dirty || regCustomReleaseForm.get('releaseTypeId').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('releaseTypeId').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>
+                                            {{'customRelease.formLabel.receiptNumber' | translate}}
+                                        </mat-label>
+                                        <input type="text" class="form-control" matInput formControlName="receiptNumber" placeholder="{{'customRelease.formLabel.receiptNumber' | translate}}" required>
+                                        <div *ngIf="regCustomReleaseForm.get('receiptNumber').invalid && (regCustomReleaseForm.get('receiptNumber').dirty || regCustomReleaseForm.get('receiptNumber').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('receiptNumber').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>
+                                            {{'customRelease.formLabel.receiptValue' | translate}}
+                                        </mat-label>
+                                        <input type="text" class="form-control" matInput pattern="^(\d{1,3}(,\d{3})|\d)*(\.\d+)?$" (change)="getDecimalValue(regCustomReleaseForm.get('receiptValue').value, '')" formControlName="receiptValue" placeholder="{{'customRelease.formLabel.receiptValue' | translate}}"
+                                            required>
+                                        <div *ngIf="regCustomReleaseForm.get('receiptValue').invalid && (regCustomReleaseForm.get('receiptValue').dirty || regCustomReleaseForm.get('receiptValue').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('receiptValue').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                            <div *ngIf="regCustomReleaseForm.get('receiptValue').errors.pattern">
+                                                {{'common.validationStatement.decimalNumberMessage' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>
+                                            {{'customRelease.formLabel.groupNumber' | translate}}
+                                        </mat-label>
+                                        <input type="text" class="form-control" matInput formControlName="groupNumber" placeholder="{{'customRelease.formLabel.groupNumber' | translate}}" required>
+                                        <div *ngIf="regCustomReleaseForm.get('groupNumber').invalid && (regCustomReleaseForm.get('groupNumber').dirty || regCustomReleaseForm.get('groupNumber').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('groupNumber').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>{{'customRelease.formLabel.applicant' | translate}}</mat-label>
+                                        <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.applicant' | translate}}" matInput formControlName="applicant" [readonly]="true">
+                                        <div *ngIf="regCustomReleaseForm.get('applicant').invalid && (regCustomReleaseForm.get('applicant').dirty || regCustomReleaseForm.get('applicant').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('applicant').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width mainRequest">
+                                        <mat-label>
+                                            {{'customRelease.formLabel.estimatedValue' | translate}}
+                                        </mat-label>
+                                        <input type="text" class="form-control" matInput formControlName="estimatedValue" placeholder="{{'customRelease.formLabel.estimatedValue' | translate}}" [readonly]="true">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 mt-5 borderTop pt-5">
+                                    <app-title [smallTitle]="true" [title]="'customRelease.wizardSteps.bolDetails' | translate"></app-title>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <section class="example-section mt-4 {{currentLang === 'ar' ? 'text-right':'text-left'}}">
+                                        <mat-checkbox class="example-margin" formControlName="fWithinIncluded">
+                                            {{'customRelease.formLabel.withinIncluded' | translate}}
+                                        </mat-checkbox>
+                                    </section>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>{{'customRelease.formLabel.bol' | translate}}</mat-label>
+                                        <input type="text" class="form-control" matInput formControlName="bolNo" placeholder="{{'customRelease.formLabel.bol' | translate}}" required>
+                                        <div *ngIf="regCustomReleaseForm.get('bolNo').invalid && (regCustomReleaseForm.get('bolNo').dirty || regCustomReleaseForm.get('bolNo').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('bolNo').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>{{'customRelease.formLabel.customPortName' | translate}}</mat-label>
+                                        <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.customPortName' | translate}}" matInput formControlName="LkupPortsId" [matAutocomplete]="customPortNameList" required>
+                                        <mat-autocomplete #customPortNameList="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptionsForCustomPortName | async" [value]="option.name[this.currentLang]">
+                                                <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <div *ngIf="regCustomReleaseForm.get('LkupPortsId').invalid && (regCustomReleaseForm.get('LkupPortsId').dirty || regCustomReleaseForm.get('LkupPortsId').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('LkupPortsId').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>{{'customRelease.formLabel.pod' | translate}}</mat-label>
+                                        <input type="text" class="form-control" matInput formControlName="pod" placeholder="{{'customRelease.formLabel.pod' | translate}}">
+                                    </mat-form-field>
+                                </div>
+                                <!--                 <div class="col-lg-4 col-sm-6 col-12">
+                <mat-form-field class="example-full-width">
+                  <mat-label>
+                    {{'customRelease.formLabel.carrierName' | translate}}
+                  </mat-label>
+                  <input type="text" class="form-control" matInput formControlName="carrierName"
+                         placeholder="{{'customRelease.formLabel.carrierName' | translate}}">
+                </mat-form-field>
+              </div> -->
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>{{'customRelease.formLabel.grossWeight' | translate}}</mat-label>
+                                        <input type="text" class="form-control" matInput pattern="^(\d{1,3}(,\d{3})|\d)*(\.\d+)?$" (change)="getDecimalValue(regCustomReleaseForm.get('grossWeight').value, '')" formControlName="grossWeight" placeholder="{{'customRelease.formLabel.grossWeight' | translate}}"
+                                            required>
+                                        <div *ngIf="regCustomReleaseForm.get('grossWeight').invalid && (regCustomReleaseForm.get('grossWeight').dirty || regCustomReleaseForm.get('grossWeight').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('grossWeight').errors.required">
+                                                {{'common.validationStatement.required'}}
+                                            </div>
+                                            <div *ngIf="regCustomReleaseForm.get('grossWeight').errors.pattern">
+                                                {{'common.validationStatement.decimalNumberMessage'}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>{{'customRelease.formLabel.measureUnit' | translate}}</mat-label>
+                                        <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.measureUnit' | translate}}" matInput formControlName="lkupUomId" [matAutocomplete]="measureUnitList" required>
+                                        <mat-autocomplete #measureUnitList="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptionsForMeasureUnitList | async" [value]="option.name[this.currentLang]">
+                                                <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <div *ngIf="regCustomReleaseForm.get('lkupUomId').invalid && (regCustomReleaseForm.get('lkupUomId').dirty || regCustomReleaseForm.get('lkupUomId').touched)" class="alert alert-danger">
+                                            <div *ngIf="regCustomReleaseForm.get('lkupUomId').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+
+
+
+
+                                <div class="col-12 mt-5 borderTop pt-5">
+                                    <div class="d-flex flex-column">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-8">
+                                                <app-title [smallTitle]="true" [title]="'customRelease.wizardSteps.invoiceDetails' | translate"></app-title>
+                                            </div>
+                                            <div class="col-12 col-sm-4 {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="hintForEmptyObject" *ngIf="invoiceListTable?.tableBody.length === 0 && attachmentRequiredStatus">
+                                                        <h5>
+                                                            {{'customRelease.specificStatement.addingInvoicesData' | translate}}
+                                                        </h5>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary btnForModal {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" (click)="showInvoiceContainer()">
+                          {{'customRelease.specificStatement.addNewInvoice' | translate}}
+                        </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 invoiceListTable">
+                                    <app-table-list [data]="invoiceListTable" (editInvoiceData)="editInvoice($event)" (deleteInvoiceData)="deleteInvoice($event)" [whichTable]="'invoiceList'">
+                                    </app-table-list>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab [heading]="'customRelease.wizardSteps.attachments' | translate" class="Attachments">
+                        <div class="mt-5">
+                            <app-title [smallTitle]="true" [title]="'customRelease.wizardSteps.attachments' | translate"></app-title>
+                            <div class="row mt-3">
+                                <div class="col-lg-4 col-sm-6 col-12" *ngFor="let field of attachmentFields">
+                                    <div class="form-group {{currentLang === 'ar' ? 'text-right':'text-left'}}" *ngIf="field.enable">
+                                        <label>
+                    {{'customRelease.formLabel.' + field.id | translate}}
+                    <span class="requiredStar" *ngIf="field.required">*</span>
+                  </label>
+                                        <div class="custom-file fileUpload {{currentLang === 'ar'? 'ml-3' :'mr-3'}}" id="customFile" [ngClass]="{'required': (regCustomReleaseForm.get(field.id).invalid && attachmentRequiredStatus) || field.attachmentTypeStatus === 'No'}">
+                                            <input type="file" class="custom-file-input" [id]="field.id" aria-describedby="fileHelp" (change)="onFileSelect($event, field.id)" [required]="field.required ? 'required' : false">
+                                            <div class="d-flex alert alert-danger" *ngIf="(regCustomReleaseForm.get(field.id).invalid && attachmentRequiredStatus) || field.attachmentTypeStatus === 'No'">
+                                                <div class="{{currentLang === 'ar' ? 'mr-auto ml-2':'ml-auto mr-2'}}" *ngIf="field.attachmentTypeStatus === 'No'">
+                                                    {{'common.validationStatement.maxSizeMessage' | translate}}
+                                                </div>
+                                                <div class="{{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" *ngIf="regCustomReleaseForm.get(field.id).invalid && attachmentRequiredStatus">
+                                                    <div *ngIf="regCustomReleaseForm.get(field.id).errors.required">
+                                                        {{'common.validationStatement.required' | translate}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label class="custom-file-label {{currentLang === 'ar'? 'paddingRight5' :''}}" [for]="field.id">
+                      {{field.fileName ? field.fileName : 'common.chooseFile' | translate}}
+                    </label>
+                                            <button type="button" class="custom-file-download-Button" *ngIf="field.fileValue" (click)="downloadFile(field.id)">
+                      {{'common.download' | translate}}
+                    </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+                <div class="row buttonContainer btm-out">
+                    <div class="col-12 d-flex flex-column flex-md-row mt-3">
+                        <button *ngIf="!formTabs.tabs[0].active" type="button" class="btn btn-primary btn-sm {{currentLang === 'ar'? 'ml-3' :'mr-3'}} bottomButtons " (click)="backToNextTab(formTabs)">
+            {{'common.back' | translate}}
+          </button>
+                        <div class="{{currentLang === 'ar'? 'mr-md-auto' :'ml-md-auto'}}">
+                            <button *ngIf="!formTabs.tabs[1].active" type="button" class="btn btn-primary btn-sm {{currentLang === 'ar'? 'ml-3' :'mr-3'}} bottomButtons" (click)="nextToNextTab(formTabs)">
+              {{'common.next' | translate}}
+            </button>
+
+                            <button type="button" class="btn btn-primary btn-sm {{currentLang === 'ar'? 'ml-3' :'mr-3'}} bottomButtons" [disabled]="false" (click)="saveData()">
+              {{'common.save' | translate}}
+            </button>
+                            <button type="submit" class="btn btn-primary btn-sm">
+              {{'common.submit' | translate}}
+            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="invoiceFormContainer" *ngIf="invoiceContainerDisplayStatus">
+            <div class="col-12 mb-3">
+                <div class="d-flex flex-column">
+                    <div class="row">
+                        <div class="col-12 col-sm-8">
+                            <app-title [smallTitle]="true" title="{{'customRelease.wizardSteps.invoiceDetails' | translate}}"></app-title>
+                        </div>
+                        <div class="col-12 col-sm-4 {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}">
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="close {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" [ngStyle]="{right: currentLang === 'ar' ? 'auto':'-1rem', left: currentLang === 'ar' ? '-1rem': 'auto'}" (click)="hideInvoiceContainer()">
+                X
+              </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="mt-2" name="invoiceForm" class="example-form" method="post" [formGroup]="regInvoicesForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmitInvoices()" novalidate xmlns="http://www.w3.org/1999/html" autocomplete="off">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>{{'customRelease.formLabel.InvoiceApprovalNo' | translate}}</mat-label>
+                            <input type="text" class="form-control" matInput formControlName="InvoiceApprovalNo" placeholder="{{'customRelease.formLabel.InvoiceApprovalNo' | translate}}" [(ngModel)]="invoiceApprovalNo" required>
+                            <div *ngIf="regInvoicesForm.get('InvoiceApprovalNo').invalid && (regInvoicesForm.get('InvoiceApprovalNo').dirty || regInvoicesForm.get('InvoiceApprovalNo').touched)" class="alert alert-danger">
+                                <div *ngIf="regInvoicesForm.get('InvoiceApprovalNo').errors.required">
+                                    {{'common.validationStatement.required'}}
+                                </div>
+                            </div>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 col-12">
+                        <button type="button" class="btn btn-primary btnForModal {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}"   [disabled]="!invoiceApprovalNo" (click)="showInvoiceApprovalContainer(invoiceApprovalNo)">
+      {{'customRelease.specificStatement.showInvoiceDetails' | translate}}
+    </button>
+                    </div>
+                </div>
+                <tabset class="tabs {{currentLang === 'ar' ? 'arabicTabs':''}}" type="pills" #invoicesTabs>
+                    <tab [heading]="'customRelease.wizardSteps.invoiceDetails' | translate">
+                        <div class="mt-5">
+                            <div class="row mt-3">
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <section class="example-section {{currentLang === 'ar' ? 'text-right':'text-left'}} mt-4">
+                                        <mat-checkbox class="example-margin" formControlName="fWithinIncluded">
+                                            {{'customRelease.formLabel.withinIncluded' | translate}}
+                                        </mat-checkbox>
+                                    </section>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>{{'customRelease.formLabel.invoiceNo' | translate}}</mat-label>
+                                        <input type="text" class="form-control" matInput formControlName="invoiceNo" placeholder="{{'customRelease.formLabel.invoiceNo' | translate}}" required>
+                                        <div *ngIf="regInvoicesForm.get('invoiceNo').invalid && (regInvoicesForm.get('invoiceNo').dirty || regInvoicesForm.get('invoiceNo').touched)" class="alert alert-danger">
+                                            <div *ngIf="regInvoicesForm.get('invoiceNo').errors.required">
+                                                {{'common.validationStatement.required'}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>{{'customRelease.formLabel.invoiceValue' | translate}}</mat-label>
+                                        <input type="text" class="form-control" matInput pattern="^(\d{1,3}(,\d{3})|\d)*(\.\d+)?$" (change)="getDecimalValue(regInvoicesForm.get('invoiceValue').value, '')" formControlName="invoiceValue" placeholder="{{'customRelease.formLabel.invoiceValue' | translate}}"
+                                            required>
+                                        <div *ngIf="regInvoicesForm.get('invoiceValue').invalid && (regInvoicesForm.get('invoiceValue').dirty || regInvoicesForm.get('invoiceValue').touched)" class="alert alert-danger">
+                                            <div *ngIf="regInvoicesForm.get('invoiceValue').errors.required">
+                                                {{'common.validationStatement.required'}}
+                                            </div>
+                                            <div *ngIf="regInvoicesForm.get('invoiceValue').errors.pattern">
+                                                {{'common.validationStatement.decimalNumberMessage'}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <mat-form-field class="datepickerContainer" appearance="fill">
+                                        <mat-label>
+                                            {{'customRelease.formLabel.invoiceDate' | translate}}
+                                        </mat-label>
+                                        <input matInput [matDatepicker]="picker" formControlName="invoiceDate" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <div *ngIf="regInvoicesForm.get('invoiceDate').invalid && (regInvoicesForm.get('invoiceDate').dirty || regInvoicesForm.get('invoiceDate').touched)" class="alert alert-danger">
+                                            <div *ngIf="regInvoicesForm.get('invoiceDate').errors.required">
+                                                {{'common.validationStatement.required'}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width inputBesideSelect">
+                                        <mat-label>
+                                            {{'customRelease.formLabel.currency' | translate}}
+                                        </mat-label>
+                                        <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.currency' | translate}}" aria-label="{{'customRelease.formLabel.currency' | translate}}" matInput formControlName="currency" [matAutocomplete]="CurrencyList" required>
+                                        <mat-autocomplete #CurrencyList="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptionsForCurrency | async" [value]="option.name[currentLang]">
+                                                <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}} -{{option.code}} </span>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                        <div *ngIf="regInvoicesForm.get('currency').invalid && (regInvoicesForm.get('currency').dirty || regInvoicesForm.get('currency').touched)" class="alert alert-danger">
+                                            <div *ngIf="regInvoicesForm.get('currency').errors.required">
+                                                {{'common.validationStatement.required' | translate}}
+                                            </div>
+                                        </div>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>{{'customRelease.formLabel.supplierName' | translate}}</mat-label>
+                                        <input type="text" class="form-control" matInput formControlName="supplierName" placeholder="{{'customRelease.formLabel.supplierName' | translate}}">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>{{'customRelease.formLabel.supplierCountry' | translate}}</mat-label>
+                                        <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.supplierCountry' | translate}}" matInput formControlName="supplierCountry" [matAutocomplete]="supplierCountryList" required>
+                                        <mat-autocomplete #supplierCountryList="matAutocomplete">
+                                            <mat-option *ngFor="let option of filteredOptionsForSupplierCountry | async" [value]="option.name[this.currentLang]">
+                                                <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 mt-5 borderTop pt-5">
+                                    <div class="d-flex flex-column">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-8">
+                                                <app-title [smallTitle]="true" title="{{'customRelease.wizardSteps.itemsDetails' | translate}}"></app-title>
+                                            </div>
+                                            <div class="col-12 col-sm-4 {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="hintForEmptyObject" *ngIf="itemListTable?.tableBody.length === 0 && attachmentRequiredStatus">
+                                                        <h5>
+                                                            {{'customRelease.specificStatement.addingItemsData' | translate}}
+                                                        </h5>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary btnForModal {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" (click)="showItemContainer()">
+                          {{'customRelease.specificStatement.addNewItem' | translate}}
+                        </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 itemListTableCont">
+                                    <app-table-list [data]="itemListTable" (editItemData)="editItem($event)" (deleteItemData)="deleteItem($event)" [whichTable]="'itemList'">
+                                    </app-table-list>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab [heading]="'customRelease.wizardSteps.attachments' | translate" class="Attachments">
+                        <div class="mt-5">
+                            <div class="row mt-3">
+                                <div class="col-lg-4 col-sm-6 col-12" *ngFor="let field of InvoiceAttachmentFields">
+                                    <div class="form-group {{currentLang === 'ar' ? 'text-right':'text-left'}}" *ngIf="field.enable">
+                                        <label>
+                    {{'customRelease.formLabel.' + field.id | translate}}
+                    <span class="requiredStar" *ngIf="field.required">*</span>
+                  </label>
+                                        <div class="custom-file fileUpload {{currentLang === 'ar'? 'ml-3' :'mr-3'}}" [ngClass]="{'required': (regInvoicesForm.get(field.id).invalid && attachmentRequiredStatus) || field.attachmentTypeStatus === 'No'}">
+                                            <input type="file" class="custom-file-input" [id]="field.id" aria-describedby="fileHelp" (change)="onFileSelect($event, field.id)" [required]="field.required ? 'required' : false">
+                                            <div class="d-flex alert alert-danger" *ngIf="(regInvoicesForm.get(field.id).invalid && attachmentRequiredStatus) || field.attachmentTypeStatus === 'No'">
+                                                <div class="{{currentLang === 'ar' ? 'mr-auto ml-2':'ml-auto mr-2'}}" *ngIf="field.attachmentTypeStatus === 'No'">
+                                                    {{'common.validationStatement.maxSizeMessage' | translate}}
+                                                </div>
+                                                <div class="{{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" *ngIf="regInvoicesForm.get(field.id).invalid && attachmentRequiredStatus">
+                                                    <div *ngIf="regInvoicesForm.get(field.id).errors.required">
+                                                        {{'common.validationStatement.required' | translate}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label class="custom-file-label {{currentLang === 'ar'? 'paddingRight5' :''}}" [for]="field.id">
+                      {{field.fileName ? field.fileName : 'common.chooseFile' | translate}}
+                    </label>
+                                            <button type="button" class="custom-file-download-Button" *ngIf="field.fileValue" (click)="downloadFile(field.id)">
+                      {{'common.download' | translate}}
+                    </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                </tabset>
+                <div class="row buttonContainer btm-out">
+                    <div class="col-12 d-flex flex-column flex-md-row mt-3">
+                        <button *ngIf="!invoicesTabs.tabs[0].active" type="button" class="btn btn-primary btn-sm {{currentLang === 'ar'? 'ml-3' :'mr-3'}} bottomButtons " (click)="backToNextTab(invoicesTabs)">
+            {{'common.back' | translate}}
+          </button>
+                        <div class="{{currentLang === 'ar'? 'mr-md-auto' :'ml-md-auto'}}">
+                            <button *ngIf="!invoicesTabs.tabs[1].active" type="button" class="btn btn-primary btn-sm {{currentLang === 'ar'? 'ml-3' :'mr-3'}} bottomButtons" (click)="nextToNextTab(invoicesTabs)">
+              {{'common.next' | translate}}
+            </button>
+                            <button type="submit" class="btn btn-primary btn-sm">
+              {{'customRelease.specificStatement.addInvoice' | translate}}
+            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--Sara Start-->
+        <div class="invoiceApprovalFormContainer" *ngIf="invoiceApprovalcontainerDisplayStatus">
+            <div class="col-12 mb-3">
+                <div class="d-flex flex-column">
+                    <div class="row">
+                        <div class="col-12 col-sm-8">
+                            <app-title [smallTitle]="true" title="{{'customRelease.wizardSteps.invoiceDetails' | translate}}"></app-title>
+                        </div>
+                        <div class="col-12 col-sm-4 {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}">
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="close {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" [ngStyle]="{right: currentLang === 'ar' ? 'auto':'-1rem', left: currentLang === 'ar' ? '-1rem': 'auto'}" (click)="hideInvoiceApprovalContainer()">
+            X
+          </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="mt-2" name="approvedInvoiceForm" class="example-form" method="post" [formGroup]="regApprovedInvoicesForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmitApprovedInvoice()" novalidate xmlns="http://www.w3.org/1999/html" autocomplete="off">
+                <div class="mt-5">
+                    <div class="row mt-3">
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>{{'customRelease.formLabel.invoiceNo' | translate}}</mat-label>
+                                <input type="text" class="form-control" matInput formControlName="invoiceNo" placeholder="{{'customRelease.formLabel.invoiceNo' | translate}}" required [readonly]="true">
+                                <div *ngIf="regInvoicesForm.get('invoiceNo').invalid && (regInvoicesForm.get('invoiceNo').dirty || regInvoicesForm.get('invoiceNo').touched)" class="alert alert-danger">
+                                    <div *ngIf="regInvoicesForm.get('invoiceNo').errors.required">
+                                        {{'common.validationStatement.required'}}
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width inputBesideSelect">
+                                <mat-label>{{'customRelease.formLabel.invoiceValue' | translate}}</mat-label>
+                                <input type="text" class="form-control" matInput pattern="^(\d{1,3}(,\d{3})|\d)*(\.\d+)?$" (change)="getDecimalValue(regInvoicesForm.get('invoiceValue').value, '')" formControlName="invoiceValue" placeholder="{{'customRelease.formLabel.invoiceValue' | translate}}"
+                                    required [readonly]="true">
+                                <div *ngIf="regInvoicesForm.get('invoiceValue').invalid && (regInvoicesForm.get('invoiceValue').dirty || regInvoicesForm.get('invoiceValue').touched)" class="alert alert-danger">
+                                    <div *ngIf="regInvoicesForm.get('invoiceValue').errors.required">
+                                        {{'common.validationStatement.required'}}
+                                    </div>
+                                    <div *ngIf="regInvoicesForm.get('invoiceValue').errors.pattern">
+                                        {{'common.validationStatement.decimalNumberMessage'}}
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="datepickerContainer" appearance="fill">
+                                <mat-label>
+                                    {{'customRelease.formLabel.invoiceDate' | translate}}
+                                </mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="invoiceDate" required [readonly]="true">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <div *ngIf="regInvoicesForm.get('invoiceDate').invalid && (regInvoicesForm.get('invoiceDate').dirty || regInvoicesForm.get('invoiceDate').touched)" class="alert alert-danger">
+                                    <div *ngIf="regInvoicesForm.get('invoiceDate').errors.required">
+                                        {{'common.validationStatement.required'}}
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width inputBesideSelect">
+                                <mat-label>
+                                    {{'customRelease.formLabel.currency' | translate}}
+                                </mat-label>
+                                <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.currency' | translate}}" aria-label="{{'customRelease.formLabel.currency' | translate}}" matInput formControlName="currency" [matAutocomplete]="CurrencyList" required [readonly]="true">
+                                <mat-autocomplete #CurrencyList="matAutocomplete">
+                                    <mat-option *ngFor="let option of filteredOptionsForCurrency | async" [value]="option.name[currentLang]">
+                                        <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}} -{{option.code}} </span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <div *ngIf="regInvoicesForm.get('currency').invalid && (regInvoicesForm.get('currency').dirty || regInvoicesForm.get('currency').touched)" class="alert alert-danger">
+                                    <div *ngIf="regInvoicesForm.get('currency').errors.required">
+                                        {{'common.validationStatement.required' | translate}}
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>{{'customRelease.formLabel.supplierName' | translate}}</mat-label>
+                                <input type="text" class="form-control" matInput formControlName="supplierName" placeholder="{{'customRelease.formLabel.supplierName' | translate}}" [readonly]="true">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>{{'customRelease.formLabel.supplierCountry' | translate}}</mat-label>
+                                <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.supplierCountry' | translate}}" matInput formControlName="supplierCountry" [matAutocomplete]="supplierCountryList" required [readonly]="true">
+                                <mat-autocomplete #supplierCountryList="matAutocomplete">
+                                    <mat-option *ngFor="let option of filteredOptionsForSupplierCountry | async" [value]="option.name[this.currentLang]">
+                                        <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 mt-5 borderTop pt-5">
+                            <div class="d-flex flex-column">
+                                <div class="row">
+                                    <div class="col-12 col-sm-8">
+                                        <app-title [smallTitle]="true" title="{{'customRelease.wizardSteps.itemsDetails' | translate}}"></app-title>
+                                    </div>
+                                    <div class="col-12 col-sm-4 {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}">
+                                        <div class="d-flex align-items-center">
+                                            <div class="hintForEmptyObject" *ngIf="itemListTable?.tableBody.length === 0 && attachmentRequiredStatus">
+                                                <h5>
+                                                    {{'customRelease.specificStatement.addingItemsData' | translate}}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 itemListTableCont">
+
+                            <app-table-list [data]="approvedItemListTable" [whichTable]="approvedItemList">
+                            </app-table-list>
+                        </div>
+                    </div>
+                </div>
+                <div class="row buttonContainer btm-out">
+                    <div class="col-12 d-flex flex-column flex-md-row mt-3">
+                        <div class="{{currentLang === 'ar'? 'mr-md-auto' :'ml-md-auto'}}">
+                            <button type="submit" class="btn btn-primary btn-sm">
+          {{'customRelease.specificStatement.addInvoice' | translate}}
+        </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--Sara End-->
+        <div class="itemsFormContainer" *ngIf="itemContainerDisplayStatus">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="d-flex flex-column">
+                        <div class="row">
+                            <div class="col-12 col-sm-8">
+                                <app-title [smallTitle]="true" [title]="'customRelease.wizardSteps.itemsDetails' | translate"></app-title>
+                            </div>
+                            <div class="col-12 col-sm-4 {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}">
+                                <div class="d-flex align-items-center">
+                                    <button type="button" class="close {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" [ngStyle]="{right: currentLang === 'ar' ? 'auto':'-1rem', left: currentLang === 'ar' ? '-1rem': 'auto'}" (click)="hideItemContainer()">
+                  X
+                </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <mat-form-field appearance="fill">
+                        <mat-label>
+                            {{'customRelease.formLabel.itemType' | translate}}
+                        </mat-label>
+                        <mat-select [(ngModel)]="itemType" [disabled]="disableItemTypeField" (selectionChange)="getTermType($event)" required>
+                            <mat-option *ngFor="let option of formData.itemTypeList" [value]="option">
+                                {{option.name[currentLang]}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12" *ngIf="itemType?.code === 'PREMIX'">
+                    <mat-form-field appearance="fill">
+                        <mat-label>
+                            {{'customRelease.formLabel.premixName' | translate}}
+                        </mat-label>
+                        <mat-select [(ngModel)]="premixField" required>
+                            <mat-option *ngFor="let option of formData.premixNameList" [value]="option.id">
+                                {{option.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12" *ngIf="itemType?.code === 'RAW_MATERIAL'">
+                    <mat-form-field class="example-full-width inputBesideSelect">
+                        <mat-label>{{'customRelease.formLabel.rawMaterialName' | translate}}</mat-label>
+                        <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.rawMaterialName' | translate}}" aria-label="{{'customRelease.formLabel.rawMaterialName' | translate}}" matInput [formControl]="rowMaterialNameField" [matAutocomplete]="rowMaterialNameList"
+                            required>
+                        <mat-autocomplete #rowMaterialNameList="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredOptionsForRawMaterialType | async" [value]="option.inciName">
+                                <span class="tooltipContainer" tooltip="{{option.inciName}}" placement="top">{{option.inciName}}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12" *ngIf="itemType?.code === 'RAW_MATERIAL'">
+                    <mat-form-field appearance="fill">
+                        <mat-label>
+                            {{'customRelease.formLabel.sourceOfRowMaterialField' | translate}}
+                        </mat-label>
+                        <mat-select [(ngModel)]="sourceOfRowMaterialField" required>
+                            <mat-option *ngFor="let option of formData.sourceOfRawMaterialList" [value]="option.id">
+                                {{option.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12" *ngIf="itemType?.code === 'PACKING_MATERIALS'">
+                    <mat-form-field appearance="fill">
+                        <mat-label>
+                            {{'customRelease.formLabel.packingItemName' | translate}}
+                        </mat-label>
+                        <mat-select [(ngModel)]="packingItemNameField" required>
+                            <mat-option *ngFor="let option of formData.rawMaterialList" [value]="option.id">
+                                {{option.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <mat-form-field appearance="fill">
+                        <mat-label>
+                            {{'customRelease.formLabel.typeOfRegistration' | translate}}
+                        </mat-label>
+                        <mat-select [(ngModel)]="typeOfRegistrationField" required>
+                            <mat-option *ngFor="let option of formData.typeOfRegistrationList" [value]="option.id">
+                                {{option.name[currentLang]}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-6 col-12" *ngIf="typeOfRegistrationField === 'notified' ||typeOfRegistrationField ==='oldRegistration'">
+                    <div class="row">
+                        <div class="col-6 getProductByNotificationNumber">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>
+                                    {{'customRelease.formLabel.productNotificationNumber' | translate}}
+                                </mat-label>
+                                <input type="text" class="form-control" matInput [(ngModel)]="notificationNo" placeholder="{{'customRelease.formLabel.productNotificationNumber' | translate}}">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6 d-flex">
+                            <button type="button" class="btn btn-primary {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}} mt-sm-2" [disabled]="!notificationNo" (click)="applyProduct(notificationNo)">
+              {{'customRelease.specificStatement.getProduct' | translate}}
+            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mt-3 d-none" [ngClass]="{'d-block': itemType && importReason}">
+                    <form class="mt-2" name="form" class="example-form" method="post" [formGroup]="regItemsForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmitItems()" novalidate xmlns="http://www.w3.org/1999/html" autocomplete="off">
+                        <tabset class="tabs {{showDetailsTab ? 'detailsTabs':''}} {{currentLang === 'ar' ? 'arabicTabs':''}}" type="pills" #itemsStepsTabs>
+                            <tab id="1" [heading]="'customRelease.wizardSteps.itemsDetails' | translate">
+                                <div class="mt-5">
+                                    <div class="row mt-3">
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>{{'customRelease.formLabel.shortName' | translate}}</mat-label>
+                                                <input type="text" class="form-control" matInput formControlName="shortName" placeholder="{{'customRelease.formLabel.shortName' | translate}}">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>{{'customRelease.formLabel.ProductEnglishName' | translate}}</mat-label>
+                                                <input type="text" class="form-control" matInput formControlName="ProductEnglishName" placeholder="{{'customRelease.formLabel.ProductEnglishName' | translate}}" required>
+                                                <div *ngIf="regItemsForm.get('ProductEnglishName').invalid && (regItemsForm.get('ProductEnglishName').dirty || regItemsForm.get('ProductEnglishName').touched)" class="alert alert-danger">
+                                                    <div *ngIf="regItemsForm.get('ProductEnglishName').errors.required">
+                                                        {{'common.validationStatement.required' | translate}}
+                                                    </div>
+                                                </div>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12" *ngIf="itemType?.code === 'PREMIX'">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>{{'customRelease.formLabel.sourceOfRawMaterial' | translate}}</mat-label>
+                                                <input type="text" class="form-control" matInput formControlName="sourceOfRawMaterial" placeholder="{{'customRelease.formLabel.sourceOfRawMaterial' | translate}}" required>
+                                                <div *ngIf="regItemsForm.get('sourceOfRawMaterial').invalid && (regItemsForm.get('sourceOfRawMaterial').dirty || regItemsForm.get('sourceOfRawMaterial').touched)" class="alert alert-danger">
+                                                    <div *ngIf="regItemsForm.get('sourceOfRawMaterial').errors.required">
+                                                        {{'common.validationStatement.required' | translate}}
+                                                    </div>
+                                                </div>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12" *ngIf="selectedReleaseTypeId !== 2">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>{{'customRelease.formLabel.batchNo' | translate}}</mat-label>
+                                                <input type="text" class="form-control" matInput formControlName="batchNo" placeholder="{{'customRelease.formLabel.batchNo' | translate}}" required>
+                                                <div *ngIf="regItemsForm.get('batchNo').invalid && (regItemsForm.get('batchNo').dirty || regItemsForm.get('batchNo').touched)" class="alert alert-danger">
+                                                    <div *ngIf="regItemsForm.get('batchNo').errors.required">
+                                                        {{'common.validationStatement.required' | translate}}
+                                                    </div>
+                                                </div>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>
+                                                    {{'customRelease.formLabel.quantity' | translate}}
+                                                </mat-label>
+                                                <input type="text" class="form-control" matInput formControlName="quantity" placeholder="{{'customRelease.formLabel.quantity' | translate}}" required>
+                                                <div *ngIf="regItemsForm.get('quantity').invalid && (regItemsForm.get('quantity').dirty || regItemsForm.get('quantity').touched)" class="alert alert-danger">
+                                                    <div *ngIf="regItemsForm.get('quantity').errors.required">
+                                                        {{'common.validationStatement.required' | translate}}
+                                                    </div>
+                                                </div>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <mat-form-field class="example-full-width inputBesideSelect">
+                                                <mat-label>{{'customRelease.formLabel.uom' | translate}}</mat-label>
+                                                <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.uom' | translate}}" aria-label="{{'customRelease.formLabel.uom' | translate}}" matInput formControlName="uom" [matAutocomplete]="UOMList" required>
+                                                <mat-autocomplete #UOMList="matAutocomplete">
+                                                    <mat-option *ngFor="let option of filteredOptionsForUOM | async" [value]="option.name[this.currentLang]">
+                                                        <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                                <div *ngIf="regItemsForm.get('uom').invalid && (regItemsForm.get('uom').dirty || regItemsForm.get('uom').touched)" class="alert alert-danger">
+                                                    <div *ngIf="regItemsForm.get('uom').errors.required">
+                                                        {{'common.validationStatement.required' | translate}}
+                                                    </div>
+                                                </div>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                            <tab id="2" heading="Packaging/Ingredient Data" *ngIf="showDetailsTab && typeOfRegistrationField === 'notified'">
+                                <div class="mt-5">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex flex-column">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-8">
+                                                        <app-title [smallTitle]="true" [title]="'Packaging data'"></app-title>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="RequestingTable newRequestForPackaging">
+                                                <app-table-list [data]="packagingListTable" (choosePackagingRow)="choosePackagingData($event)" [whichTable]="'newRequestForPackaging'"></app-table-list>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-5">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex flex-column">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-8">
+                                                        <app-title [smallTitle]="true" [title]="'Ingredients data'"></app-title>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="RequestingTable newRequestForDetails">
+                                                <app-table-list [data]="detailsListTable" (choosePackagingRow)="chooseDetailsData($event)" [whichTable]="'newRequestForDetails'"></app-table-list>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-5">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex flex-column">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-8">
+                                                        <app-title [smallTitle]="true" [title]="'Manufacturing data'"></app-title>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="RequestingTable newRequestForDetails">
+                                                <app-table-list [data]="manufacturingListTable" (choosePackagingRow)="chooseManufactureData($event)" [whichTable]="'newRequestForManufacturing'"></app-table-list>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                            <tab id="2" heading="Packaging/Ingredient Data" *ngIf="showDetailsTab && typeOfRegistrationField === 'oldRegistration'">
+                                <form class="mt-2" name="Packingform" class="example-form" method="post" [formGroup]="regPackagingForProduct" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmitItems()" novalidate xmlns="http://www.w3.org/1999/html" autocomplete="off">
+                                    <div class="mt-5">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="d-flex flex-column">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-8">
+                                                            <app-title [smallTitle]="true" [title]="'Packaging data'"></app-title>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>
+                                                        {{'tables.volumes' | translate}}
+                                                    </mat-label>
+                                                    <input type="text" class="form-control" matInput formControlName="volumes" placeholder="{{'tables.volumes' | translate}}" required>
+                                                    <div *ngIf="regPackagingForProduct.get('volumes').invalid && (regPackagingForProduct.get('volumes').dirty || regPackagingForProduct.get('volumes').touched)" class="alert alert-danger">
+                                                        <div *ngIf="regPackagingForProduct.get('volumes').errors.required">
+                                                            {{'common.validationStatement.required' | translate}}
+                                                        </div>
+                                                    </div>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width inputBesideSelect">
+                                                    <mat-label>{{'customRelease.formLabel.measureUnit' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.measureUnit' | translate}}" matInput formControlName="uomId" [matAutocomplete]="measureUnitList" required>
+                                                    <mat-autocomplete #measureUnitList="matAutocomplete">
+                                                        <mat-option *ngFor="let option of filteredOptionsForMeasureUnitList | async" [value]="option.name[this.currentLang]">
+                                                            <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                    <div *ngIf="regPackagingForProduct.get('unitOfMeasure').invalid && (regPackagingForProduct.get('unitOfMeasure').dirty || regPackagingForProduct.get('unitOfMeasure').touched)" class="alert alert-danger">
+                                                        <div *ngIf="regPackagingForProduct.get('unitOfMeasure').errors.required">
+                                                            {{'common.validationStatement.required' | translate}}
+                                                        </div>
+                                                    </div>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width inputBesideSelect">
+                                                    <mat-label>{{'tables.typeOfPackaging' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" placeholder="{{'tables.typeOfPackaging' | translate}}" matInput formControlName="typeOfPackaging" [matAutocomplete]="packingTypesList" required>
+                                                    <mat-autocomplete #packingTypesList="matAutocomplete">
+                                                        <mat-option *ngFor="let option of typeOfPackagingList " [value]="option.packingType">
+                                                            <span class="tooltipContainer" tooltip="{{option.packingType}}" placement="top">{{option.packingType}}</span>
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                    <div *ngIf="regPackagingForProduct.get('typeOfPackaging').invalid && (regPackagingForProduct.get('typeOfPackaging').dirty || regPackagingForProduct.get('typeOfPackaging').touched)" class="alert alert-danger">
+                                                        <div *ngIf="regPackagingForProduct.get('typeOfPackaging').errors.required">
+                                                            {{'common.validationStatement.required' | translate}}
+                                                        </div>
+                                                    </div>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>{{'tables.packagingDescription' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" matInput formControlName="packagingDescription" placeholder="{{'tables.packagingDescription' | translate}}">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <section class="example-section mt-4 {{currentLang === 'ar' ? 'text-right':'text-left'}}">
+                                                    <mat-checkbox class="example-margin" formControlName="isCartonBox">
+                                                        {{'tables.isCartonBox' | translate}}
+                                                    </mat-checkbox>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="d-flex flex-column">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-8">
+                                                            <app-title [smallTitle]="true" [title]="'Ingredients data'"></app-title>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>{{'tables.colour' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" matInput formControlName="colour" placeholder="{{'tables.colour' | translate}}">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>{{'tables.fragrance' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" matInput formControlName="fragrance" placeholder="{{'tables.fragrance' | translate}}">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>{{'tables.flavor' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" matInput formControlName="flavor" placeholder="{{'tables.flavor' | translate}}">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width">
+                                                    <mat-label>{{'tables.barCode' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" matInput formControlName="barCode" placeholder="{{'tables.barCode' | translate}}">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="d-flex flex-column">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-8">
+                                                            <app-title [smallTitle]="true" [title]="'Manufacturing data'"></app-title>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width inputBesideSelect">
+                                                    <mat-label>{{'customRelease.formLabel.manufacturingCompany' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.manufacturingCompany' | translate}}" aria-label="{{'customRelease.formLabel.manufacturingCompany' | translate}}" matInput formControlName="packingManufacturingCompany" [matAutocomplete]="manufacturingCompanyList"
+                                                        required>
+                                                    <mat-autocomplete #manufacturingCompanyList="matAutocomplete">
+                                                        <mat-option *ngFor="let option of filteredOptionsForManufacturingCompany" [value]="option.manufactory">
+                                                            <span class="tooltipContainer" tooltip="{{option.manufactory}}" placement="top">{{option.manufactory}}</span>
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                    <div *ngIf="regPackagingForProduct.get('packingManufacturingCompany').invalid && (regPackagingForProduct.get('packingManufacturingCompany').dirty || regPackagingForProduct.get('packingManufacturingCompany').touched)" class="alert alert-danger">
+                                                        <div *ngIf="regPackagingForProduct.get('packingManufacturingCompany').errors.required">
+                                                            {{'common.validationStatement.required' | translate}}
+                                                        </div>
+                                                    </div>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <mat-form-field class="example-full-width inputBesideSelect">
+                                                    <mat-label>{{'customRelease.formLabel.manufacturingCountry' | translate}}</mat-label>
+                                                    <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.manufacturingCountry' | translate}}" aria-label="{{'customRelease.formLabel.manufacturingCountry' | translate}}" matInput formControlName="packingManufacturingCountry" [matAutocomplete]="manufacturingCountryList"
+                                                        required>
+                                                    <mat-autocomplete #manufacturingCountryList="matAutocomplete">
+                                                        <mat-option *ngFor="let option of filteredOptionsForManufacturingCountry | async" [value]="option.name[this.currentLang]">
+                                                            <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                    <div *ngIf="regPackagingForProduct.get('packingManufacturingCountry').invalid && (regPackagingForProduct.get('packingManufacturingCountry').dirty || regPackagingForProduct.get('packingManufacturingCountry').touched)" class="alert alert-danger">
+                                                        <div *ngIf="regPackagingForProduct.get('packingManufacturingCountry').errors.required">
+                                                            {{'common.validationStatement.required' | translate}}
+                                                        </div>
+                                                    </div>
+                                                </mat-form-field>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </tab>
+                            <tab id="3" [heading]="'customRelease.wizardSteps.attachments' | translate" class="Item Attachments">
+                                <div class="mt-5">
+                                    <div class="row mt-3">
+                                        <div class="col-lg-4 col-sm-6 col-12" *ngFor="let field of ItemAttachmentFields" [ngClass]="{'d-none': !field.enable}">
+                                            <div class="form-group {{currentLang === 'ar' ? 'text-right':'text-left'}}">
+                                                <label>
+                        {{'customRelease.formLabel.' + field.id | translate}}
+                        <span class="requiredStar" *ngIf="field.required">*</span>
+                      </label>
+                                                <div class="custom-file fileUpload {{currentLang === 'ar'? 'ml-3' :'mr-3'}}" [ngClass]="{'required': (regItemsForm.get(field.id).invalid && attachmentRequiredStatus) || field.attachmentTypeStatus === 'No'}">
+                                                    <input type="file" class="custom-file-input" [id]="field.id" aria-describedby="fileHelp" (change)="onFileSelect($event, field.id)" [required]="field.required ? 'required' : false">
+                                                    <div class="d-flex alert alert-danger" *ngIf="(regItemsForm.get(field.id).invalid && attachmentRequiredStatus) || field.attachmentTypeStatus === 'No'">
+                                                        <div class="{{currentLang === 'ar' ? 'mr-auto ml-2':'ml-auto mr-2'}}" *ngIf="field.attachmentTypeStatus === 'No'">
+                                                            {{'common.validationStatement.maxSizeMessage' | translate}}
+                                                        </div>
+                                                        <div class="{{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" *ngIf="regItemsForm.get(field.id).invalid && attachmentRequiredStatus">
+                                                            <div *ngIf="regItemsForm.get(field.id).errors.required">
+                                                                {{'common.validationStatement.required' | translate}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <label class="custom-file-label {{currentLang === 'ar'? 'paddingRight5' :''}}" [for]="field.id">
+                          {{field.fileName ? field.fileName : 'common.chooseFile' | translate}}
+                        </label>
+                                                    <button type="button" class="custom-file-download-Button" *ngIf="field.fileValue" (click)="downloadFile(field.id)">
+                          {{'common.download' | translate}}
+                        </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                        </tabset>
+
+                        <div class="row buttonContainer btm-out">
+                            <div class="col-12 d-flex flex-column flex-md-row mt-3">
+                                <button *ngIf="!itemsStepsTabs.tabs[0].active" type="button" class="btn btn-primary btn-sm {{currentLang === 'ar'? 'ml-3' :'mr-3'}} bottomButtons " (click)="backToNextTab(itemsStepsTabs)">
+                {{'customRelease.specificStatement.backItemStep' | translate}}
+              </button>
+                                <div class="{{currentLang === 'ar'? 'mr-md-auto':'ml-md-auto'}}">
+                                    <button *ngIf="!itemsStepsTabs.tabs[1].active" type="button" class="btn btn-primary btn-sm {{currentLang === 'ar'? 'ml-3' :'mr-3'}} bottomButtons" (click)="nextToNextTab(itemsStepsTabs)">
+                  {{'customRelease.specificStatement.nextItemStep' | translate}}
+                </button>
+
+                                    <button type="submit" class="btn btn-primary btn-sm {{currentLang === 'ar'? 'ml-3' :'mr-3'}} bottomButtons">
+                  {{'customRelease.specificStatement.addItem' | translate}}
+                </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="invoiceApprovalFormContainer" *ngIf="itemApprovalcontainerDisplayStatus">
+            <div class="col-12 mb-3">
+                <div class="d-flex flex-column">
+                    <div class="row">
+                        <div class="col-12 col-sm-8">
+                            <app-title [smallTitle]="true" title="{{'customRelease.wizardSteps.invoiceDetails' | translate}}"></app-title>
+                        </div>
+                        <div class="col-12 col-sm-4 {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}">
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="close {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}" [ngStyle]="{right: currentLang === 'ar' ? 'auto':'-1rem', left: currentLang === 'ar' ? '-1rem': 'auto'}" (click)="hideInvoiceApprovalContainer()">
+                X
+              </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form class="mt-2" name="approvedInvoiceForm" class="example-form" method="post" [formGroup]="regApprovedInvoicesForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmitApprovedInvoice()" novalidate xmlns="http://www.w3.org/1999/html" autocomplete="off">
+                <div class="mt-5">
+                    <div class="row mt-3">
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>{{'customRelease.formLabel.invoiceNo' | translate}}</mat-label>
+                                <input type="text" class="form-control" matInput formControlName="invoiceNo" placeholder="{{'customRelease.formLabel.invoiceNo' | translate}}" required [readonly]="true">
+                                <div *ngIf="regInvoicesForm.get('invoiceNo').invalid && (regInvoicesForm.get('invoiceNo').dirty || regInvoicesForm.get('invoiceNo').touched)" class="alert alert-danger">
+                                    <div *ngIf="regInvoicesForm.get('invoiceNo').errors.required">
+                                        {{'common.validationStatement.required'}}
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width inputBesideSelect">
+                                <mat-label>{{'customRelease.formLabel.invoiceValue' | translate}}</mat-label>
+                                <input type="text" class="form-control" matInput pattern="^(\d{1,3}(,\d{3})|\d)*(\.\d+)?$" (change)="getDecimalValue(regInvoicesForm.get('invoiceValue').value, '')" formControlName="invoiceValue" placeholder="{{'customRelease.formLabel.invoiceValue' | translate}}"
+                                    required [readonly]="true">
+                                <div *ngIf="regInvoicesForm.get('invoiceValue').invalid && (regInvoicesForm.get('invoiceValue').dirty || regInvoicesForm.get('invoiceValue').touched)" class="alert alert-danger">
+                                    <div *ngIf="regInvoicesForm.get('invoiceValue').errors.required">
+                                        {{'common.validationStatement.required'}}
+                                    </div>
+                                    <div *ngIf="regInvoicesForm.get('invoiceValue').errors.pattern">
+                                        {{'common.validationStatement.decimalNumberMessage'}}
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="datepickerContainer" appearance="fill">
+                                <mat-label>
+                                    {{'customRelease.formLabel.invoiceDate' | translate}}
+                                </mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="invoiceDate" required [readonly]="true">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <div *ngIf="regInvoicesForm.get('invoiceDate').invalid && (regInvoicesForm.get('invoiceDate').dirty || regInvoicesForm.get('invoiceDate').touched)" class="alert alert-danger">
+                                    <div *ngIf="regInvoicesForm.get('invoiceDate').errors.required">
+                                        {{'common.validationStatement.required'}}
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width inputBesideSelect">
+                                <mat-label>
+                                    {{'customRelease.formLabel.currency' | translate}}
+                                </mat-label>
+                                <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.currency' | translate}}" aria-label="{{'customRelease.formLabel.currency' | translate}}" matInput formControlName="currency" [matAutocomplete]="CurrencyList" required [readonly]="true">
+                                <mat-autocomplete #CurrencyList="matAutocomplete">
+                                    <mat-option *ngFor="let option of filteredOptionsForCurrency | async" [value]="option.name[currentLang]">
+                                        <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}} -{{option.code}} </span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <div *ngIf="regInvoicesForm.get('currency').invalid && (regInvoicesForm.get('currency').dirty || regInvoicesForm.get('currency').touched)" class="alert alert-danger">
+                                    <div *ngIf="regInvoicesForm.get('currency').errors.required">
+                                        {{'common.validationStatement.required' | translate}}
+                                    </div>
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>{{'customRelease.formLabel.supplierName' | translate}}</mat-label>
+                                <input type="text" class="form-control" matInput formControlName="supplierName" placeholder="{{'customRelease.formLabel.supplierName' | translate}}" [readonly]="true">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>{{'customRelease.formLabel.supplierCountry' | translate}}</mat-label>
+                                <input type="text" class="form-control" placeholder="{{'customRelease.formLabel.supplierCountry' | translate}}" matInput formControlName="supplierCountry" [matAutocomplete]="supplierCountryList" required [readonly]="true">
+                                <mat-autocomplete #supplierCountryList="matAutocomplete">
+                                    <mat-option *ngFor="let option of filteredOptionsForSupplierCountry | async" [value]="option.name[this.currentLang]">
+                                        <span class="tooltipContainer" tooltip="{{option.name[currentLang]}}" placement="top">{{option.name[currentLang]}}</span>
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 mt-5 borderTop pt-5">
+                            <div class="d-flex flex-column">
+                                <div class="row">
+                                    <div class="col-12 col-sm-8">
+                                        <app-title [smallTitle]="true" title="{{'customRelease.wizardSteps.itemsDetails' | translate}}"></app-title>
+                                    </div>
+                                    <div class="col-12 col-sm-4 {{currentLang === 'ar' ? 'mr-auto':'ml-auto'}}">
+                                        <div class="d-flex align-items-center">
+                                            <div class="hintForEmptyObject" *ngIf="itemListTable?.tableBody.length === 0 && attachmentRequiredStatus">
+                                                <h5>
+                                                    {{'customRelease.specificStatement.addingItemsData' | translate}}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 itemListTableCont">
+
+                            <app-table-list [data]="approvedItemListTable" [whichTable]="approvedItemList">
+                            </app-table-list>
+                        </div>
+                    </div>
+                </div>
+                <div class="row buttonContainer btm-out">
+                    <div class="col-12 d-flex flex-column flex-md-row mt-3">
+                        <div class="{{currentLang === 'ar'? 'mr-md-auto' :'ml-md-auto'}}">
+                            <button type="submit" class="btn btn-primary btn-sm">
+              {{'customRelease.specificStatement.addInvoice' | translate}}
+            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="overlay" *ngIf="invoiceContainerDisplayStatus"></div>
+        <div class="overlay2" *ngIf="invoiceApprovalcontainerDisplayStatus"></div>
+        <div class="overlay2" *ngIf="itemContainerDisplayStatus"></div>
+        <div class="overlay2" *ngIf="itemApprovalcontainerDisplayStatus"></div>
+    </div>
+</div>
+<alert type="success" (onClosed)="onClosed()" *ngIf="alertNotificationStatus">
+    <strong>{{'common.thank' | translate}}</strong> <br> {{alertNotification.msg}}
+</alert>
+
+<alert type="danger" class="AlertForAllRequests" dismissible="true" (onClosed)="onClosedErrorAlert()" *ngIf="alertErrorNotificationStatus">
+    <strong>{{'common.errorMessage' | translate}}</strong> <br> {{alertErrorNotification.msg}}
+</alert>
+
+<ng-template #successSubmissionModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{'common.successfulSubmission' | translate}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeSuccessSubmissionModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    <div class="modal-body">
+        <div class="modalContainer">
+            <h2>
+                <span>
+        <i class="fas fa-check-circle"></i>
+      </span>
+            </h2>
+            <h3>
+                {{'common.submissionMessage' | translate}}
+            </h3>
+            <h3>
+                {{'common.' + dataInAnyError.NotificationNo ? 'submissionWithNotificationNumber' : 'submissionWithId' | translate}}
+                <b>{{ dataInAnyError.NotificationNo ? dataInAnyError.NotificationNo : dataInAnyError.id}}</b>
+            </h3>
+        </div>
+    </div>
+</ng-template>
+
+<app-loader-component [loadingStatus]="isLoading"></app-loader-component>
+
+/

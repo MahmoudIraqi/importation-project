@@ -1,0 +1,45 @@
+<div class="whiteContainer">
+  <div class="row">
+    <div class="col-12">
+      <app-title [title]="'Premix List'" [bigTitle]="true"></app-title>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 mt-2">
+      <button
+        type="button"
+        class="btn btn-primary mr-auto bottomButtons"
+        routerLink="/pages/cosmetics-product/inner/createOrEdit-premix"
+      >
+        {{ "premix.AddNewPremix" | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 mt-2">
+      <div class="tableContainer premixList" *ngIf="premixList">
+        <!-- View-Edit premix table actions added -->
+        <app-table-list
+          [data]="premixList"
+          [whichTable]="'premixList'"
+          (viewPremix)="viewPremix($event)"
+          (removePremix)="removePremix($event)"
+          (editPremix)="editPremix($event)"
+        ></app-table-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+<alert
+  type="danger"
+  dismissible="true"
+  class="AlertForAllRequests"
+  (onClosed)="onClosedErrorAlert()"
+  *ngIf="alertErrorNotificationStatus"
+>
+  <strong>Error Message</strong> <br />
+  {{ alertErrorNotification.msg }}
+</alert>
+
+<app-loader-component [loadingStatus]="isLoading"></app-loader-component>

@@ -1,0 +1,36 @@
+.mat-form-field {
+  width: 100% !important;
+  position: relative;
+}
+
+.filterContanier {
+  background: #f3f3f3;
+  padding: 1.5rem;
+  border-radius: 10px 0px 10px 10px;
+}
+
+.filterRowContainer {
+  width: 100%;
+  display: block;
+}
+
+.filterRowContainer ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.filterRowContainer ul li {
+  width: auto;
+  background: #e2e2e1;
+  border-radius: 10px 0px 10px 10px;
+  padding: 0.6rem;
+  display: inline-block;
+  margin-right: 2%;
+  color: #212529;
+}
+
+.filterRowContainer ul li span.removeFilter {
+  margin-left: 1rem;
+  cursor: pointer;
+}

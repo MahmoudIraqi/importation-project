@@ -1,0 +1,59 @@
+<h1 mat-dialog-title>Release Comments</h1>
+<div mat-dialog-content>
+    <tabset class="tabs mb-3" type="pills">
+        <tab [heading]="'Request Details Comments'">
+            <div class="form-row px-2">
+                <div class="property-comment col-6 mb-3" *ngFor="let prop of RequestDetailsComment">
+                    <div>
+                        <b>{{ prop.key }}</b>
+                    </div>
+                    <div class="text-muted">
+                        {{ prop.value || emptyComment }}
+                    </div>
+                </div>
+            </div>
+        </tab>
+        <tab [heading]="'Invoices Comments'">
+            <div class="form-row invoice-container" *ngFor="let invoice of invoicesComment; let index= index">
+                <div class="property-comment col-6 mb-3" *ngFor="let prop of invoice.comments">
+                    <div>
+                        <b>{{ prop.key }}</b>
+                    </div>
+                    <div class="text-muted">
+                        {{ prop.value || emptyComment }}
+                    </div>
+                </div>
+
+                <div class="bg-dark text-white w-100 mb-3 p-2">
+                    <b>Items:</b>
+                </div>
+
+                <mat-accordion class="d-block mb-4">
+                    <mat-expansion-panel hideToggle *ngFor="let item of invoice.items; let index= index">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Item: {{ index + 1 }}
+                            </mat-panel-title>
+                            <mat-panel-description>
+
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="form-row">
+                            <div class="property-comment col-6 mb-3" *ngFor="let prop of item.comments">
+                                <div>
+                                    <b>{{ prop.key }}</b>
+                                </div>
+                                <div class="text-muted">
+                                    {{ prop.value || emptyComment }}
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </tab>
+    </tabset>
+</div>
+<div mat-dialog-actions>
+    <button class="btn btn-light" [mat-dialog-close] cdkFocusInitial>Ok</button>
+</div>

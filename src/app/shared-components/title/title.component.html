@@ -1,0 +1,22 @@
+<div *ngIf="bigTitle">
+  <h2 class="titleStyle d-flex align-items-center">
+    <span class="lineBeforeTitle {{currentLang === 'ar' ? 'ml-3':'mr-3'}}"></span>
+    <span>{{title}}</span>
+  </h2>
+  <div class="titleLabel {{currentLang === 'ar' ? 'mr-5':'ml-5'}}"></div>
+</div>
+
+<div *ngIf="smallTitle">
+  <h4 class="titleStyle d-flex align-items-center">
+    <span class="lineBeforeTitle {{currentLang === 'ar' ? 'ml-3':'mr-3'}}"></span>
+    <span>{{title}}</span>
+    <div *ngIf="havingComment" class="InfoIconContainer">
+        <span class="infoIcon" tooltip="{{theCommentMessage}}"
+              placement="top">
+          <i class="fas fa-info-circle"></i>
+        </span>
+    </div>
+  </h4>
+  <div class="titleLabel {{currentLang === 'ar' ? 'mr-5':'ml-5'}}"></div>
+</div>
+

@@ -1,0 +1,29 @@
+.colorLablesGuide {
+  display: inline-block;
+}
+
+.colorLablesGuide ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.colorLablesGuide ul li {
+  margin-bottom: 1em;
+}
+
+.colorLablesGuide ul li .colorSchema {
+  width: 25px;
+  height: 25px;
+  margin-right: 2em;
+  display: inline-block;
+}
+
+.colorLablesGuide ul li .colorSchemaText {
+  font-size: 14px;
+  display: inline-block;
+}
+
+.colorLablesGuide ul li:last-child {
+  margin-bottom: 0em;
+}

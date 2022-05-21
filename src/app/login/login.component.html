@@ -1,0 +1,55 @@
+<div class=" loginContainer">
+  <div class="formContainer container">
+    <div class="space"></div>
+    <div class="loginFormContainer">
+      <form name="form" class="example-form" method="post"
+            [formGroup]="form" (ngSubmit)="submit()">
+        <img src="../../assets/img/logo.png" class="image">
+        <img src="../../assets/img/favicon.png" class="image2">
+        <div class="col-12">
+          <mat-form-field class="example-full-width">
+            <mat-label>User Name</mat-label>
+            <input type="text" class="form-control" matInput formControlName="username"
+                   placeholder="User Name" required>
+            <div
+              *ngIf="form.get('username').invalid && (form.get('username').dirty || form.get('username').touched)"
+              class="alert alert-danger">
+              <div
+                *ngIf="form.get('username').errors.required">
+                this field is required
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col-12">
+          <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" class="form-control" matInput formControlName="password"
+                   placeholder="Password" required>
+            <div
+              *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)"
+              class="alert alert-danger">
+              <div
+                *ngIf="form.get('password').errors.required">
+                this field is required
+              </div>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="button">
+          <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<alert type="success" dismissible="true" *ngIf="alertNotificationStatus">
+  <strong>Welcome</strong> <br> in the Portal
+</alert>
+
+<alert type="danger" class="AlertForAllRequests" dismissible="true" *ngIf="alertErrorNotificationStatus">
+  <strong>Error Message</strong> <br> Failed Login
+</alert>
+
+<app-loader-component [loadingStatus]="isLoading"></app-loader-component>

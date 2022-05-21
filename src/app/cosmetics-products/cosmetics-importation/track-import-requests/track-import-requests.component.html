@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-12">
+        <app-title title="{{'header.cosmeticsProducts' | translate}} - {{'header.trackRequest' | translate}}" [bigTitle]="true"></app-title>
+    </div>
+    <div class="col-12 mt-5">
+        <div class="tableContainer trackTable">
+            <tabset class="tabs {{currentLang === 'ar' ? 'arabicTabs':''}}" type="pills" (click)="setActivatedTab($event)" #formTabs>
+                <tab id="inProgress" #inProgress [heading]="'tabs.inProgress' | translate">
+                    <app-table-list [data]="importedtrackList" [whichTable]="'Importedtrack'"></app-table-list>
+                </tab>
+                <tab id="approvedRequest" #approvedRequest [heading]="'tabs.approvedRequest' | translate">
+                    <app-table-list [data]="importedapprovedList" [whichTable]="'Importedtrack'"></app-table-list>
+                </tab>
+                <tab id="rejectedRequests" #rejectedRequests [heading]="'tabs.rejectedRequests' | translate">
+                    <app-table-list [data]="importedrejectedList" [whichTable]="'Importedtrack'"></app-table-list>
+                </tab>
+            </tabset>
+
+
+        </div>
+    </div>
+</div>
+
+<alert type="danger" dismissible="true" class="AlertForAllRequests" (onClosed)="onClosedErrorAlert()" *ngIf="alertErrorNotificationStatus">
+    <strong>Error Message</strong> <br> {{alertErrorNotification.msg}}
+</alert>
+
+<app-loader-component [loadingStatus]="isLoading"></app-loader-component>

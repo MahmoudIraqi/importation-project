@@ -1,0 +1,139 @@
+.footerContainer {
+  width: 100%;
+  padding: 0 3em;
+}
+
+/* ------------ Logo Style ----------- */
+
+.logo {
+  width: 70px;
+  padding: 15px 0px;
+
+  img {
+    width: 100%;
+  }
+}
+
+/* --------------------- social media List ----------------------- */
+
+.socialMediaList {
+  display: inline-block;
+  vertical-align: top;
+
+  ul {
+    list-style-type: none;
+
+    li {
+      display: inline-block;
+      vertical-align: top;
+
+      a {
+        color: #c28a30;
+      }
+
+      a:hover {
+        color: #fff;
+      }
+
+      span {
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+
+/* ----------------------------- phone container ------------ */
+.phoneNumberContainer {
+  display: inline-block;
+  vertical-align: top;
+  color: #c28a30;
+  font-weight: light;
+  font-size: 22px;
+
+  i {
+    transform: rotate(-45deg);
+  }
+}
+
+
+/* ----------------------------- change Lang ------------------- */
+.changeLang {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 1.5em;
+  color: #c28a30;
+  font-weight: light;
+  font-size: 22px;
+
+  .form-group {
+    select {
+      border: none;
+      background: none;
+      color: #c28a30;
+      font-weight: light;
+      border-radius: 0;
+      padding: 0px 4px;
+      width: 60px;
+      font-size: 18px;
+      height: calc(1.5em + 0.25rem + 2px);
+      cursor: pointer;
+    }
+
+    select:active, select:focus {
+      box-shadow: 0px 0px 0.2rem #c28a30;
+    }
+  }
+}
+
+/* ----------------- search Icon --------------------- */
+.searchIcon {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 1.5em;
+
+  a {
+    color: #c28a30;
+    font-weight: light;
+    font-size: 22px;
+  }
+}
+
+/* ---------------------- email Container --------------------------- */
+.emailIcon {
+  display: inline-block;
+  vertical-align: top;
+
+  a {
+    color: #c28a30;
+    font-weight: light;
+    font-size: 22px;
+  }
+
+  a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+/*--------------------------------responsive--------------------------*/
+@media only screen and (max-width: 640px) {
+  .phoneNumberContainer, .emailIcon {
+    margin-left: 1em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .logo {
+    width: 90px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .socialMediaList, .phoneNumberContainer, .emailIcon {
+    /*display: block !important;*/
+  }
+}
+

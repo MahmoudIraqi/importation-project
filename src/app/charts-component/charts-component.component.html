@@ -1,0 +1,17 @@
+<div class="row" dir="ltr">
+  <div class="col-12 col-sm-6">
+    <svg id="chart" #chart class="chartContainer"></svg>
+  </div>
+  <div class="col-12 col-sm-6 d-flex align-items-center justify-content-center">
+    <div #containerPieChart class="containerPieChart" id="containerPieChart"></div>
+
+    <div class="colorLablesGuide">
+      <ul>
+        <li *ngFor="let colorItem of pieData" class="d-flex align-items-center">
+          <span class="colorSchema" [ngStyle]="{'background': colorItem.color}"></span>
+          <span class="colorSchemaText">{{colorItem.name}} is <b>{{colorItem.value}}</b></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

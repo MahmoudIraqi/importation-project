@@ -1,0 +1,461 @@
+$height: calc((100vh - 850px) / 2);
+
+@mixin Height($val) {
+  @if $val > 0 {
+    top: $val;
+  } @else {
+    top: 2rem
+  }
+}
+
+.formTableContainer {
+  padding-left: 5.5%;
+  position: relative;
+}
+
+.invoiceFormContainer {
+  position: fixed;
+  padding: 3rem;
+  width: 75%;
+  display: block;
+  left: 12.5%;
+  height: 90vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #c28a30;
+  border-radius: 10px 0 10px 10px;
+  z-index: 101;
+  top: 2rem
+}
+
+.itemsFormContainer {
+  position: fixed;
+  padding: 3rem;
+  width: 75%;
+  display: block;
+  top: 5rem;
+  left: 12.5%;
+  height: 70vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #c28a30;
+  border-radius: 10px 0 10px 10px;
+  z-index: 103;
+}
+.itemApprovalFormContainer {
+  position: fixed;
+  padding: 3rem;
+  width: 70%;
+  display: block;
+  top: 5rem;
+  left: 12.5%;
+  height: 70vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #c28a30;
+  border-radius: 10px 0 10px 10px;
+  z-index: 103;
+}
+.close {
+  position: absolute;
+  top: -2rem;
+  font-size: 18px;
+  color: #f00;
+}
+
+.close:hover {
+  color: #f00;
+}
+
+.overlay {
+  pointer-events: inherit;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background: #161c30;
+  opacity: 0.4;
+  z-index: 100;
+}
+
+.overlay2 {
+  pointer-events: inherit;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background: #161c30;
+  opacity: 0.4;
+  z-index: 102;
+}
+.overlay3 {
+  pointer-events: inherit;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background: #161c30;
+  opacity: 0.4;
+  z-index: 102;
+}
+
+select, input, textarea {
+  border: none;
+  /*border-bottom: 1px solid #161c30 !important;*/
+  border-radius: 0px;
+  background: none;
+}
+
+select:active, select:focus,
+input:active, input:focus {
+  border-radius: 0px;
+  box-shadow: none;
+}
+
+//form > .row > div:nth-child(n + 4) {
+//  margin-top: 2em;
+//}
+
+
+.form-group {
+  position: relative;
+}
+
+.labelForRange {
+  position: absolute;
+  top: 22px;
+  right: 0em;
+  font-size: 15px;
+  color: #161c30;
+}
+
+.mat-form-field {
+  width: 100% !important;
+  position: relative;
+}
+
+.alert-danger {
+  position: absolute;
+  top: -15px;
+  right: 0;
+  padding: 0;
+  color: #ff0000;
+  background: none;
+  border: none;
+  font-size: 11px;
+}
+
+.alert-danger.RelativeAlert {
+  margin-top: 2em;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  display: block;
+  position: relative;
+  background: rgba(255, 0, 0, 0.55);
+  color: #fff;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.invoiceContainer {
+  background: #f7f7f7;
+  padding: 2rem;
+  border-radius: 10px 0 10px 10px;
+}
+
+.itemsContainer {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px 0 10px 10px;
+}
+
+/*  ------------------------------ Short Name Field Container --------------- */
+.ShortNameFieldContainer {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 10px 0 10px 10px;
+  border: 1.5px solid #ffffff;
+  padding: 1em;
+  box-shadow: 0 0 5px #c28a30;
+}
+
+.ShortNameFieldContainer .close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  font-size: 11px;
+  color: #f00;
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* --------------------------- range input styling ------------------------------- */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  border: none !important;
+  padding: 0;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  box-shadow: none;
+  background: #161c30;
+  border-radius: 1.3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 26px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -10px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #161c30;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  box-shadow: none;
+  background: #161c30;
+  border-radius: 1.3px;
+}
+
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 26px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -12px;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  box-shadow: none;
+  background: #c28a30;
+  border-radius: 1.3px;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: #c28a30;
+  border: 0.2px solid #c28a30;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: #c28a30;
+  border: 0.2px solid #c28a30;
+}
+
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: #c28a30;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+  background: #c28a30;
+}
+
+
+/* ----------------------- details Table ---------------------------------- */
+.tableDetailsContainer {
+  width: 100%;
+  background: #EEEEEE;
+  border-radius: 10px 0px 10px 10px;
+  padding: 2em;
+}
+
+/* ----------------------------- Input File ------------------------------ */
+input[type=file] {
+  position: absolute;
+  -webkit-appearance: none;
+}
+
+.custom-file-label {
+  border: 1px solid #161c30 !important;
+  border-radius: 10px 0px 10px 10px;
+  overflow: hidden;
+}
+
+.custom-file-label:after {
+  background: #fff;
+  color: #161c30;
+  border-left: 1px solid #161c30;
+  border-radius: 0px 0px 10px 0px;
+}
+
+/* -------------------- Button Container ---------------------------- */
+.buttonContainer {
+  margin-top: 3em;
+  border-top: 1px solid #eee;
+}
+
+/* --------------- accordion Rows in Details Table ------------------- */
+.detailsTable .mat-expansion-panel {
+  background: none !important;
+  box-shadow: none !important;
+  border: 1px solid #c28a30;
+  border-radius: 10px 0px 10px 10px;
+  padding: 0;
+}
+
+.detailsTable .mat-expansion-panel.mat-expanded {
+  border: 1px solid #161c30;
+}
+
+.detailsTable .mat-expansion-panel.mat-expanded .mat-expansion-panel-header {
+  border-bottom: 1px solid #161c30;
+  border-radius: 0px;
+}
+
+.detailsTable .mat-expansion-panel-header {
+  padding: 0 !important;
+  height: auto !important;
+  pointer-events: none !important;
+}
+
+.detailsTable .table {
+  border: none !important;
+  margin-bottom: 0px;
+  border-collapse: inherit;
+  pointer-events: fill !important;
+}
+
+.detailsTable .table td {
+  border: none !important;
+}
+
+.detailsTable .table .mat-expansion-panel td {
+  border: none !important;
+  vertical-align: middle;
+  text-align: center;
+  padding: 1em;
+}
+
+.detailsTable .table td span.remove {
+  color: #f00 !important;
+}
+
+.detailsTable .table td span.expandIcon {
+  color: #c28a30 !important;
+}
+
+/* ---------------------------------- addDetailsRequestContainer ----------------------------- */
+
+.addDetailsRequestContainer {
+  background: #f3f3f3;
+  border-radius: 10px 0 10px 10px;
+  padding: 2em;
+  margin-top: 2em;
+}
+
+.ingrediantDetailsContainer {
+  background: #fff;
+  border-radius: 10px 0 10px 10px;
+  padding: 1em;
+  margin-top: 2em;
+}
+
+.ingrediantDetailsContainer .rowContainer {
+  border-radius: 10px 0 10px 10px;
+  border: 0.5px solid #c28a30;
+  padding: 1em;
+}
+
+.addDetailsRequestContainer .col-3:nth-child(n+4) {
+  margin-top: 1em;
+}
+
+
+.getProductArea {
+  background: #ffffff;
+  border-radius: 10px 0 10px 10px;
+  border: 1.5px solid #ffffff;
+  padding: 1em;
+  width: 100%;
+  box-shadow: 0 0 5px #c28a30;
+}
+
+.getNewProductArea {
+  background: #f9f9f9;
+  border-radius: 10px 0 10px 10px;
+  padding: 3em;
+  width: 100%;
+}
+
+/* -------------------------- Responsive --------------------- */
+@media only screen and (max-width: 1000px) {
+  .conSpace {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .inputBesideSelect .mat-form-field-infix {
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .buttonContainer .btn-primary {
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .buttonContainer .btn-primary:last-child {
+    margin-bottom: 0em;
+  }
+}
+div.hidden {
+  display: none;
+}
+.invoiceApprovalFormContainer {
+  position: fixed;
+  padding: 3rem;
+  width: 75%;
+  display: block;
+  top: 5rem;
+  left: 12.5%;
+  height: 70vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #c28a30;
+  border-radius: 10px 0 10px 10px;
+  z-index: 103;
+}

@@ -1,0 +1,69 @@
+<div class="filterContanier">
+  <div class="row">
+    <div class="col-12">
+      <app-title [smallTitle]="true" [title]="'Filter Data'"></app-title>
+    </div>
+    <div class="col-12 mt-3">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Which column do you want to search in ?</mat-label>
+            <mat-select [(ngModel)]="keyForFilter" (selectionChange)="keyWordsForFilter = ''; setTheFilteredData();">
+              <mat-option *ngFor="let item of filterData.filterKey" [value]="item">
+                {{'tables.' + item.name | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <mat-form-field class="example-full-width inputBesideSelect"
+                          *ngIf="keyForFilter && keyForFilter.id !== 'createdDate'">
+            <mat-label>Your keywords for search</mat-label>
+            <input type="text" class="form-control" matInput
+                   (keyup)="setTheFilteredData()"
+                   (blur)="setTheFilteredData()"
+                   [(ngModel)]="keyWordsForFilter"
+                   placeholder="Product Name">
+          </mat-form-field>
+<!--          <mat-form-field appearance="fill" *ngIf="keyForFilter && keyForFilter.id === 'requestType'">-->
+          <!--            <mat-label>Which Track type do you want to search in ?</mat-label>-->
+          <!--            <mat-select [(ngModel)]="keyWordsForFilter" (selectionChange)="setTheFilteredData()">-->
+          <!--              <mat-option *ngFor="let item of keysForTrackTypeList" [value]="item.NAME">-->
+          <!--                {{item.NAME}}-->
+          <!--              </mat-option>-->
+          <!--            </mat-select>-->
+          <!--          </mat-form-field>-->
+          <mat-form-field appearance="fill"
+                          *ngIf="keyForFilter &&keyForFilter.id === 'createdDate'">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="keyWordsForFilter"
+                   (change)="setTheFilteredData()"
+                   (dateChange)="setTheFilteredData()">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <button type="button" class="btn btn-primary mt-3"
+                  [disabled]="!keyWordsForFilter || !keyForFilter"
+                  (click)="addFilteredRow()">
+            Add Filter
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="filterRow.length > 0">
+        <div class="col-12 mt-3">
+          <div class="filterRowContainer">
+            <ul>
+              <li *ngFor="let row of filterRow; let i = index">
+                <span>The column name: <strong>{{row.columnName}}</strong></span>
+                <span class="ml-4">The keyword: <strong>{{row.keyword}}</strong></span>
+                <span class="removeFilter" (click)="removeKeywordFromFilter(i)"><i class="fas fa-trash"></i></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

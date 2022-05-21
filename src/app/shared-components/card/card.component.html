@@ -1,0 +1,37 @@
+<div class="titleContainer" *ngIf="!showCardDetails" (mouseover)="showDetails()">
+  <div class="d-flex flex-column align-items-center justify-content-center">
+    <i class="{{ itemData.icon }}"></i>
+    <h2>{{ itemData.description[currentLang] }}</h2>
+  </div>
+</div>
+
+<div class="detailsContainer" *ngIf="showCardDetails" (mouseleave)="hideDetails()">
+  <p class="{{currentLang === 'ar' ? 'text-right':'text-left'}}">{{'common.details' | translate}}</p>
+  <h4 class="{{currentLang === 'ar' ? 'text-right':'text-left'}}">{{itemData.description[currentLang]}}</h4>
+  <div class="d-flex align-items-center btnContainer">
+    <button class="col btn btn-primary {{currentLang === 'ar' ? 'ml-2':'mr-2'}}"
+            (click)="goToLink(itemData.newRequestLink, itemData.id, itemData.serviceTypeDto.id,itemData.name[currentLang])">
+      {{'common.createNewRequest' | translate}}
+    </button>
+    <button class="col btn btn-primary {{currentLang === 'ar' ? 'ml-2':'mr-2'}}"
+            (click)="goToLink(itemData.draftListLink, itemData.id, itemData.serviceTypeDto.id,itemData.name[currentLang])">
+      {{'common.draftList' | translate}}
+    </button>
+    <button class="col btn btn-primary" (click)="goToLink(itemData.trackListLink)">
+      {{'common.trackList' | translate}}
+    </button>
+  </div>
+      <!--verna-->
+      <div class="d-flex align-items-center btnContainer" *ngIf="!showRelese">
+        <button class="col btn btn-primary {{currentLang === 'ar' ? 'ml-2':'mr-2'}}" (click)="goToLink(itemData.newImortedRequestLink, itemData.id, itemData.serviceTypeDto.id,itemData.description[currentLang])">
+              {{'common.createNewRequest' | translate}}
+              </button>
+        <button class="col btn btn-primary {{currentLang === 'ar' ? 'ml-2':'mr-2'}}" (click)="goToLink(itemData.draftImportedListLink, itemData.id, itemData.serviceTypeDto.id,itemData.name[currentLang])">
+              {{'common.draftList' | translate}}
+              </button>
+        <button class="col btn btn-primary" (click)="goToLink(itemData.trackImportedListLink)">
+                      {{'common.trackList' | translate}}
+                      </button>
+    </div>
+       <!--verna-->
+</div>
