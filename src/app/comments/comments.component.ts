@@ -985,7 +985,6 @@ this.approvedItemListTable.tableBody=this.approvedItemDetails;
     const data = this.adaptTheObjectToBE(this.regCustomReleaseForm.value, Number(this.serviceId), Number(this.serviceTypeId));
 
     this.getService.submitRequest(data).subscribe(res => {
-      console.log('res', res)
     })
   }
 

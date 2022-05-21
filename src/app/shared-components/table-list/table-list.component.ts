@@ -6,13 +6,13 @@ import {
   OnChanges,
   Output,
 } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { Observable } from 'rxjs';
-import { InputService } from '../../services/input.service';
-import { TranslateService } from '@ngx-translate/core';
-import { distinctUntilChanged, filter } from 'rxjs/operators';
+import {MatInputModule} from '@angular/material/input';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PageChangedEvent} from 'ngx-bootstrap/pagination';
+import {Observable} from 'rxjs';
+import {InputService} from '../../services/input.service';
+import {TranslateService} from '@ngx-translate/core';
+import {distinctUntilChanged, filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-table-list',
@@ -48,6 +48,9 @@ export class TableListComponent implements OnInit, OnChanges {
     supplierCountry: 'countryName',
     requestType: 'releaseType',
     createdDate: 'createdDate',
+    name: 'name',
+    notificationNo: 'notificationNo',
+    originName: 'countryOriginDTO',
   };
   sortStatus = false;
   alertNotificationStatus: boolean = false;
@@ -83,7 +86,7 @@ export class TableListComponent implements OnInit, OnChanges {
   @Output() deleteInvoice = new EventEmitter();
   @Output() editInvoiceData = new EventEmitter();
   @Output() editCustomReleaseRequest = new EventEmitter();
-  @Output()replaceCustomReleaseRequest= new EventEmitter();
+  @Output() replaceCustomReleaseRequest = new EventEmitter();
   @Output() choosePackagingRow = new EventEmitter();
   @Output() chooseIngredientRow = new EventEmitter();
   @Output() chooseManufactureRow = new EventEmitter();
@@ -92,7 +95,7 @@ export class TableListComponent implements OnInit, OnChanges {
   @Output() batchNumber = new EventEmitter();
   @Output() fileSelect = new EventEmitter();
   @Output() additemEvent = new EventEmitter();
-    //edit-view premix requirements
+  //edit-view premix requirements
   @Output() editIngredientfromPremix = new EventEmitter();
   @Output() editPremix = new EventEmitter();
   @Output() viewPremix = new EventEmitter();
@@ -105,6 +108,7 @@ export class TableListComponent implements OnInit, OnChanges {
   deletedIdsListForDetailsRow = [];
   deletedIdsListForIngrediant = [];
   serviceId;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -117,18 +121,21 @@ export class TableListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    console.log('data', this.data)
+
     if (this.data) {
       if (this.data.tableBody && this.data.tableBody?.length > 0) {
         if (
           this.whichTable === 'drafted' ||
           this.whichTable === 'notificationList' ||
+          this.whichTable === 'premixList' ||
           this.whichTable === 'track'
         ) {
           this.data.tableBody.sort((a, b) =>
             a.createdDate && b.createdDate
               ? a.createdDate > b.createdDate
-                ? -1
-                : 1
+              ? -1
+              : 1
               : -1
           );
 
@@ -199,8 +206,8 @@ export class TableListComponent implements OnInit, OnChanges {
         this.data.tableBody = this.data.tableBody.sort((a, b) =>
           a.createdDate && b.createdDate
             ? a.createdDate > b.createdDate
-              ? -1
-              : 1
+            ? -1
+            : 1
             : -1
         );
       } else {
@@ -216,8 +223,8 @@ export class TableListComponent implements OnInit, OnChanges {
         this.data.tableBody = this.data.tableBody.sort((a, b) =>
           a.createdDate && b.createdDate
             ? a.createdDate < b.createdDate
-              ? 1
-              : -1
+            ? 1
+            : -1
             : -1
         );
       } else {
@@ -273,7 +280,7 @@ export class TableListComponent implements OnInit, OnChanges {
   }
 
   removeIngrediantDetailsRowFunction(childIndex, i, indexRow, idRequest) {
-    this.removeIngrediantDetailsRowOutput.emit({ childIndex, indexRow, i });
+    this.removeIngrediantDetailsRowOutput.emit({childIndex, indexRow, i});
 
     if (idRequest) {
       this.deletedIdsListForIngrediant.push(idRequest);
@@ -296,17 +303,19 @@ export class TableListComponent implements OnInit, OnChanges {
   removeProductInInvoicesRowsFunction(index) {
     this.removeProductInInvoicesRows.emit(index);
   }
-  removeInvoiceFunction(index:number,item) {
-    this.deleteInvoice.emit({index,item});
+
+  removeInvoiceFunction(index: number, item) {
+    this.deleteInvoice.emit({index, item});
   }
-  
-  editProductInInvoicesRowsFunction(index:number,item) {
-    this.editProductInInvoicesRows.emit({index,item});
+
+  editProductInInvoicesRowsFunction(index: number, item) {
+    this.editProductInInvoicesRows.emit({index, item});
   }
-  editInvoiceFunction(index:number,item) {
-    this.editInvoiceData.emit({index,item});
+
+  editInvoiceFunction(index: number, item) {
+    this.editInvoiceData.emit({index, item});
   }
- 
+
 
   removeProductFromKitFunction(index) {
     this.removeProductFromKit.emit(index);
@@ -637,8 +646,9 @@ export class TableListComponent implements OnInit, OnChanges {
   seenNotificationFunction(id) {
     this.seenNotification.emit(id);
   }
+
   deleteDraftrequest(requestId) {
-    console.log('requestId',requestId)
+    console.log('requestId', requestId)
     this.removeDraftProduct.emit(requestId);
   }
 
@@ -649,66 +659,73 @@ export class TableListComponent implements OnInit, OnChanges {
   removePremixfunction(premix) {
     this.removePremix.emit(premix);
   }
+
   editCustomReleaseRequestFunction(request) {
     this.editCustomReleaseRequest.emit(request);
   }
-  replaceCustomReleaseRequestFunction(request){
+
+  replaceCustomReleaseRequestFunction(request) {
     this.replaceCustomReleaseRequest.emit(request);
   }
-  choosePackagingRowFunction(packingRow)
-  
-  {this.choosePackagingRow.emit(packingRow);}
 
-  chooseIngredientRowFunction(packingRow)
-  
-  {this.chooseIngredientRow.emit(packingRow);}
-  
-  chooseManufactureRowFunction(packingRow)
-  
-  {this.chooseManufactureRow.emit(packingRow);}
+  choosePackagingRowFunction(packingRow) {
+    this.choosePackagingRow.emit(packingRow);
+  }
 
-  onselectItemfunction(selectedapprovedItem)
-  
-  {this.selectItem.emit(selectedapprovedItem);}
+  chooseIngredientRowFunction(packingRow) {
+    this.chooseIngredientRow.emit(packingRow);
+  }
 
-  ondeleteItemDatafunction(index:number,item)
-  
-  {this.deleteItemData.emit({index,item});}
+  chooseManufactureRowFunction(packingRow) {
+    this.chooseManufactureRow.emit(packingRow);
+  }
 
-  ondeleteInvoiceDatafunction(index:number,item)
-  {this.deleteInvoice.emit({index,item});}
+  onselectItemfunction(selectedapprovedItem) {
+    this.selectItem.emit(selectedapprovedItem);
+  }
 
- 
+  ondeleteItemDatafunction(index: number, item) {
+    this.deleteItemData.emit({index, item});
+  }
+
+  ondeleteInvoiceDatafunction(index: number, item) {
+    this.deleteInvoice.emit({index, item});
+  }
+
 
   editDraft(request) {
     this.selectedDaraftITem.emit(request);
   }
-  getBatchValue(index,value)
 
-  {
-    this.batchNumber.emit({index,value})
+  getBatchValue(index, value) {
+    this.batchNumber.emit({index, value})
   }
-  onFileSelect(index,value,event)
-  { if (event.target.files.length > 0) {
-    if (event.target.files[0].type === 'application/pdf' && event.target.files[0].size <= 5000000) 
-    { const fileStructure = event.target.files[0].name;
-      const reader = new FileReader();
-console.log('reader',reader)
-      reader.readAsDataURL(fileStructure);
-      reader.onload = (res: any) => {
-        const targetResult=res.target.result
-        this.fileSelect.emit({index,value,fileStructure,targetResult})
+
+  onFileSelect(index, value, event) {
+    if (event.target.files.length > 0) {
+      if (event.target.files[0].type === 'application/pdf' && event.target.files[0].size <= 5000000) {
+        const fileStructure = event.target.files[0].name;
+        const reader = new FileReader();
+        console.log('reader', reader)
+        reader.readAsDataURL(fileStructure);
+        reader.onload = (res: any) => {
+          const targetResult = res.target.result
+          this.fileSelect.emit({index, value, fileStructure, targetResult})
         }
-      };
+      }
+      ;
     }
   }
+
   //edit-view premix Task requirements
   editPremixfunction(premix) {
     this.editPremix.emit(premix);
   }
+
   viewPremixFunction(premix) {
     this.viewPremix.emit(premix);
   }
+
   editIngredientfromPremixList(ingredient) {
     this.editIngredientfromPremix.emit(ingredient);
   }
@@ -716,9 +733,10 @@ console.log('reader',reader)
   removeBatchfromPremixList(batch) {
     this.removeBatchfromPremix.emit(batch);
   }
+
   //here is the function needed to add items over the selected invoice
   addItem(i, request) {
-    this.additemEvent.emit({ index: i, data: request });
+    this.additemEvent.emit({index: i, data: request});
   }
 }
 

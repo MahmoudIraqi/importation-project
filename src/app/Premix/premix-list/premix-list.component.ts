@@ -1,10 +1,10 @@
-import { DecimalPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { FormService } from 'src/app/services/form.service';
-import { InputService } from 'src/app/services/input.service';
+import {DecimalPipe} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {FormService} from 'src/app/services/form.service';
+import {InputService} from 'src/app/services/input.service';
 
 @Component({
   selector: 'app-premix-list',
@@ -29,12 +29,15 @@ export class PremixListComponent implements OnInit {
     private inputService: InputService,
     public translateService: TranslateService,
     private getService: FormService
-  ) {}
+  ) {
+  }
+
   ngOnInit(): void {
     this.isLoading = false;
     this.listPremixes();
   }
-  listPremixes() {
+
+  listPremixes(): void {
     this.getService.getPremixList().subscribe(
       (res: any) => {
         if (res) {
@@ -55,9 +58,10 @@ export class PremixListComponent implements OnInit {
       (error) => this.handleError(error)
     );
   }
+
   handleError(message) {
     this.alertErrorNotificationStatus = true;
-    this.alertErrorNotification = { msg: message };
+    this.alertErrorNotification = {msg: message};
     this.isLoading = false;
   }
 
@@ -66,10 +70,12 @@ export class PremixListComponent implements OnInit {
       this.alertErrorNotificationStatus = false;
     }, 2000);
   }
+
   // Remove premix button Functionality
   removePremix(premix) {
     this.getService.removePremix(premix.id).subscribe(
-      (res: any) => {},
+      (res: any) => {
+      },
       (error) => this.handleError(error)
     );
     this.ngOnInit();
@@ -86,7 +92,7 @@ export class PremixListComponent implements OnInit {
   viewPremix(id) {
     this.router.navigate(
       [`/pages/cosmetics-product/inner/createOrEdit-premix/${id}`],
-      { queryParams: { view: 'true' } }
+      {queryParams: {view: 'true'}}
     );
   }
 }

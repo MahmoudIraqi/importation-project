@@ -111,7 +111,7 @@
                       class="tooltipContainer"
                       tooltip="{{ option.name[currentLang] }}"
                       placement="top"
-                      >{{ option.name[currentLang] }}</span
+                    >{{ option.name[currentLang] }}</span
                     >
                   </mat-option>
                 </mat-autocomplete>
@@ -179,7 +179,7 @@
               <mat-form-field class="example-full-width">
                 <mat-label>{{
                   "customRelease.formLabel.supplierCountry" | translate
-                }}</mat-label>
+                  }}</mat-label>
                 <input
                   type="text"
                   class="form-control"
@@ -202,7 +202,7 @@
                       class="tooltipContainer"
                       tooltip="{{ option.name[currentLang] }}"
                       placement="top"
-                      >{{ option.name[currentLang] }}</span
+                    >{{ option.name[currentLang] }}</span
                     >
                   </mat-option>
                 </mat-autocomplete>
@@ -227,7 +227,7 @@
                     <mat-form-field>
                       <mat-label>{{
                         "customRelease.formLabel.rawMaterialName" | translate
-                      }}</mat-label>
+                        }}</mat-label>
                       <input
                         type="text"
                         class="form-control"
@@ -251,7 +251,7 @@
                             class="tooltipContainer"
                             tooltip="{{ option.inciName }}"
                             placement="top"
-                            >{{ option.inciName }}</span
+                          >{{ option.inciName }}</span
                           >
                         </mat-option>
                       </mat-autocomplete>
@@ -296,15 +296,15 @@
                           "
                         >
                           {{
-                            "common.validationStatement.required" | translate
+                          "common.validationStatement.required" | translate
                           }}
                         </div>
                         <div
                           *ngIf="PremixForm.get('concentration').errors.pattern"
                         >
                           {{
-                            "common.validationStatement.decimalNumberMessage"
-                              | translate
+                          "common.validationStatement.decimalNumberMessage"
+                            | translate
                           }}
                         </div>
                       </div>
@@ -334,7 +334,7 @@
                             class="tooltipContainer"
                             tooltip="{{ option.functionName }}"
                             placement="top"
-                            >{{ option.functionName }}</span
+                          >{{ option.functionName }}</span
                           >
                         </mat-option>
                       </mat-autocomplete>
@@ -560,15 +560,15 @@
       </h3>
       <h3>
         {{
-          "common." + dataInAnyError.NotificationNo
-            ? "submissionWithNotificationNumber"
-            : ("submissionWithId" | translate)
+        "common." + dataInAnyError.NotificationNo
+          ? "submissionWithNotificationNumber"
+          : ("submissionWithId" | translate)
         }}
         <b>{{
           dataInAnyError.NotificationNo
             ? dataInAnyError.NotificationNo
             : dataInAnyError.id
-        }}</b>
+          }}</b>
       </h3>
     </div>
   </div>

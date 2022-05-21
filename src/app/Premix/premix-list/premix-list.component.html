@@ -1,22 +1,19 @@
 <div class="whiteContainer">
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 col-sm-8">
       <app-title [title]="'Premix List'" [bigTitle]="true"></app-title>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-12 mt-2">
+    <div class="col-12 col-sm-4 mt-2 d-flex">
       <button
         type="button"
-        class="btn btn-primary mr-auto bottomButtons"
-        routerLink="/pages/cosmetics-product/inner/createOrEdit-premix"
-      >
+        class="btn btn-primary bottomButtons ml-auto"
+        routerLink="/pages/cosmetics-product/inner/createOrEdit-premix">
         {{ "premix.AddNewPremix" | translate }}
       </button>
     </div>
   </div>
   <div class="row">
-    <div class="col-12 mt-2">
+    <div class="col-12 mt-4">
       <div class="tableContainer premixList" *ngIf="premixList">
         <!-- View-Edit premix table actions added -->
         <app-table-list
@@ -38,7 +35,7 @@
   (onClosed)="onClosedErrorAlert()"
   *ngIf="alertErrorNotificationStatus"
 >
-  <strong>Error Message</strong> <br />
+  <strong>Error Message</strong> <br/>
   {{ alertErrorNotification.msg }}
 </alert>
 

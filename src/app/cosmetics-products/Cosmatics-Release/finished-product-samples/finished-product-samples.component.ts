@@ -1,4 +1,13 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  TemplateRef,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {DecimalPipe} from '@angular/common';
@@ -8,13 +17,16 @@ import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {TabsetComponent} from 'ngx-bootstrap/tabs';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
 import {TranslateService} from "@ngx-translate/core";
-import { MatDialog } from '@angular/material/dialog';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { cosmaticsReleaseModel, invoices, releaseItemDtos } from 'src/app/custom-release/customRelease.model';
-import { InputService } from 'src/app/services/input.service';
-import { FormService } from 'src/app/services/form.service';
-import { ViewReleaseCommentsComponent, ViewReleaseCommentsComponentDataDialog } from 'src/app/comments/view-release-comments/view-release-comments.component';
-import { AttachemntObject, LookupState } from 'src/utils/common-models';
+import {MatDialog} from '@angular/material/dialog';
+import {MatCheckboxChange} from '@angular/material/checkbox';
+import {cosmaticsReleaseModel, invoices, releaseItemDtos} from 'src/app/custom-release/customRelease.model';
+import {InputService} from 'src/app/services/input.service';
+import {FormService} from 'src/app/services/form.service';
+import {
+  ViewReleaseCommentsComponent,
+  ViewReleaseCommentsComponentDataDialog
+} from 'src/app/comments/view-release-comments/view-release-comments.component';
+import {AttachemntObject, LookupState} from 'src/utils/common-models';
 
 
 @Component({
@@ -25,11 +37,11 @@ import { AttachemntObject, LookupState } from 'src/utils/common-models';
 export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
 
   isLoading: boolean = false;
-  cosmaticsReleaseModel ={} as cosmaticsReleaseModel
-  invoiceModelList =[{}] as invoices[]
-  releaseItemsList =[{}] as  releaseItemDtos[]
-  invoiceModel ={} as invoices
-  releaseItemDto ={} as  releaseItemDtos
+  cosmaticsReleaseModel = {} as cosmaticsReleaseModel
+  invoiceModelList = [{}] as invoices[]
+  releaseItemsList = [{}] as releaseItemDtos[]
+  invoiceModel = {} as invoices
+  releaseItemDto = {} as releaseItemDtos
   alertNotificationStatus: boolean = false;
   alertNotification: any;
   alertErrorNotificationStatus: boolean = false;
@@ -58,7 +70,7 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
   filteredOptionsForSupplierCountry: Observable<LookupState[]>;
   filteredOptionsForMeasureUnitList: Observable<LookupState[]>;
   filteredOptionsForCurrency: Observable<LookupState[]>;
-  filteredOptionsForManufacturingCompany:[any];
+  filteredOptionsForManufacturingCompany: [any];
   filteredOptionsForManufacturingCountry: Observable<LookupState[]>;
   filteredOptionsForPackingManufacturingCompany: Observable<LookupState[]>;
   filteredOptionsForPackingManufacturingCountry: Observable<LookupState[]>;
@@ -69,19 +81,89 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
   filteredOptionsForFunction: Observable<LookupState[]>;
   formData = null;
   attachmentFields: AttachemntObject[] = [
-    { dbTableId:1,id: 'bolPolicy',name: 'BOL',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,},
-    { dbTableId:10003,id: 'customReleaseRequest', name: 'Custom Release Request',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,},
-    { dbTableId:3,id: 'receipt',name: 'Receipt',fileName: '', fileValue: '',required: false,enable: true, attachmentTypeStatus: '',loadingStatus: false,},  
- // { dbTableId:4,id: 'exportPledge', name: 'Export Pledge',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false, },
-    { dbTableId:5,id: 'importersRecord',  name: 'Importers Record',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,},
-    { dbTableId:10002,id: 'other',name: 'Other',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,},
+    {
+      dbTableId: 1,
+      id: 'bolPolicy',
+      name: 'BOL',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
+    },
+    {
+      dbTableId: 10003,
+      id: 'customReleaseRequest',
+      name: 'Custom Release Request',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
+    },
+    {
+      dbTableId: 3,
+      id: 'receipt',
+      name: 'Receipt',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
+    },
+    // { dbTableId:4,id: 'exportPledge', name: 'Export Pledge',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false, },
+    {
+      dbTableId: 5,
+      id: 'importersRecord',
+      name: 'Importers Record',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
+    },
+    {
+      dbTableId: 10002,
+      id: 'other',
+      name: 'Other',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
+    },
   ];
   InvoiceAttachmentFields: AttachemntObject[] = [
-    {dbTableId:6, id: 'invoice',name: 'Invoice',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false},
-    {dbTableId:2,id: 'packingList',name: 'Packing List',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,},
-   
+    {
+      dbTableId: 6,
+      id: 'invoice',
+      name: 'Invoice',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false
+    },
+    {
+      dbTableId: 2,
+      id: 'packingList',
+      name: 'Packing List',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
+    },
+
   ];
- 
+
   ItemAttachmentFields: AttachemntObject[] = [];
   fileStructure;
   attachmentRequiredStatus: boolean = false;
@@ -90,7 +172,7 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
     tableBody: []
   };
   itemListTable = {
-    tableHeader: ['itemName','approvalNo','itemType', 'importReason', 'manufacturingCompany', 'quantity', 'batchNo', 'Actions'],
+    tableHeader: ['itemName', 'approvalNo', 'itemType', 'importReason', 'manufacturingCompany', 'quantity', 'batchNo', 'Actions'],
     tableBody: []
   };
 
@@ -99,7 +181,7 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
     tableBody: []
   };
   manufacturingListTable = {
-    tableHeader: ['select','manufactureCompany', 'manufactureCountry'],
+    tableHeader: ['select', 'manufactureCompany', 'manufactureCountry'],
     tableBody: []
   };
   packagingListTable = {
@@ -113,54 +195,131 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
   premixField;
   rowMaterialNameField = new FormControl();
   sourceOfRowMaterialField;
-  ProductTypeField:string='';
+  ProductTypeField: string = '';
   showNotificationNoStatus: boolean = false;
   notificationNo;
   editItemIndex;
   editItemRowStatus = false;
   customImportRelease: any = [];
   serviceId;
-  parentRequestId:number;
-  serviceAction:string;
+  parentRequestId: number;
+  serviceAction: string;
   serviceTypeId;
   serviceTypeName;
   ServiceActionId;
-  customReleaseEdited:boolean=false;
-  customReleaseReplaced:boolean=false;
+  customReleaseEdited: boolean = false;
+  customReleaseReplaced: boolean = false;
 
   OutofSpectializationServiceAttachmentFields: AttachemntObject[] = [
-    {dbTableId:10004,
-      id: 'MSDS',name: 'MSDS ',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,
+    {
+      dbTableId: 10004,
+      id: 'MSDS',
+      name: 'MSDS ',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
     },
-    {dbTableId:8,
-      id: 'certificateOfOrigin',name: 'Certificate of origin ',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,
+    {
+      dbTableId: 8,
+      id: 'certificateOfOrigin',
+      name: 'Certificate of origin ',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
     },
-    {dbTableId:10005,
-      id: 'customsCertificate',name: 'customs certificate ',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,
+    {
+      dbTableId: 10005,
+      id: 'customsCertificate',
+      name: 'customs certificate ',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
     },
   ];
   PrivateUseServiceAttachmentFields: AttachemntObject[] = [
-    {dbTableId:10006,
-      id: 'customsInspection',name: 'customs Inspection ',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,
+    {
+      dbTableId: 10006,
+      id: 'customsInspection',
+      name: 'customs Inspection ',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
     },
-    {dbTableId:8,
-      id: 'certificateOfOrigin',name: 'Certificate of origin ',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,
+    {
+      dbTableId: 8,
+      id: 'certificateOfOrigin',
+      name: 'Certificate of origin ',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
     },
-    {dbTableId:10007,
-      id: 'useInsideFacility',name: 'use Inside Facility',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,
+    {
+      dbTableId: 10007,
+      id: 'useInsideFacility',
+      name: 'use Inside Facility',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
     },
   ];
   samplesServiceAttachmentFields: AttachemntObject[] = [
-    
-    {dbTableId:8,
-      id: 'certificateOfOrigin',name: 'Certificate of origin ',fileName: '',fileValue: '',required: false,enable: true,attachmentTypeStatus: '',loadingStatus: false,
+
+    {
+      dbTableId: 8,
+      id: 'certificateOfOrigin',
+      name: 'Certificate of origin ',
+      fileName: '',
+      fileValue: '',
+      required: false,
+      enable: true,
+      attachmentTypeStatus: '',
+      loadingStatus: false,
     }
   ];
   allItemTypeAttachmentFields = {
     PRODUCTS: [
       {
-        id: 'certificateOfOrigin',name: 'Certificate Of Origin',fileName: '',fileValue: '',required: false,enable: false,enabledCondition: true,relatedWithField: ['FINISHED_PRDUCTS'],attachmentTypeStatus: '',loadingStatus: false,},
-      { id: 'companyManufactureRelationship',name: 'Company Manufacture Relationship',fileName: '',fileValue: '',required: false,enable: false, enabledCondition: true,relatedWithField: ['FINISHED_PRDUCTS'],attachmentTypeStatus: '',loadingStatus: false,},
+        id: 'certificateOfOrigin',
+        name: 'Certificate Of Origin',
+        fileName: '',
+        fileValue: '',
+        required: false,
+        enable: false,
+        enabledCondition: true,
+        relatedWithField: ['FINISHED_PRDUCTS'],
+        attachmentTypeStatus: '',
+        loadingStatus: false,
+      },
+      {
+        id: 'companyManufactureRelationship',
+        name: 'Company Manufacture Relationship',
+        fileName: '',
+        fileValue: '',
+        required: false,
+        enable: false,
+        enabledCondition: true,
+        relatedWithField: ['FINISHED_PRDUCTS'],
+        attachmentTypeStatus: '',
+        loadingStatus: false,
+      },
 
       {
         id: 'legalizedHealthCertificate',
@@ -218,7 +377,7 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
         attachmentTypeStatus: '',
         loadingStatus: false,
       },
-        {
+      {
         id: 'packingList',
         name: 'Packing list',
         fileName: '',
@@ -227,7 +386,7 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
         enable: true,
         attachmentTypeStatus: '',
         loadingStatus: false,
-      },  
+      },
     ],
     RAW_MATERIAL: [
       {
@@ -336,71 +495,69 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
   arrayOfObservablesForFunction: Observable<LookupState[]>[] = [];
   subscription: Subscription;
   showDetailsTab: boolean = false;
-  showCommentsButton:boolean=false;
- 
-  constructor(private fb: FormBuilder,private number: DecimalPipe,private router: Router,private route: ActivatedRoute,
-              private inputService: InputService,public translateService: TranslateService,private modalService: BsModalService,private getService: FormService, private dialog: MatDialog)           
-  {   
-      this.route.params.subscribe(res => {
-      if (res.id) 
-      {  
+  showCommentsButton: boolean = false;
+
+  constructor(private fb: FormBuilder, private number: DecimalPipe, private router: Router, private route: ActivatedRoute,
+              private inputService: InputService, public translateService: TranslateService, private modalService: BsModalService, private getService: FormService, private dialog: MatDialog) {
+    this.route.params.subscribe(res => {
+      if (res.id) {
         this.getService.getRequestWithId(res.id).subscribe(request => {
-          if(request)
-          {  console.log('req55',request)
-            this.showCommentsButton=true;
-            this.invoiceListTable.tableBody=[];
-            this.itemListTable.tableBody=[];
-            this.serviceId=request.lkupServicesId;
-            this.serviceTypeName=request.lkupServicesName;
-            this.serviceTypeId=request.lkupServiceTypeId;
+          if (request) {
+            this.showCommentsButton = true;
+            this.invoiceListTable.tableBody = [];
+            this.itemListTable.tableBody = [];
+            this.serviceId = request.lkupServicesId;
+            this.serviceTypeName = request.lkupServicesName;
+            this.serviceTypeId = request.lkupServiceTypeId;
             this.setAttachmentValues(request);
             this.setInvoiceAttachmentValues(request);
             this.getFormAsStarting(request);
           }
-        }) 
+        })
       }
-      if(res.serviceId)
-      {
+      if (res.serviceId) {
         this.serviceId = res.serviceId;
         this.serviceTypeId = res.serviceTypeId;
-        this.serviceTypeName =  res.serviceTypeName;} 
-      });
-      this.isServiceOfTypeSamples( this.serviceTypeName);
-        this.getFormAsStarting('', '');
-        this.getInvoicesFormAsStarting('', '');
-        this.getItemsFormAsStarting('', '');
+        this.serviceTypeName = res.serviceTypeName;
+      }
+    });
+    this.isServiceOfTypeSamples(this.serviceTypeName);
+    this.getFormAsStarting('', '');
+    this.getInvoicesFormAsStarting('', '');
+    this.getItemsFormAsStarting('', '');
   }
-  isSamplesService:boolean=false;
-  isServiceOfTypeSamples(serviceName:string)
-  {
-    if(serviceName==='Samples' ||serviceName==='R&D Samples' ||serviceName==='Samples of Packing Materials')
-    {
-      this.isSamplesService=true;
+
+  isSamplesService: boolean = false;
+
+  isServiceOfTypeSamples(serviceName: string) {
+    if (serviceName === 'Samples' || serviceName === 'R&D Samples' || serviceName === 'Samples of Packing Materials') {
+      this.isSamplesService = true;
     }
 
   }
+
   ngOnInit(): void {
-    
+
     //Reem [Start] && edit and replace for lost
     this.route.queryParams.subscribe(params => {
-    this.parentRequestId = params.parentRequestId;
-    if(this.parentRequestId){
-    this.customReleaseEdited=true;
-    }
-    this.serviceAction= params.serviceAction;
-    if(this.serviceAction=='Edit'){
-      this.ServiceActionId=2;
-    }
-  
-    if(this.serviceAction=='Replace'){
-      this.customReleaseReplaced=true;
-      this.regCustomReleaseForm.disable();
-      this.regInvoicesForm.disable();
-      this.regItemsForm.disable();
-      this.ServiceActionId=3;
-    }
-    }
-  );
+        this.parentRequestId = params.parentRequestId;
+        if (this.parentRequestId) {
+          this.customReleaseEdited = true;
+        }
+        this.serviceAction = params.serviceAction;
+        if (this.serviceAction == 'Edit') {
+          this.ServiceActionId = 2;
+        }
+
+        if (this.serviceAction == 'Replace') {
+          this.customReleaseReplaced = true;
+          this.regCustomReleaseForm.disable();
+          this.regInvoicesForm.disable();
+          this.regItemsForm.disable();
+          this.ServiceActionId = 3;
+        }
+      }
+    );
     //Reem [End]
     this.inputService.getInput$().pipe(
       filter(x => x.type === 'allLookups'),
@@ -409,36 +566,35 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
       this.formData = {
         ...res.payload,
         premixNameList: [
-          {id: 'localFactory',name: 'Local factory'},
-          {id: 'premixBatches',name: 'Premix Batches'}], 
-    
-        sourceOfRawMaterialList: [    
+          {id: 'localFactory', name: 'Local factory'},
+          {id: 'premixBatches', name: 'Premix Batches'}],
+
+        sourceOfRawMaterialList: [
           {id: 'animal', name: 'Animal'},
           {id: 'vegetable', name: 'Vegetable'},
-          {id: 'marain',name: 'Marain'},
-          {id: 'chemical',name: 'Chemical'}, 
-          {id: 'wool',name: 'Wool'}],
-    
+          {id: 'marain', name: 'Marain'},
+          {id: 'chemical', name: 'Chemical'},
+          {id: 'wool', name: 'Wool'}],
+
         packingMaterialList: [
-          {id: 'animal',name: 'Animal'},
-          {id: 'vegetable', name: 'Vegetable'}, 
-          {id: 'marain', name: 'Marain'}, 
-          {id: 'chemical',name: 'Chemical'},
-          {id: 'wool',name: 'Wool'} ], 
-        
+          {id: 'animal', name: 'Animal'},
+          {id: 'vegetable', name: 'Vegetable'},
+          {id: 'marain', name: 'Marain'},
+          {id: 'chemical', name: 'Chemical'},
+          {id: 'wool', name: 'Wool'}],
+
         typeOfRegistrationList: [
-          {id: 'notified',name: {en: 'Notified',ar: ''}},
-          {id: 'oldRegistration',name: {en: 'Old Registration',ar: ''}},],
+          {id: 'notified', name: {en: 'Notified', ar: ''}},
+          {id: 'oldRegistration', name: {en: 'Old Registration', ar: ''}},],
         productTypeList: [
-            {id: 'referenced',name: {en: 'Referenced',ar: 'مرجعي'}},
-            {id: 'nonReferenced',name: {en: 'NoN Referenced',ar: 'غير مرجعي'}},]
-    
-        };             
-       this.isLoading = false;
+          {id: 'referenced', name: {en: 'Referenced', ar: 'مرجعي'}},
+          {id: 'nonReferenced', name: {en: 'NoN Referenced', ar: 'غير مرجعي'}},]
+
+      };
+      this.isLoading = false;
     });
 
-  
-   
+
     this.inputService.getInput$().pipe(
       filter(x => x.type === 'CompanyData'),
       distinctUntilChanged()
@@ -447,7 +603,6 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
       this.setApplicant(res.payload.CompanyName);
       this.companyId = res.payload.companyId;
     });
- 
 
 
     this.inputService.getInput$().pipe(
@@ -482,60 +637,63 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
       if (this.formData.itemTypeList.length === 1) {
         this.itemType = this.formData.itemTypeList[0];
         this.disableItemTypeField = true;
-       
+
         this.getTermType({value: this.formData.itemTypeList[0]});
       }
     });
- 
+
     this.regCustomReleaseForm.get('releaseTypeId').valueChanges.subscribe((res) => {
-      this.selectedReleaseTypeId = this.getIdFromLookupByName(this.formData?.releaseType,res);
+      this.selectedReleaseTypeId = this.getIdFromLookupByName(this.formData?.releaseType, res);
       this.renderingTheItemAttachment(this.itemType, this.importReason);
     });
     this.regCustomReleaseForm.get('lkupPortsId').valueChanges.subscribe((res) => {
-      this.selectedPortId = this.getIdFromLookupByName( this.formData?.ports, res)}
-      );
-    
-    
-  this.setAllLookupsInObservable();
+        this.selectedPortId = this.getIdFromLookupByName(this.formData?.ports, res)
+      }
+    );
+
+
+    this.setAllLookupsInObservable();
     this.route.params.subscribe(res => {
-      if (res.id) 
-      {  
+      if (res.id) {
         this.getService.getRequestWithId(res.id).subscribe(request => {
-          if(request)
-          {    console.log('req55',request)
-            this.showCommentsButton=true;
-            this.invoiceListTable.tableBody=[];
-            this.itemListTable.tableBody=[];
-            this.serviceId=request.lkupServicesId;
-            this.serviceTypeName=request.lkupServicesName;
-            this.serviceTypeId=request.lkupServiceTypeId;
+          if (request) {
+            this.showCommentsButton = true;
+            this.invoiceListTable.tableBody = [];
+            this.itemListTable.tableBody = [];
+            this.serviceId = request.lkupServicesId;
+            this.serviceTypeName = request.lkupServicesName;
+            this.serviceTypeId = request.lkupServiceTypeId;
             this.setAttachmentValues(request);
             this.setInvoiceAttachmentValues(request);
-            this.getFormAsStarting(request);     
+            this.getFormAsStarting(request);
           }
-        }) 
+        })
       }
-     
-    
-      if(res.serviceId)
-      {
+
+
+      if (res.serviceId) {
         this.serviceId = res.serviceId;
         this.serviceTypeId = res.serviceTypeId;
-        this.serviceTypeName =  res.serviceTypeName;} 
-      });
-      this.isServiceOfTypeSamples( this.serviceTypeName);
-     
+        this.serviceTypeName = res.serviceTypeName;
+      }
+    });
+    this.isServiceOfTypeSamples(this.serviceTypeName);
+
   }
- fillFormData()
- {       this.getService.getAllInvoiceItemTypes().subscribe((res: any) => {
-  if (res) {
-    this.formData.itemTypeList = res;
+
+  fillFormData() {
+    this.getService.getAllInvoiceItemTypes().subscribe((res: any) => {
+      if (res) {
+        this.formData.itemTypeList = res;
+      }
+    }), error => this.handleError(error);
   }
-}), error => this.handleError(error); }
-  typeOfPackagingList:[any];
+
+  typeOfPackagingList: [any];
   selectedtypeOfPackagingId: number;
+
   setAllLookupsInObservable() {
-   
+
     this.filteredOptionsForRawMaterialType = this.filterLookupsFunction('rowMaterialNameField', this.rowMaterialNameField, this.formData?.rawMaterialList);
     this.filteredOptionsForRequestedReleaseType = this.filterLookupsFunction('releaseType', this.regCustomReleaseForm.get('releaseTypeId'), this.formData?.releaseType);
     this.filteredOptionsForCustomPortName = this.filterLookupsFunction('ports', this.regCustomReleaseForm.get('lkupPortsId'), this.formData?.ports);
@@ -546,14 +704,18 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
     this.filteredOptionsForIngredientList = this.filterLookupsFunction('ingredient', this.regItemsForm.get('ingredient'), this.formData?.ingredient);
     this.filteredOptionsForFunctionList = this.filterLookupsFunction('function', this.regItemsForm.get('function'), this.formData?.function);
     this.filteredOptionsForUOM = this.filterLookupsFunction('uom', this.regItemsForm.get('uom'), this.formData?.unitOfMeasure);
-    this.getService.getManufactureCompanies().subscribe((res: any) => {this.filteredOptionsForManufacturingCompany =res; }, error => this.handleError(error));  
-    
+    this.getService.getManufactureCompanies().subscribe((res: any) => {
+      this.filteredOptionsForManufacturingCompany = res;
+    }, error => this.handleError(error));
+
   }
+
   setApplicant(companyProfileName) {
     this.regCustomReleaseForm.patchValue({
       applicant: companyProfileName
     })
   }
+
   nextToNextTab(whichTab) {
 
     let activeTabIndex;
@@ -568,13 +730,12 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
   }
 
   async getTermType(event): Promise<any> {
-  
-    if(event.value ==undefined)
-    {
+
+    if (event.value == undefined) {
       this.fillFormData();
     }
     this.formData.itemTypeList.filter(item => item.id === event.value.id).map(res => {
-     
+
       this.formData.importReasonList = this.formData.importReason[this.formData.itemTypeList.indexOf(res)]
       this.importReason = '';
 
@@ -587,7 +748,7 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
     this.getItemsFormAsStarting('', '');
   }
 
-  onFileSelect(event, fileControlName,attachmentList,listName) {
+  onFileSelect(event, fileControlName, attachmentList, listName) {
     let attachmentValue;
     if (attachmentList.filter(x => x.loadingStatus === true).length === 0) {
       if (event.target.files.length > 0) {
@@ -608,26 +769,26 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
             if (!this.regCustomReleaseForm.value.id) {
               this.handleError('Please save the request first');
             } else {
-              var reqId=0;
-              switch(listName) { 
-                case 'attachmentFields': { 
-                  reqId=this.regCustomReleaseForm.value.id;
-                   break; 
-                } 
-                case 'InvoiceAttachmentFields': { 
-                  reqId=this.regInvoicesForm.value.id;
-                   break; 
+              var reqId = 0;
+              switch (listName) {
+                case 'attachmentFields': {
+                  reqId = this.regCustomReleaseForm.value.id;
+                  break;
                 }
-                case 'ItemAttachmentFields': { 
-                  reqId=this.regItemsForm.value.id;
-                   break; 
-                } 
-                default: { 
-                  reqId=this.regCustomReleaseForm.value.id;
-                   break; 
-                } 
-             }
-              this.setAttachmentFileFunction(reqId, fileControlName, this.fileStructure.name, 0, res.target.result, attachmentValue,attachmentList,listName);
+                case 'InvoiceAttachmentFields': {
+                  reqId = this.regInvoicesForm.value.id;
+                  break;
+                }
+                case 'ItemAttachmentFields': {
+                  reqId = this.regItemsForm.value.id;
+                  break;
+                }
+                default: {
+                  reqId = this.regCustomReleaseForm.value.id;
+                  break;
+                }
+              }
+              this.setAttachmentFileFunction(reqId, fileControlName, this.fileStructure.name, 0, res.target.result, attachmentValue, attachmentList, listName);
             }
           };
 
@@ -641,74 +802,75 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
     }
   }
 
-  setAttachmentFileFunction(requestId, FileID, FileName, id, base64Data, fileValue,attachmentList,ListName) {
-  
+  setAttachmentFileFunction(requestId, FileID, FileName, id, base64Data, fileValue, attachmentList, ListName) {
+
     const dataForRequest = this.convertDataForAttachmentRequestBody(requestId, FileID, FileName, id, base64Data, fileValue);
-    var objtype=1;
-    switch(ListName) { 
-      case 'attachmentFields': { 
-        objtype=1;
-         break; 
-      } 
-      case 'InvoiceAttachmentFields': { 
-        objtype=2;
-         break; 
+    var objtype = 1;
+    switch (ListName) {
+      case 'attachmentFields': {
+        objtype = 1;
+        break;
       }
-      case 'ItemAttachmentFields': { 
-        objtype=3;
-         break; 
-      } 
-      default: { 
-        objtype=1;
-         break; 
-      } 
-   }
-    const uploadObj=
-    {
-      objectTypeId: objtype,
-      objectId: requestId,
-      lkupAttachmentsId: attachmentList.find(x => x.id === FileID).dbTableId,
-      base64Data: base64Data
+      case 'InvoiceAttachmentFields': {
+        objtype = 2;
+        break;
+      }
+      case 'ItemAttachmentFields': {
+        objtype = 3;
+        break;
+      }
+      default: {
+        objtype = 1;
+        break;
+      }
     }
+    const uploadObj =
+      {
+        objectTypeId: objtype,
+        objectId: requestId,
+        lkupAttachmentsId: attachmentList.find(x => x.id === FileID).dbTableId,
+        base64Data: base64Data
+      }
     debugger;
-      this.getService.uploadOnOpenText(uploadObj).subscribe((res: any) => {
-      
+    this.getService.uploadOnOpenText(uploadObj).subscribe((res: any) => {
+
       this.handleSuccess("uploaded Successfully");
       attachmentList.find(x => x.id === FileID).fileValue = res;
-      switch(attachmentList) { 
-        case 'attachmentFields': { 
+      switch (attachmentList) {
+        case 'attachmentFields': {
           this.regCustomReleaseForm.get(FileID).setValue(res);
-           break; 
-        } 
-        case 'PrivateUseServiceAttachmentFields': { 
-          this.regCustomReleaseForm.get(FileID).setValue(res);
-           break; 
-        } 
-        case 'samplesServiceAttachmentFields': { 
-          this.regCustomReleaseForm.get(FileID).setValue(res);
-           break; 
-        } 
-        case 'OutofSpectializationServiceAttachmentFields': { 
-          this.regCustomReleaseForm.get(FileID).setValue(res);
-           break; 
-        } 
-        case 'InvoiceAttachmentFields': { 
-          this.regInvoicesForm.get(FileID).setValue(res);
-           break; 
+          break;
         }
-        case 'ItemAttachmentFields': { 
+        case 'PrivateUseServiceAttachmentFields': {
+          this.regCustomReleaseForm.get(FileID).setValue(res);
+          break;
+        }
+        case 'samplesServiceAttachmentFields': {
+          this.regCustomReleaseForm.get(FileID).setValue(res);
+          break;
+        }
+        case 'OutofSpectializationServiceAttachmentFields': {
+          this.regCustomReleaseForm.get(FileID).setValue(res);
+          break;
+        }
+        case 'InvoiceAttachmentFields': {
+          this.regInvoicesForm.get(FileID).setValue(res);
+          break;
+        }
+        case 'ItemAttachmentFields': {
           this.regItemsForm.get(FileID).setValue(res);
-           break; 
-        } 
-        default: { 
-          
-           break; 
-        } 
-     }    
-});
+          break;
+        }
+        default: {
 
-  
+          break;
+        }
+      }
+    });
+
+
   }
+
   convertDataForAttachmentRequestBody(requestId, FileID, FileName, id, base64Data, fileValue) {
     return {
       RequestId: this.regCustomReleaseForm.value.id,
@@ -719,43 +881,43 @@ export class FinishedProductSamplesComponent implements OnInit, OnDestroy {
     };
   }
 
-  downloadFile(FileId,fileValue,attachmentList) {
+  downloadFile(FileId, fileValue, attachmentList) {
 
-fileValue= attachmentList.find(x => x.id === FileId).fileValue ;
+    fileValue = attachmentList.find(x => x.id === FileId).fileValue;
 
-const fileName= attachmentList.find(x => x.id === FileId).fileName ;
+    const fileName = attachmentList.find(x => x.id === FileId).fileName;
 
-this.getService.GetDocumentAsBase64(fileValue)
-.subscribe((res: any) => {
+    this.getService.GetDocumentAsBase64(fileValue)
+      .subscribe((res: any) => {
 
-const source = `data:application/pdf;base64,${res.base64data}`;
-const link = document.createElement("a");
-link.href = source;
-link.download = `${fileName}`
-link.click();
-this.handleSuccess("Downloaded Successfully");}
-
-)
+          const source = `data:application/pdf;base64,${res.base64data}`;
+          const link = document.createElement("a");
+          link.href = source;
+          link.download = `${fileName}`
+          link.click();
+          this.handleSuccess("Downloaded Successfully");
+        }
+      )
   }
 
 
   getDecimalValue(value, fromWhere) {
     this.regCustomReleaseForm.patchValue({
-    //  receiptValue: this.number.transform(this.regCustomReleaseForm.get('receiptValue').value, '1.2-2')
+      //  receiptValue: this.number.transform(this.regCustomReleaseForm.get('receiptValue').value, '1.2-2')
     }, {emitEvent: false});
   }
 
   getFormAsStarting(data, fromWhere?: string) {
-    
+
     if (data) {
       this.formData.releaseType.filter(item => item.id === data.releaseTypeId).map(x => data.releaseTypeId = x.name[this.currentLang]);
       this.formData.ports.filter(item => item.id === data.lkupPortsId).map(x => data.lkupPortsId = x.name[this.currentLang]);
       this.formData.unitOfMeasure.filter(item => item.id === data.lkupUomId).map(x => data.lkupUomId = x.name[this.currentLang]);
-      data.fRefrencedCountry=data.fRefrencedCountry? 'referenced':'nonReferenced';
+      data.fRefrencedCountry = data.fRefrencedCountry ? 'referenced' : 'nonReferenced';
       data.invoices ? data.invoices.map(x => {
-        x.currency=  this.formData.currencies.filter(option => option.id === x.lkupCurrencyId).map(item => x.lkupCurrencyId = item.name[this.currentLang]);
-        x.supplierCountry=x.supplierCountryId //this.formData.countries.filter(option => option.id === x.supplierCountryId).map(item => x.supplierCountryId = item.name[this.currentLang]);
-     
+        x.currency = this.formData.currencies.filter(option => option.id === x.lkupCurrencyId).map(item => x.lkupCurrencyId = item.name[this.currentLang]);
+        x.supplierCountry = x.supplierCountryId //this.formData.countries.filter(option => option.id === x.supplierCountryId).map(item => x.supplierCountryId = item.name[this.currentLang]);
+
         //itemDetails
         x.releaseItemDtos ? x.releaseItemDtos.map(item => {
           this.formData.countries.filter(option => option.id === x.manufacturingCompany).map(item => x.manufacturingCompany = item.name[this.currentLang]);
@@ -764,11 +926,11 @@ this.handleSuccess("Downloaded Successfully");}
           this.formData.unitOfMeasure.filter(option => option.id === x.uom).map(item => x.uom = item.name[this.currentLang]);
         }) : null;
       }) : null;
-       setTimeout(() => {
+      setTimeout(() => {
         this.invoiceListTable.tableBody = [];
         data.invoices ? data.invoices.map((x, i) => {
           this.invoiceListTable.tableBody = [...this.invoiceListTable.tableBody, x];
-          this.itemListTable.tableBody=[];
+          this.itemListTable.tableBody = [];
           x.releaseItemDtos ? x.releaseItemDtos.map((item, i) => {
             this.itemListTable.tableBody = [...this.itemListTable.tableBody, item];
           }) : null;
@@ -781,13 +943,12 @@ this.handleSuccess("Downloaded Successfully");}
       });
       this.setApplicant(this.companyName);
       data.receiptValue === 0 ? this.regCustomReleaseForm.get('receiptValue').patchValue('') : null;
-    } 
-    else {
+    } else {
       const myDate = new Date();
 
       this.regCustomReleaseForm = this.fb.group({
         id: 0,
-        noOfItems:this.fb.control(''),
+        noOfItems: this.fb.control(''),
         customCertificate: this.fb.control('', Validators.required),
         releaseTypeId: this.fb.control('', Validators.required),
         bolNo: this.fb.control('', Validators.required),
@@ -807,7 +968,7 @@ this.handleSuccess("Downloaded Successfully");}
         lkupServiceTypeId: null,
         syslkupServiceActionId: null,
         dueDate: myDate,
-        ProductTypeField:this.fb.control(''),
+        ProductTypeField: this.fb.control(''),
         companyRolesId: null,
         lkupTrackTypeId: null,
         fComplete: false,
@@ -817,20 +978,21 @@ this.handleSuccess("Downloaded Successfully");}
         receipt: this.fb.control(''),
         exportPledge: this.fb.control(''),
         importersRecord: this.fb.control(''),
-        customReleaseRequest:this.fb.control(''),
-        other:this.fb.control(''),
-        fRefrencedCountry:this.fb.control(''),
+        customReleaseRequest: this.fb.control(''),
+        other: this.fb.control(''),
+        fRefrencedCountry: this.fb.control(''),
       });
     }
   }
- 
+
   getInvoicesFormAsStarting(data, fromWhere?: string) {
-  
+
     if (data) {
-      this.regInvoicesForm.patchValue({...data,
-        currency:data.lkupCurrencyName,
+      this.regInvoicesForm.patchValue({
+        ...data,
+        currency: data.lkupCurrencyName,
         supplierCountry: this.formData.countries.filter(item => item.id === data.supplierCountryId).map(x => data.supplierCountryId = x.name[this.currentLang]),
-       })
+      })
     } else {
       this.regInvoicesForm = this.fb.group({
 
@@ -846,24 +1008,26 @@ this.handleSuccess("Downloaded Successfully");}
         supplierCountry: this.fb.control(''),
         InvoiceApprovalNo: this.fb.control('', Validators.required),
         packingList: this.fb.control(''),
-        noOfItems:this.fb.control(''),
-      
+        noOfItems: this.fb.control(''),
+
       });
     }
   }
+
   getItemsFormAsStarting(data, fromWhere?: string) {
- 
+
     if (data) {
       this.formData.itemTypeList.filter(item => item.id === data.ItemTypeId).map(x => this.itemType = x.name[this.currentLang]);
       this.formData.importReasonList.filter(item => item.id === data.importReason).map(x => this.importReason = x.name[this.currentLang]);
       this.formData.unitOfMeasure.filter(item => item.id === data.uom).map(x => data.uom = x.name[this.currentLang]);
-      this.regItemsForm.patchValue({...data,
-        shortName:data.itemCosmProductDto.productShortname,
-        ProductEnglishName:data.itemCosmProductDto.productName,
-        batchNo:data.itemCosmProductDto.batchNo,
+      this.regItemsForm.patchValue({
+        ...data,
+        shortName: data.itemCosmProductDto.productShortname,
+        ProductEnglishName: data.itemCosmProductDto.productName,
+        batchNo: data.itemCosmProductDto.batchNo,
         uom: this.formData.unitOfMeasure.filter(item => item.id === data.lkupUomId).map(x => data.lkupUomId = x.name[this.currentLang]),
       })
-     
+
     } else {
       this.regItemsForm = this.fb.group({
         id: 0,
@@ -895,40 +1059,40 @@ this.handleSuccess("Downloaded Successfully");}
         sourceOfRawMaterialName: this.itemType === 'RAW_MATERIAL' ? this.fb.control('') : this.fb.control(''),
         declarationOfFreeOfSalmonella: this.itemType === 'RAW_MATERIAL' && this.importReason !== 'RAW_MAT_RD' ? this.fb.control('') : this.fb.control(''),
         packingList: this.itemType === 'PREMIX' ? this.fb.control('') : this.fb.control(''),
-        MSDS : this.fb.control(''),
+        MSDS: this.fb.control(''),
         customsCertificate: this.fb.control(''),
         customsInspection: this.fb.control(''),
         useInsideFacility: this.fb.control(''),
         foc: this.fb.control('', Validators.required),
         workingStandard: this.fb.control('', Validators.required),
-        
+
       });
     }
   }
 
   async onSubmitInvoices(): Promise<any> {
-      const data = this.regInvoicesForm.value;
-      if (!this.editInvoiceIndex && this.editInvoiceIndex !== 0) {
-        this.regCustomReleaseForm.value.invoices.push({...data});
-      } else {
-        this.regCustomReleaseForm.get('invoices').value[this.editInvoiceIndex] = {
-          ...this.regCustomReleaseForm.get('invoices').value[this.editInvoiceIndex],
-          ...data
-        };
-        this.editInvoiceRowStatus = false;
-        this.editInvoiceIndex = '';
-      }
-      this.invoiceListTable.tableBody = this.regCustomReleaseForm.get('invoices').value;
-      this.getInvoicesFormAsStarting('', '');
-      this.hideInvoiceContainer();
+    const data = this.regInvoicesForm.value;
+    if (!this.editInvoiceIndex && this.editInvoiceIndex !== 0) {
+      this.regCustomReleaseForm.value.invoices.push({...data});
+    } else {
+      this.regCustomReleaseForm.get('invoices').value[this.editInvoiceIndex] = {
+        ...this.regCustomReleaseForm.get('invoices').value[this.editInvoiceIndex],
+        ...data
+      };
+      this.editInvoiceRowStatus = false;
+      this.editInvoiceIndex = '';
+    }
+    this.invoiceListTable.tableBody = this.regCustomReleaseForm.get('invoices').value;
+    this.getInvoicesFormAsStarting('', '');
+    this.hideInvoiceContainer();
   }
-  
+
   async onSubmitItems(): Promise<any> {
-  
+
     const data = {
       ...this.regItemsForm.value,
-      ItemTypeId:this.itemType? this.itemType.name[this.currentLang]: 1,
-      importReason:this.importReason? this.importReason.name[this.currentLang]:0,
+      ItemTypeId: this.itemType ? this.itemType.name[this.currentLang] : 1,
+      importReason: this.importReason ? this.importReason.name[this.currentLang] : 0,
     };
     data.uom = await this.checkControllerValueWithListForFormArray(this.regItemsForm, this.formData?.unitOfMeasure, 'uom', data.uom);
     data.premixName = await this.checkControllerValueWithListForFormArray(this.regItemsForm, this.formData?.premixNameList, 'premixName', data.premixName);
@@ -936,21 +1100,21 @@ this.handleSuccess("Downloaded Successfully");}
     data.function = await this.checkControllerValueWithListForFormArray(this.regItemsForm, this.formData?.function, 'function', data.function);
     data.rawMaterialName = await this.checkControllerValueWithListForFormArray(this.regItemsForm, this.formData?.rawMaterialList, 'rawMaterialName', data.rawMaterialName);
     data.sourceOfRawMaterialName = await this.checkControllerValueWithListForFormArray(this.regItemsForm, this.formData?.sourceOfRawMaterialList, 'sourceOfRawMaterialName', data.sourceOfRawMaterialName);
-    data.packingItemName = await this.checkControllerValueWithListForFormArray(this.regItemsForm, this.formData?.packingMaterialList, 'packingItemName', data.packingItemName);                                        
-   // if (this.regItemsForm.valid) {
-      if (!this.editItemIndex && this.editItemIndex !== 0) {
-        this.regInvoicesForm.value.releaseItemDtos.push({...data});
-      } else {
-        this.regInvoicesForm.get('releaseItemDtos').value[this.editItemIndex] = {
-          ...this.regInvoicesForm.get('releaseItemDtos').value[this.editItemIndex],
-          ...data
-        };
-        this.editItemRowStatus = false;
-        this.editItemIndex = '';
-      }
-      this.itemListTable.tableBody = this.regInvoicesForm.get('releaseItemDtos').value;
-      this.getItemsFormAsStarting('', '');
-      this.hideItemContainer();
+    data.packingItemName = await this.checkControllerValueWithListForFormArray(this.regItemsForm, this.formData?.packingMaterialList, 'packingItemName', data.packingItemName);
+    // if (this.regItemsForm.valid) {
+    if (!this.editItemIndex && this.editItemIndex !== 0) {
+      this.regInvoicesForm.value.releaseItemDtos.push({...data});
+    } else {
+      this.regInvoicesForm.get('releaseItemDtos').value[this.editItemIndex] = {
+        ...this.regInvoicesForm.get('releaseItemDtos').value[this.editItemIndex],
+        ...data
+      };
+      this.editItemRowStatus = false;
+      this.editItemIndex = '';
+    }
+    this.itemListTable.tableBody = this.regInvoicesForm.get('releaseItemDtos').value;
+    this.getItemsFormAsStarting('', '');
+    this.hideItemContainer();
 
     this.releaseItemsList.push(this.releaseItemDto)
   }
@@ -980,13 +1144,15 @@ this.handleSuccess("Downloaded Successfully");}
   showInvoiceContainer() {
     this.invoiceContainerDisplayStatus = true;
   }
+
   showItemContainer() {
     this.itemContainerDisplayStatus = true;
   }
+
   hideInvoiceContainer() {
     this.invoiceContainerDisplayStatus = false;
 
-   this.getInvoicesFormAsStarting('')
+    this.getInvoicesFormAsStarting('')
   }
 
   hideItemContainer() {
@@ -1001,25 +1167,27 @@ this.handleSuccess("Downloaded Successfully");}
     this.editItemRowStatus = true;
     this.getItemsFormAsStarting(event.item);
 
-    
+
   }
+
   deleteItem(event) {
     this.regInvoicesForm.get('releaseItemDtos').value.splice(event.index, 1);
     this.itemListTable.tableBody = [];
     this.regInvoicesForm.get('releaseItemDtos').value.map((x, i) => {
-    this.itemListTable.tableBody = [...this.itemListTable.tableBody, x];
+      this.itemListTable.tableBody = [...this.itemListTable.tableBody, x];
     });
   }
+
   deleteInvoice(event) {
     this.regCustomReleaseForm.get('invoices').value.splice(event.index, 1);
     this.invoiceListTable.tableBody = [];
     this.regCustomReleaseForm.get('invoices').value.map((x, i) => {
-    this.invoiceListTable.tableBody = [...this.invoiceListTable.tableBody, x];
+      this.invoiceListTable.tableBody = [...this.invoiceListTable.tableBody, x];
     });
   }
 
   editInvoice(event) {
-    
+
     this.showInvoiceContainer();
     this.editInvoiceIndex = event.index;
     this.editInvoiceRowStatus = true;
@@ -1036,10 +1204,10 @@ this.handleSuccess("Downloaded Successfully");}
     }, 500);
   }
 
-    renderingTheItemAttachment(itemType, importReason) {
-      //sara temp start
-      itemType=itemType?itemType:{id:1,code:'PRODUCTS'}
-      // sara temp end
+  renderingTheItemAttachment(itemType, importReason) {
+    //sara temp start
+    itemType = itemType ? itemType : {id: 1, code: 'PRODUCTS'}
+    // sara temp end
     this.ItemAttachmentFields = this.allItemTypeAttachmentFields[itemType.code].map(item => {
       if (item.requiredWithImportReasonCondition && item.relatedWithField.includes(importReason?.code)) {
         item.required = false;
@@ -1063,7 +1231,7 @@ this.handleSuccess("Downloaded Successfully");}
 
       return item;
     });
-  }  
+  }
 
   filterLookupsFunction(whichLookup, formControlValue, list, index?: any) {
     if (whichLookup === 'ingrediant') {
@@ -1085,7 +1253,7 @@ this.handleSuccess("Downloaded Successfully");}
       }
     } else {
       if (formControlValue) {
-    
+
         return formControlValue.valueChanges
           .pipe(
             startWith(''),
@@ -1106,32 +1274,30 @@ this.handleSuccess("Downloaded Successfully");}
   filterInsideListForDiffModel(lookup, value, list, index?: any): any[] {
     let filterValue;
     if (value) {
-      
+
       filterValue = value.toLowerCase() ? value.toLowerCase() : '';
     }
     return list.filter(option => option.inciName.toLowerCase().includes(filterValue)).map(x => x);
   }
-  saveNewRequest()
-   {
+
+  saveNewRequest() {
     const data = this.adaptTheObjectToBE(this.regCustomReleaseForm.value, Number(this.serviceId), Number(this.serviceTypeId));
     this.removeUnUsedProperties(data)
     this.getService.createProductRequest(data).subscribe(res => {
-    
+
         this.regCustomReleaseForm.reset();
         this.regInvoicesForm.reset();
         this.regItemsForm.reset();
         this.handleSuccess('Request has been saved Successfully');
         this.isLoading = false;
-        if (res) 
-        {  
+        if (res) {
           this.getService.getRequestWithId(res).subscribe(request => {
-            if(request)
-            {    
-              this.showCommentsButton=true;
-              this.invoiceListTable.tableBody=[];
+            if (request) {
+              this.showCommentsButton = true;
+              this.invoiceListTable.tableBody = [];
               this.getFormAsStarting(request);
             }
-          }) 
+          })
         }
         //this.router.navigate([`/pages/cosmetics-product/inner/release-services/6/12`]);
       },
@@ -1141,235 +1307,240 @@ this.handleSuccess("Downloaded Successfully");}
       }
     );
   }
+
   alertSuccessNotificationStatus: boolean = false;
   alertSuccessNotification;
+
   handleSuccess(donemsg) {
     this.alertSuccessNotificationStatus = true;
-    this.alertSuccessNotification = { msg: donemsg };
+    this.alertSuccessNotification = {msg: donemsg};
     this.isLoading = false;
   }
-removeUnUsedProperties(data)
-{ 
-  if(data.invoices)
-  {data.invoices.map(Option=>
-    { delete Option.InvApprovalNo;
-      delete Option.InvoiceApprovalNo;
-      delete Option.currency;
-      delete Option.invoice;
-      delete Option.supplierCountry;
-      delete Option.itemDetails;
-     Option.releaseItemDtos?.map(item => {
-        delete item.APPWORKS_GUID;
-        delete item.APPWORKS_ID;
-        delete item.DetailsID;
-        delete item.InvoiceItemName;
-        delete item.NotificationNo;
-        delete item.PRODUCT_ID;
-        delete item.ProductEnglishName;
-        delete item.approvalOfThePublicSecurityAuthority;
-        delete item.batchNo;
-        delete item.certificateOfOrigin;
-        delete item.coa;
-        delete item.coc;
-        delete item.colour;
-        delete item.declarationOfChemicalTreatment;
-        delete item.companyManufactureRelationship;
-        delete item.compositionOfPremixColorsFromManufacturer;
-        delete item.concentration;
-        delete item.declarationOfFreeOfSalmonella;
-        delete item.delegationForImportation;
-        delete item.detailsTable;
-        delete item.flavor;
-        delete item.fragrance;
-        delete item.function;
-        delete item.ingrediantDetails;
-        delete item.ingredient;
-        delete item.isCartonBox;
-        delete item.legalizedHealthCertificate;
-        delete item.manufactureTable;
-        delete item.manufacturingCompany;
-        delete item.manufacturingCountry;
-        delete item.materialSafetyDataSheet;
-        delete item.rawMaterialName;
-        delete item.shortName;
-        delete item.sourceOfRawMaterial;
-        delete item.sourceOfRawMaterialAttach;
-        delete item.sourceOfRawMaterialName;
-        delete item.supplyOrder;
-        delete item.typeOfPackaging;
-        delete item.unitOfMeasure;
-        delete item.uom;
-        delete item.uomId;
-        delete item.volumes; 
-        delete item.volumesID;
-        delete item.importReason;
-        delete item.packagingTable;
-        delete item.approvalItemPackDto;
-        delete item.approvalItemPremixDto;
-        delete item.approvalItemProductDto;
-        delete item.approvalItemRawDto;
-        delete item.currentApprovalCount;
-        delete item.invoicesId;
-        delete item.itemPremixDto;
-        delete item.lkupCurrencyName;
-        delete item.lkupCurrencyId;
-        delete item.syslkupItemTypeId;
-        delete item.syslkupItemTypeName;
-        delete item.validityDateFrom;
-        delete item.validityDateTo;
-        delete item. opentextId;
-        delete item.ItemTypeId;
 
-    })
-  })
-    
+  removeUnUsedProperties(data) {
+    if (data.invoices) {
+      data.invoices.map(Option => {
+        delete Option.InvApprovalNo;
+        delete Option.InvoiceApprovalNo;
+        delete Option.currency;
+        delete Option.invoice;
+        delete Option.supplierCountry;
+        delete Option.itemDetails;
+        Option.releaseItemDtos?.map(item => {
+          delete item.APPWORKS_GUID;
+          delete item.APPWORKS_ID;
+          delete item.DetailsID;
+          delete item.InvoiceItemName;
+          delete item.NotificationNo;
+          delete item.PRODUCT_ID;
+          delete item.ProductEnglishName;
+          delete item.approvalOfThePublicSecurityAuthority;
+          delete item.batchNo;
+          delete item.certificateOfOrigin;
+          delete item.coa;
+          delete item.coc;
+          delete item.colour;
+          delete item.declarationOfChemicalTreatment;
+          delete item.companyManufactureRelationship;
+          delete item.compositionOfPremixColorsFromManufacturer;
+          delete item.concentration;
+          delete item.declarationOfFreeOfSalmonella;
+          delete item.delegationForImportation;
+          delete item.detailsTable;
+          delete item.flavor;
+          delete item.fragrance;
+          delete item.function;
+          delete item.ingrediantDetails;
+          delete item.ingredient;
+          delete item.isCartonBox;
+          delete item.legalizedHealthCertificate;
+          delete item.manufactureTable;
+          delete item.manufacturingCompany;
+          delete item.manufacturingCountry;
+          delete item.materialSafetyDataSheet;
+          delete item.rawMaterialName;
+          delete item.shortName;
+          delete item.sourceOfRawMaterial;
+          delete item.sourceOfRawMaterialAttach;
+          delete item.sourceOfRawMaterialName;
+          delete item.supplyOrder;
+          delete item.typeOfPackaging;
+          delete item.unitOfMeasure;
+          delete item.uom;
+          delete item.uomId;
+          delete item.volumes;
+          delete item.volumesID;
+          delete item.importReason;
+          delete item.packagingTable;
+          delete item.approvalItemPackDto;
+          delete item.approvalItemPremixDto;
+          delete item.approvalItemProductDto;
+          delete item.approvalItemRawDto;
+          delete item.currentApprovalCount;
+          delete item.invoicesId;
+          delete item.itemPremixDto;
+          delete item.lkupCurrencyName;
+          delete item.lkupCurrencyId;
+          delete item.syslkupItemTypeId;
+          delete item.syslkupItemTypeName;
+          delete item.validityDateFrom;
+          delete item.validityDateTo;
+          delete item.opentextId;
+          delete item.ItemTypeId;
+
+        })
+      })
+
+    }
   }
-}
 
   adaptTheObjectToBE(data, servicesId?: number, servicesTypeId?: number): any {
     debugger;
-      data.invoiceDtos = data.invoices?.map(option => {
-      option.id= option.id ? option.id : 0,
-      option.bolId=data.id
+    data.invoiceDtos = data.invoices?.map(option => {
+      option.id = option.id ? option.id : 0,
+        option.bolId = data.id
       option.lkupCurrencyId = option.currency ? this.getIdFromLookupByName(this.formData.currencies, option.currency) : '';
-      option.fWithinIncluded= option.fWithinIncluded ? data.fWithinIncluded : false;
-    
-      option.supplierName= option.supplierName ? option.supplierName : '';
-      option.supplierCountryId= option.supplierCountry ? this.getIdFromLookupByName(this.formData.countries, option.supplierCountry) : null;
-      option.invoiceValue = Number(option.invoiceValue)
-      option.invoiceDate=option.invoiceDate?option.invoiceDate:null;
-      option.invoiceNo=option.invoiceNo ? option.invoiceNo:'';
-      option.approvalInvoiceNo=option.InvoiceApprovalNo ? option.InvoiceApprovalNo:'';
-      option.noOfItems=Number(option.noOfItems),
-      option.releaseItemDtos = option.releaseItemDtos?.map(item => {
-        item.id=item.approvalItemNo?0:item.id;
-        item.invoicesId=option.id;
-        item.fRegisteredProduct=this.ProductTypeField ==='referenced' ? true:false;
-        item.lkupCountryId = item.manufacturingCountry ? this.getIdFromLookupByName(this.formData.countries, item.manufacturingCountry) : null;
-        item.lkupUomId=  item.uom ? this.getIdFromLookupByName(this.formData.unitOfMeasure, item.uom) : null,
-        item.itemName=item.shortName?item.shortName:'';
-        item.quantity = Number(item.quantity);
-        item.fConformity=item.lkupConformityCommentsId;
-        item.lkupConformityCommentsId=item.lkupConformityCommentsId?item.lkupConformityCommentsId:null;
-        item.itemTypeId = item.ItemTypeId ? this.getIdFromLookupByName(this.formData.itemTypeList, item.ItemTypeId) : 1;
-        item.foc= Number(item.foc) ;
-        item.workingStandard=Number(item.workingStandard);
-        item.itemCosmPackDto=
-        { id: 0,
-           lkupPackingId:item.typeOfPackaging ? this.getIdFromPackingTypeByName(this.typeOfPackagingList,item.typeOfPackaging):null,
-           lkupManufactoryId:  item.manufacturingCompany ? ! isNaN(item.manufacturingCompany)? item.manufacturingCompany :this.getIdFromLookupByName(this.formData.companies, item.manufacturingCompany):null ,
-           batchNo: item.batchNo? item.batchNo :''
-        }
-        item.itemCosmProductDto={
-          id: 0,
-          productId: 0,
-          notificationNo: this.notificationNo,
-          productName:item.ProductEnglishName?item.ProductEnglishName:'',
-          productShortname: item.shortName? item.shortName:'',
-          flagType: '',
-          lkupManufactoryId:  item.manufacturingCompany ? ! isNaN(item.manufacturingCompany)? item.manufacturingCompany :this.getIdFromLookupByName(this.formData.companies, item.manufacturingCompany):null ,
-          batchNo: item.batchNo? item.batchNo :'',
-          volume: item.volumes?item.volumes:'' ,
-          lkupUomId:  item.uom ? this.getIdFromLookupByName(this.formData.unitOfMeasure, item.uom) : '',
-          packingDescription: item.packagingDescription?item.packagingDescription:'',
-          lkupPackingTypeId:item.typeOfPackaging ?this.getIdFromPackingTypeByName(this.typeOfPackagingList, item.typeOfPackaging) : null ,
-          fCartonbox: item.isCartonBox?item.isCartonBox:false,
-          productColour: item.colour?item.colour:'',
-          fragrance: item.fragrance ?item.fragrance:'',
-          flavor: item.flavor?item.flavor:'',
-          barcode:'',
-          productIngredientDtos:[]
-        }
+      option.fWithinIncluded = option.fWithinIncluded ? data.fWithinIncluded : false;
 
-        item.itemPremixDto=null,
-        item.itemRawMaterialDto={
-          id: 0,
-          ingredientsId: item.approvalItemRawDto?item.approvalItemRawDto.approvalItemId:null,
-          cosingRefNo:  item.approvalItemRawDto?item.approvalItemRawDto.cosingRefNo:'',
-          inciName: item.approvalItemRawDto?item.approvalItemRawDto.inciName:'',
-          lkupManufactoryId: item.approvalItemRawDto?item.approvalItemRawDto.lkupManufactoryId:null,
-          manufacturingCompany: item.approvalItemRawDto?item.approvalItemRawDto.manufacturingCompany:null,
-          sourceRawMaterialId: item.approvalItemRawDto?item.approvalItemRawDto.lkupRawMaterialsId:null,
-        }
-        item.uomId = item.uomId ? this.getIdFromLookupByName(this.formData.unitOfMeasure, item.uom) :null;
-        return item;
-      })
+      option.supplierName = option.supplierName ? option.supplierName : '';
+      option.supplierCountryId = option.supplierCountry ? this.getIdFromLookupByName(this.formData.countries, option.supplierCountry) : null;
+      option.invoiceValue = Number(option.invoiceValue)
+      option.invoiceDate = option.invoiceDate ? option.invoiceDate : null;
+      option.invoiceNo = option.invoiceNo ? option.invoiceNo : '';
+      option.approvalInvoiceNo = option.InvoiceApprovalNo ? option.InvoiceApprovalNo : '';
+      option.noOfItems = Number(option.noOfItems),
+        option.releaseItemDtos = option.releaseItemDtos?.map(item => {
+          item.id = item.approvalItemNo ? 0 : item.id;
+          item.invoicesId = option.id;
+          item.fRegisteredProduct = this.ProductTypeField === 'referenced' ? true : false;
+          item.lkupCountryId = item.manufacturingCountry ? this.getIdFromLookupByName(this.formData.countries, item.manufacturingCountry) : null;
+          item.lkupUomId = item.uom ? this.getIdFromLookupByName(this.formData.unitOfMeasure, item.uom) : null,
+            item.itemName = item.shortName ? item.shortName : '';
+          item.quantity = Number(item.quantity);
+          item.fConformity = item.lkupConformityCommentsId;
+          item.lkupConformityCommentsId = item.lkupConformityCommentsId ? item.lkupConformityCommentsId : null;
+          item.itemTypeId = item.ItemTypeId ? this.getIdFromLookupByName(this.formData.itemTypeList, item.ItemTypeId) : 1;
+          item.foc = Number(item.foc);
+          item.workingStandard = Number(item.workingStandard);
+          item.itemCosmPackDto =
+            {
+              id: 0,
+              lkupPackingId: item.typeOfPackaging ? this.getIdFromPackingTypeByName(this.typeOfPackagingList, item.typeOfPackaging) : null,
+              lkupManufactoryId: item.manufacturingCompany ? !isNaN(item.manufacturingCompany) ? item.manufacturingCompany : this.getIdFromLookupByName(this.formData.companies, item.manufacturingCompany) : null,
+              batchNo: item.batchNo ? item.batchNo : ''
+            }
+          item.itemCosmProductDto = {
+            id: 0,
+            productId: 0,
+            notificationNo: this.notificationNo,
+            productName: item.ProductEnglishName ? item.ProductEnglishName : '',
+            productShortname: item.shortName ? item.shortName : '',
+            flagType: '',
+            lkupManufactoryId: item.manufacturingCompany ? !isNaN(item.manufacturingCompany) ? item.manufacturingCompany : this.getIdFromLookupByName(this.formData.companies, item.manufacturingCompany) : null,
+            batchNo: item.batchNo ? item.batchNo : '',
+            volume: item.volumes ? item.volumes : '',
+            lkupUomId: item.uom ? this.getIdFromLookupByName(this.formData.unitOfMeasure, item.uom) : '',
+            packingDescription: item.packagingDescription ? item.packagingDescription : '',
+            lkupPackingTypeId: item.typeOfPackaging ? this.getIdFromPackingTypeByName(this.typeOfPackagingList, item.typeOfPackaging) : null,
+            fCartonbox: item.isCartonBox ? item.isCartonBox : false,
+            productColour: item.colour ? item.colour : '',
+            fragrance: item.fragrance ? item.fragrance : '',
+            flavor: item.flavor ? item.flavor : '',
+            barcode: '',
+            productIngredientDtos: []
+          }
+
+          item.itemPremixDto = null,
+            item.itemRawMaterialDto = {
+              id: 0,
+              ingredientsId: item.approvalItemRawDto ? item.approvalItemRawDto.approvalItemId : null,
+              cosingRefNo: item.approvalItemRawDto ? item.approvalItemRawDto.cosingRefNo : '',
+              inciName: item.approvalItemRawDto ? item.approvalItemRawDto.inciName : '',
+              lkupManufactoryId: item.approvalItemRawDto ? item.approvalItemRawDto.lkupManufactoryId : null,
+              manufacturingCompany: item.approvalItemRawDto ? item.approvalItemRawDto.manufacturingCompany : null,
+              sourceRawMaterialId: item.approvalItemRawDto ? item.approvalItemRawDto.lkupRawMaterialsId : null,
+            }
+          item.uomId = item.uomId ? this.getIdFromLookupByName(this.formData.unitOfMeasure, item.uom) : null;
+          return item;
+        })
 
       return option;
     });
 
     return {
       id: data.id ? data.id : 0,
-      customCertificate:data.customCertificate?data.customCertificate:'' ,
-      noOfItems:Number(data.noOfItems),
-      importerLicenseNo:'',
+      customCertificate: data.customCertificate ? data.customCertificate : '',
+      noOfItems: Number(data.noOfItems),
+      importerLicenseNo: '',
       LkupServiceTypeId: data.lkupServiceTypeId ? data.lkupServiceTypeId : servicesTypeId,
       LkupServicesId: data.lkupServicesId ? data.lkupServicesId : servicesId,
       SyslkupServiceActionId: 1,
-      releaseTypeId:this.selectedReleaseTypeId?Number(this.selectedReleaseTypeId):1,
+      releaseTypeId: this.selectedReleaseTypeId ? Number(this.selectedReleaseTypeId) : 1,
       receiptNumber: data.receiptNumber ? data.receiptNumber : '',
       receiptValue: data.receiptValue ? Number(data.receiptValue) : 0,
       groupNumber: data.groupNumber ? data.groupNumber : '',
       estimatedValue: data.estimatedValue ? data.estimatedValue : 0,
       bolNo: data.bolNo ? data.bolNo : '',
-      FWithinIncluded: data.fWithinIncluded, 
+      FWithinIncluded: data.fWithinIncluded,
       lkupPortsId: data.lkupPortsId ? this.getIdFromLookupByName(this.formData.ports, data.lkupPortsId) : null,
       pod: data.pod ? data.pod : '',
-      grossWeight: data.grossWeight ? Number(data.grossWeight)  : 0,
+      grossWeight: data.grossWeight ? Number(data.grossWeight) : 0,
       LkupUomId: data.lkupUomId ? this.getIdFromLookupByName(this.formData.unitOfMeasure, data.lkupUomId) : null,
-      lkupTrackTypeId:null,
-      fRefrencedCountry:this.ProductTypeField ==='referenced' ? true:false,
+      lkupTrackTypeId: null,
+      fRefrencedCountry: this.ProductTypeField === 'referenced' ? true : false,
       invoices: data.invoices && data.invoices.length ? data.invoices : [],
 
     };
-   
+
   };
- 
-  selectedapproveditems:any[]=[];
-  
-  onselectApprovedItem(approvedItem)
-  {
+
+  selectedapproveditems: any[] = [];
+
+  onselectApprovedItem(approvedItem) {
     this.selectedapproveditems.push(approvedItem);
   }
-  onSubmitForm()
-  
-  {
-    switch(this.ServiceActionId) { 
-      case 1:// Create new Request Action 
-      { 
-        this.onSubmitNewRequest();
-         break; 
-      } 
-      case 2: { 
-      
-         break; 
-      }
-      case 3: // Replace for Lost Action 
-      { 
-        this.onSubmitReplaceRequest();
-         break; 
-      } 
-      default: { 
-         this.onSubmitNewRequest();
-         break; 
-      } 
 
-    }  
+  onSubmitForm() {
+    switch (this.ServiceActionId) {
+      case 1:// Create new Request Action
+      {
+        this.onSubmitNewRequest();
+        break;
+      }
+      case 2: {
+
+        break;
+      }
+      case 3: // Replace for Lost Action
+      {
+        this.onSubmitReplaceRequest();
+        break;
+      }
+      default: {
+        this.onSubmitNewRequest();
+        break;
+      }
+
+    }
   }
+
   onSubmitNewRequest() {
     const data = this.adaptTheObjectToBE(this.regCustomReleaseForm.value, Number(this.serviceId), Number(this.serviceTypeId));
     this.removeUnUsedProperties(data)
     this.getService.submitRequest(data).subscribe(res => {
-      if (res) {  
-      
-      this.handleSuccess("Request has been saved Successfully");
-      this.regCustomReleaseForm.reset();
-      this.regInvoicesForm.reset();
-      this.regItemsForm.reset();
-      this.router.navigate([`/pages/cosmetics-product/inner/release-services/6/12`]);
+      if (res) {
+
+        this.handleSuccess("Request has been saved Successfully");
+        this.regCustomReleaseForm.reset();
+        this.regInvoicesForm.reset();
+        this.regItemsForm.reset();
+        this.router.navigate([`/pages/cosmetics-product/inner/release-services/6/12`]);
       }
-    } ,(error) => { this.handleError(error);})
+    }, (error) => {
+      this.handleError(error);
+    })
   }
+
   checkControllerValueWithListForFormArray(form: FormGroup, list, formControlKey, formControlValue) {
     let value;
     if (formControlValue) {
@@ -1402,6 +1573,7 @@ removeUnUsedProperties(data)
 
     return id;
   }
+
   getIdFromPackingTypeByName(list, value) {
     let id;
     list.filter(option => option.packingType === value).map(res => {
@@ -1410,6 +1582,7 @@ removeUnUsedProperties(data)
 
     return id;
   }
+
   ngOnDestroy() {
     if (this.subscription && !this.subscription.closed) {
       this.subscription.unsubscribe();
@@ -1421,7 +1594,7 @@ removeUnUsedProperties(data)
   }
 
   choosePackagingData(event) {
-    
+
     this.regItemsForm.get('packagingTable').patchValue([event]);
   }
 
@@ -1432,80 +1605,85 @@ removeUnUsedProperties(data)
   chooseManufactureData(event) {
     this.regItemsForm.get('manufactureTable').patchValue([event]);
   }
- 
+
   viewReleseComment() {
     this.dialog.open<ViewReleaseCommentsComponent, ViewReleaseCommentsComponentDataDialog>(ViewReleaseCommentsComponent, {
       width: '80%',
-      data: { requestId: /*this.serviceId ||*/ 40442 },
+      data: {requestId: /*this.serviceId ||*/ 40442},
     });
   }
+
   // Within Included[Start]
   withinIncludedBols: any[] = [];
   checkedIncludedBol: any = {};
-  withinIncludedInvoices:any[]=[];
+  withinIncludedInvoices: any[] = [];
   IncludedInvoices: any[] = [];
-  checkedIncludedInvoice:any={};
+  checkedIncludedInvoice: any = {};
   includedInvoiceSelected: boolean = false;
   includedBolSelected: boolean = false;
+
   showIncludedBols(event: MatCheckboxChange): void {
     if (event.checked) {
       this.includedBolSelected = true;
       this.getService.getWithinIncludedBols().subscribe((res) => {
         this.withinIncludedBols = res;
-  
+
       });
-     
+
     } else {
-      this.includedBolSelected= false;
+      this.includedBolSelected = false;
     }
   }
+
   checkIncludedBol(bolNo: string) {
-  
+
     if (this.includedBolSelected == true) {
       this.getService.getBillOfLading(bolNo).subscribe((res) => {
-        this.checkedIncludedBol= res;
-       this.getBolsFormAsStarting(this.checkedIncludedBol);
-      
+        this.checkedIncludedBol = res;
+        this.getBolsFormAsStarting(this.checkedIncludedBol);
+
       });
       this.getService.getWithinIncludedInvoices(bolNo).subscribe((res) => {
         this.IncludedInvoices = res;
-      
+
       });
-    }}
- 
-  showIncludedInvoices(event: MatCheckboxChange){
+    }
+  }
+
+  showIncludedInvoices(event: MatCheckboxChange) {
     if (event.checked) {
-     this.includedInvoiceSelected = true;
-      this.withinIncludedInvoices=this.IncludedInvoices;
-      
+      this.includedInvoiceSelected = true;
+      this.withinIncludedInvoices = this.IncludedInvoices;
+
+    } else {
+      this.includedInvoiceSelected = false;
     }
-    else{
-      this.includedInvoiceSelected= false;
-    }
- 
+
   }
-  showInvoiceDetails(InvoiceNo: string){
-    if( this.includedInvoiceSelected==true){
+
+  showInvoiceDetails(InvoiceNo: string) {
+    if (this.includedInvoiceSelected == true) {
       this.getService.getInvoiceByInvoiceNo(InvoiceNo).subscribe((res) => {
-        this.checkedIncludedInvoice= res;
+        this.checkedIncludedInvoice = res;
         this.getInvoicesFormAsStarting(this.checkedIncludedInvoice);
-   
+
       });
     }
   }
-  getBolsFormAsStarting(data, fromWhere?: string){
+
+  getBolsFormAsStarting(data, fromWhere?: string) {
     if (data) {
       this.regCustomReleaseForm.patchValue({
         id: 0,
-        releaseTypeId:data.releaseTypeId,
-        receiptNumber:data.receiptNumber,
-        groupNumber:data.groupNumber,
-        receiptValue:data.receiptValue,
-        applicant:data.applicant,
-        lkupPortsId:data.lkupPortsId,
-        pod:data.pod,
-        grossWeight:data.grossWeight,
-        lkupUomId:data.lkupUomId
+        releaseTypeId: data.releaseTypeId,
+        receiptNumber: data.receiptNumber,
+        groupNumber: data.groupNumber,
+        receiptValue: data.receiptValue,
+        applicant: data.applicant,
+        lkupPortsId: data.lkupPortsId,
+        pod: data.pod,
+        grossWeight: data.grossWeight,
+        lkupUomId: data.lkupUomId
       });
     } else {
       this.regCustomReleaseForm = this.fb.group({
@@ -1525,118 +1703,123 @@ removeUnUsedProperties(data)
         pod: this.fb.control(''),
         grossWeight: this.fb.control('', Validators.required),
         lkupUomId: this.fb.control('', Validators.required),
-        other:this.fb.control(''),
+        other: this.fb.control(''),
       });
-   
+
     }
   }
+
   // within Included [End]
- resetForms()
- {
-  this.regCustomReleaseForm.reset();
-  this.regInvoicesForm.reset();
-  this.regItemsForm.reset();
-  this.setAllLookupsInObservable();
+  resetForms() {
+    this.regCustomReleaseForm.reset();
+    this.regInvoicesForm.reset();
+    this.regItemsForm.reset();
+    this.setAllLookupsInObservable();
 
- }
- //Reem Get attachemnt Key [Start]
- setAttachmentValues(request){
-  this.attachmentFields.find(x=>x.id=='bolPolicy').fileValue=request.bolPolicy?request.bolPolicy.opentextId:'';
-  this.attachmentFields.find(x=>x.id=='customReleaseRequest').fileValue=request.customReleaseRequest?request.customReleaseRequest.opentextId:'';
-  this.attachmentFields.find(x=>x.id=='receipt').fileValue=request.receipt?request.receipt.opentextId:'';
-  this.attachmentFields.find(x=>x.id=='importersRecord').fileValue=request.importersRecord?request.importersRecord.opentextId:'';
-  this.attachmentFields.find(x=>x.id=='other').fileValue=request.other?request.other.opentextId:'';
+  }
 
- }
+  //Reem Get attachemnt Key [Start]
+  setAttachmentValues(request) {
+    this.attachmentFields.find(x => x.id == 'bolPolicy').fileValue = request.bolPolicy ? request.bolPolicy.opentextId : '';
+    this.attachmentFields.find(x => x.id == 'customReleaseRequest').fileValue = request.customReleaseRequest ? request.customReleaseRequest.opentextId : '';
+    this.attachmentFields.find(x => x.id == 'receipt').fileValue = request.receipt ? request.receipt.opentextId : '';
+    this.attachmentFields.find(x => x.id == 'importersRecord').fileValue = request.importersRecord ? request.importersRecord.opentextId : '';
+    this.attachmentFields.find(x => x.id == 'other').fileValue = request.other ? request.other.opentextId : '';
 
- setInvoiceAttachmentValues(request){
-   debugger;
-  this.InvoiceAttachmentFields.find(x=>x.id=='invoice').fileValue=request.invoices.invoice?request.invoices.invoice.opentextId:'';
-  this.InvoiceAttachmentFields.find(x=>x.id=='InvApprovalNo').fileValue=request.invoices.provalInvoiceNo?request.invoices.provalInvoiceNo.opentextId:'';
-  this.InvoiceAttachmentFields.find(x=>x.id=='packingList').fileValue=request.invoices.packingList?request.invoices.packingList.opentextId:'';
- }
+  }
+
+  setInvoiceAttachmentValues(request) {
+    debugger;
+    this.InvoiceAttachmentFields.find(x => x.id == 'invoice').fileValue = request.invoices.invoice ? request.invoices.invoice.opentextId : '';
+    this.InvoiceAttachmentFields.find(x => x.id == 'InvApprovalNo').fileValue = request.invoices.provalInvoiceNo ? request.invoices.provalInvoiceNo.opentextId : '';
+    this.InvoiceAttachmentFields.find(x => x.id == 'packingList').fileValue = request.invoices.packingList ? request.invoices.packingList.opentextId : '';
+  }
+
   //Reem Get attachemnt Key [End]
 
   //Reem Replace for Lost 5-8-2022 [Start]
-  replacementReportIssueSites=[
-    {id:1,name: 'Company'},{id:2,name:'Eda'}]
+  replacementReportIssueSites = [
+    {id: 1, name: 'Company'}, {id: 2, name: 'Eda'}]
 
-    replacementCustomReleaseForm=new FormGroup({
-    replacementReportNo:new FormControl(),
-    replacementReportIssueSite:new FormControl(),
-    replacementReportDate:new FormControl()
+  replacementCustomReleaseForm = new FormGroup({
+    replacementReportNo: new FormControl(),
+    replacementReportIssueSite: new FormControl(),
+    replacementReportDate: new FormControl()
   });
 
-  saveReplaceRequest(){
+  saveReplaceRequest() {
     debugger;
-    const data= {
-      lostReplacementReportNo: this.replacementCustomReleaseForm.value.replacementReportNo?this.replacementCustomReleaseForm.value.replacementReportNo: 0,
-      lostReplacementReportIssueSite:this.replacementCustomReleaseForm.value.replacementReportIssueSite?this.replacementCustomReleaseForm.value.replacementReportIssueSite:'' ,
-      lostReplacementReportDate:this.replacementCustomReleaseForm.value.replacementReportDate?this.replacementCustomReleaseForm.value.replacementReportDate:'',
-      requestId:this.parentRequestId
+    const data = {
+      lostReplacementReportNo: this.replacementCustomReleaseForm.value.replacementReportNo ? this.replacementCustomReleaseForm.value.replacementReportNo : 0,
+      lostReplacementReportIssueSite: this.replacementCustomReleaseForm.value.replacementReportIssueSite ? this.replacementCustomReleaseForm.value.replacementReportIssueSite : '',
+      lostReplacementReportDate: this.replacementCustomReleaseForm.value.replacementReportDate ? this.replacementCustomReleaseForm.value.replacementReportDate : '',
+      requestId: this.parentRequestId
     }
 
     this.getService.replaceForLost(data).subscribe(res => {
-      if(res){
-      this.replacementCustomReleaseForm.reset();
-      this.regCustomReleaseForm.reset();
-      this.regInvoicesForm.reset();
-      this.regItemsForm.reset();
-      this.handleSuccess('Request has been saved Successfully');
-      
-      this.isLoading = false;
-    }},  (error) => {
-      this.isLoading = false;
-      this.handleError(error);
-    }
-    );
-    
-  }
-  saveData()
-   { 
-    switch(this.ServiceActionId) { 
-      case 1:// Create new Request Action 
-      { 
-        this.saveNewRequest();
-         break; 
-      } 
-      case 2: // Edit Request
-      { 
-      
-         break; 
+        if (res) {
+          this.replacementCustomReleaseForm.reset();
+          this.regCustomReleaseForm.reset();
+          this.regInvoicesForm.reset();
+          this.regItemsForm.reset();
+          this.handleSuccess('Request has been saved Successfully');
+
+          this.isLoading = false;
+        }
+      }, (error) => {
+        this.isLoading = false;
+        this.handleError(error);
       }
-      case 3: // Replace for Lost Action 
-      { 
-        this.saveReplaceRequest();
-        break; 
-      } 
-      default: { 
-        this.saveNewRequest();
-         break; 
-      } 
+    );
 
-    }  
   }
-  onSubmitReplaceRequest(){
-    const data= {
-      lostReplacementReportNo: this.replacementCustomReleaseForm.value.replacementReportNo?this.replacementCustomReleaseForm.value.replacementReportNo: 0,
-      lostReplacementReportIssueSite:this.replacementCustomReleaseForm.value.replacementReportIssueSite?this.replacementCustomReleaseForm.value.replacementReportIssueSite:'' ,
-      lostReplacementReportDate:this.replacementCustomReleaseForm.value.replacementReportDate?this.replacementCustomReleaseForm.value.replacementReportDate:'',
-      requestId:this.parentRequestId
+
+  saveData() {
+    switch (this.ServiceActionId) {
+      case 1:// Create new Request Action
+      {
+        this.saveNewRequest();
+        break;
+      }
+      case 2: // Edit Request
+      {
+
+        break;
+      }
+      case 3: // Replace for Lost Action
+      {
+        this.saveReplaceRequest();
+        break;
+      }
+      default: {
+        this.saveNewRequest();
+        break;
+      }
+
+    }
+  }
+
+  onSubmitReplaceRequest() {
+    const data = {
+      lostReplacementReportNo: this.replacementCustomReleaseForm.value.replacementReportNo ? this.replacementCustomReleaseForm.value.replacementReportNo : 0,
+      lostReplacementReportIssueSite: this.replacementCustomReleaseForm.value.replacementReportIssueSite ? this.replacementCustomReleaseForm.value.replacementReportIssueSite : '',
+      lostReplacementReportDate: this.replacementCustomReleaseForm.value.replacementReportDate ? this.replacementCustomReleaseForm.value.replacementReportDate : '',
+      requestId: this.parentRequestId
     }
     this.getService.replaceForLost(data).subscribe(res => {
-      if(res){
-      this.replacementCustomReleaseForm.reset();
-      this.regCustomReleaseForm.reset();
-      this.regInvoicesForm.reset();
-      this.regItemsForm.reset();
-      this.handleSuccess('Request has been saved Successfully');
-      this.isLoading = false;
-    }},  (error) => {
-      this.isLoading = false;
-      this.handleError(error);
-    }
+        if (res) {
+          this.replacementCustomReleaseForm.reset();
+          this.regCustomReleaseForm.reset();
+          this.regInvoicesForm.reset();
+          this.regItemsForm.reset();
+          this.handleSuccess('Request has been saved Successfully');
+          this.isLoading = false;
+        }
+      }, (error) => {
+        this.isLoading = false;
+        this.handleError(error);
+      }
     );
-    
+
   }
 }

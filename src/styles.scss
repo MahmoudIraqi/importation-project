@@ -757,5 +757,36 @@ button span.ellipsisSpan {
   }
 }
 
+.premixList {
+  .table {
+
+    tr {
+      th:first-child, td:first-child {
+        width: 20% !important;
+      }
+
+      th:nth-child(2), td:nth-child(2) {
+        width: 20% !important;
+      }
+
+      th:nth-child(3), td:nth-child(3) {
+        width: 20% !important;
+      }
+
+      th:nth-child(4), td:nth-child(4) {
+        width: 15% !important;
+      }
+
+      th:nth-child(5), td:nth-child(5) {
+        width: 15% !important;
+      }
+
+      th:nth-child(6), td:nth-child(6) {
+        width: 10% !important;
+      }
+    }
+  }
+}
+
 
 

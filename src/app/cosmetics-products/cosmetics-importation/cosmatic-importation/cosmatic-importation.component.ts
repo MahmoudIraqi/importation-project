@@ -15,9 +15,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { FormService } from '../../../services/form.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DatePipe, DecimalPipe } from '@angular/common';
+import {FormService} from '../../../services/form.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DatePipe, DecimalPipe} from '@angular/common';
 import {
   catchError,
   debounceTime,
@@ -26,18 +26,18 @@ import {
   map,
   startWith,
 } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { InputService } from '../../../services/input.service';
-import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { TranslateService } from '@ngx-translate/core';
+import {Observable, Subscription} from 'rxjs';
+import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {TabsetComponent} from 'ngx-bootstrap/tabs';
+import {InputService} from '../../../services/input.service';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
+import {TranslateService} from '@ngx-translate/core';
 import {
   CustomReleaseModel,
   LookupState,
 } from '../../../../utils/common-models';
-import { EventEmitter } from '@angular/core';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import {EventEmitter} from '@angular/core';
+import {connectableObservableDescriptor} from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-cosmatic-importation',
@@ -46,9 +46,9 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 })
 export class CosmaticImportationComponent implements OnInit, OnDestroy {
   ViewDownload: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('formTabs', { static: false }) formTabs: TabsetComponent;
-  @ViewChild('invoicesTabs', { static: false }) invoicesTabs: TabsetComponent;
-  @ViewChild('itemsStepsTabs', { static: false })
+  @ViewChild('formTabs', {static: false}) formTabs: TabsetComponent;
+  @ViewChild('invoicesTabs', {static: false}) invoicesTabs: TabsetComponent;
+  @ViewChild('itemsStepsTabs', {static: false})
   itemsStepsTabs: TabsetComponent;
   isLoading: boolean = false;
   editInvoiceIndex: any;
@@ -115,7 +115,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   ingredientDtos = [];
   selected_invoice_type: any;
   selectedsuppliername: any;
-  ManufacturingCompany:any;
+  ManufacturingCompany: any;
   selectedItemTypeId: any;
   SetSelectedUOM: any;
   oldProdSelect: any;
@@ -143,9 +143,9 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
     tableBody: [],
   };
   itemListTable = {
-   /*  tableHeader: ['itemType', 'manufacturingCompany', 'quantity', 'Actions'], */
+    /*  tableHeader: ['itemType', 'manufacturingCompany', 'quantity', 'Actions'], */
 
-    tableHeader: ['itemName','itemType', 'quantity','notificationNumber', 'Actions'],
+    tableHeader: ['itemName', 'itemType', 'quantity', 'notificationNumber', 'Actions'],
     tableBody: [],
   };
 
@@ -159,11 +159,11 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
     public translateService: TranslateService,
     private inputService: InputService
   ) {
-    this.productTypeList= [
-      { id: 'referenced', name: { en: 'Referenced', ar: 'مرجعي' } },
+    this.productTypeList = [
+      {id: 'referenced', name: {en: 'Referenced', ar: 'مرجعي'}},
       {
         id: 'nonReferenced',
-        name: { en: 'NoN Referenced', ar: 'غير مرجعي' },
+        name: {en: 'NoN Referenced', ar: 'غير مرجعي'},
       },
     ]
     this.route.params.subscribe((res) => {
@@ -193,22 +193,24 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
     this.GetAllAttachments();
     this.GetAllUnitOfMeasure();
   }
-  productTypeList=[];
+
+  productTypeList = [];
   sourceOfRawMaterialList = [];
+
   ngOnInit(): void {
     this.sourceOfRawMaterialList = [
-      { id: 10001, name: 'Animal' },
-      { id: 10003, name: 'Vegetable' },
-      { id: 10002, name: 'Marain' },
-      { id: 10004, name: 'Chemical' },
-      { id: 1, name: 'Wool' },
+      {id: 10001, name: 'Animal'},
+      {id: 10003, name: 'Vegetable'},
+      {id: 10002, name: 'Marain'},
+      {id: 10004, name: 'Chemical'},
+      {id: 1, name: 'Wool'},
     ];
 
-    this.productTypeList= [
-      { id: 'referenced', name: { en: 'Referenced', ar: 'مرجعي' } },
+    this.productTypeList = [
+      {id: 'referenced', name: {en: 'Referenced', ar: 'مرجعي'}},
       {
         id: 'nonReferenced',
-        name: { en: 'NoN Referenced', ar: 'غير مرجعي' },
+        name: {en: 'NoN Referenced', ar: 'غير مرجعي'},
       },
     ]
     //sara 11-5-2022 [start]
@@ -223,73 +225,73 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         this.formData = {
           ...res.payload,
           premixNameList: [
-            { id: 'localFactory', name: 'Local factory' },
-            { id: 'premixBatches', name: 'Premix Batches' },
+            {id: 'localFactory', name: 'Local factory'},
+            {id: 'premixBatches', name: 'Premix Batches'},
           ],
 
           packingMaterialList: [
-            { id: 10001, name: 'Animal' },
-            { id: 10003, name: 'Vegetable' },
-            { id: 10002, name: 'Marain' },
-            { id: 10004, name: 'Chemical' },
-            { id: 1, name: 'Wool' },
+            {id: 10001, name: 'Animal'},
+            {id: 10003, name: 'Vegetable'},
+            {id: 10002, name: 'Marain'},
+            {id: 10004, name: 'Chemical'},
+            {id: 1, name: 'Wool'},
           ],
 
           typeOfRegistrationList: [
-            { id: 'notified', name: { en: 'Notified', ar: '' } },
-            { id: 'oldRegistration', name: { en: 'Old Registration', ar: '' } },
+            {id: 'notified', name: {en: 'Notified', ar: ''}},
+            {id: 'oldRegistration', name: {en: 'Old Registration', ar: ''}},
           ],
           productTypeList: [
-            { id: 'referenced', name: { en: 'Referenced', ar: 'مرجعي' } },
+            {id: 'referenced', name: {en: 'Referenced', ar: 'مرجعي'}},
             {
               id: 'nonReferenced',
-              name: { en: 'NoN Referenced', ar: 'غير مرجعي' },
+              name: {en: 'NoN Referenced', ar: 'غير مرجعي'},
             },
           ],
         };
         this.isLoading = false;
       });
-      this.inputService.getInput$().pipe(
-        filter(x => x.type === 'productServices'),
-        distinctUntilChanged()
-      ).subscribe(res => {
-        res.payload.filter(row => row.id === Number(this.serviceId)).map(item => {
-          this.formData.itemTypeList = item.itemTypeList.map(element => {
-            return {
-              code: element.code,
-              id: element.id,
-              name: element.name
-            }
-          });
-          this.formData.importReason = item.itemTypeList.map(element => {
-            return [{
-              code: element.importReasons.code,
-              id: element.importReasons.id,
-              name: element.importReasons.name,
-              fApprovalRequired: element.importReasons.fApprovalRequired,
-              fNotification: element.importReasons.fNotification,
-            }]
-          });
+    this.inputService.getInput$().pipe(
+      filter(x => x.type === 'productServices'),
+      distinctUntilChanged()
+    ).subscribe(res => {
+      res.payload.filter(row => row.id === Number(this.serviceId)).map(item => {
+        this.formData.itemTypeList = item.itemTypeList.map(element => {
+          return {
+            code: element.code,
+            id: element.id,
+            name: element.name
+          }
         });
-        if (this.formData.itemTypeList.length === 1) {
-          this.itemType = this.formData.itemTypeList[0];
-          this.disableItemTypeField = true;
-         
-          this.getTermType({value: this.formData.itemTypeList[0]});
-        }
+        this.formData.importReason = item.itemTypeList.map(element => {
+          return [{
+            code: element.importReasons.code,
+            id: element.importReasons.id,
+            name: element.importReasons.name,
+            fApprovalRequired: element.importReasons.fApprovalRequired,
+            fNotification: element.importReasons.fNotification,
+          }]
+        });
       });
+      if (this.formData.itemTypeList.length === 1) {
+        this.itemType = this.formData.itemTypeList[0];
+        this.disableItemTypeField = true;
+
+        this.getTermType({value: this.formData.itemTypeList[0]});
+      }
+    });
     //sara 11-5-2022 [End]
     this.ItemTypes = [
       {
         id: 1,
         name: 'Proforma',
       },
-      { id: 2, name: 'Commercial' },
+      {id: 2, name: 'Commercial'},
     ];
 
     this.RegisterationType = [
-      { id: false, name: 'Old Registeration' },
-      { id: true, name: 'Notified' },
+      {id: false, name: 'Old Registeration'},
+      {id: true, name: 'Notified'},
     ];
 
     this.registerRequestForm = this.formBuilder.group({
@@ -332,11 +334,11 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       //Sara 16-5 [start]
       unitPrice: [null, Validators.required],
       batchNo: [null, Validators.required],
-      storageSite:[null],
-      ManufacturingCompany:[null],
+      storageSite: [null],
+      ManufacturingCompany: [null],
       ManufacturingCountry: [null],
       registrationExpireDate: [null],
-       //Sara 16-5 [End]
+      //Sara 16-5 [End]
     });
 
     this.PackagingDataForm = this.formBuilder.group({
@@ -356,28 +358,37 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
     this.ManufacturingDataForm = this.formBuilder.group({});
     this.filteredOptionsForManufacturingCountry = this.filterLookupsFunction('manufacturingCountry', this.registerItemsForm.get('ManufacturingCountry'), this.formData?.countries);
     this.filteredOptionsForManufacturingCountry = this.filterLookupsFunction('manufacturingCountry', this.PackagingDataForm.get('PackingManufacturingCountry'), this.formData?.countries);
-  
-    //  this.apiService.getManufactureCompanies().subscribe((res: any) => {this.filteredOptionsForManufacturingCompany =res; }, error => this.handleError(error));  
-   this.setItemTypeBasedOnSelectedService(this.serviceId)
+
+    //  this.apiService.getManufactureCompanies().subscribe((res: any) => {this.filteredOptionsForManufacturingCompany =res; }, error => this.handleError(error));
+    this.setItemTypeBasedOnSelectedService(this.serviceId)
     this.GetAllItemTypes();
     this.GetAllUnitOfMeasure();
     this.GetAllPackingData();
     this.GetAllIngredients();
   }
- 
-  setItemTypeBasedOnSelectedService(serviceId : number)
-  {
-   
-      switch(serviceId)
-      {
-        case 1: this. SelectedItemTypeId=1;   break; 
-        case 2: this. SelectedItemTypeId=3;   break; 
-        case 3: this. SelectedItemTypeId=3;   break; 
-        case 4: this. SelectedItemTypeId=4;   break; 
-        case 5: this. SelectedItemTypeId=2;   break; 
-      }
-    
+
+  setItemTypeBasedOnSelectedService(serviceId: number) {
+
+    switch (serviceId) {
+      case 1:
+        this.SelectedItemTypeId = 1;
+        break;
+      case 2:
+        this.SelectedItemTypeId = 3;
+        break;
+      case 3:
+        this.SelectedItemTypeId = 3;
+        break;
+      case 4:
+        this.SelectedItemTypeId = 4;
+        break;
+      case 5:
+        this.SelectedItemTypeId = 2;
+        break;
+    }
+
   }
+
   ngOnDestroy(): void {
     if (this.IsSubmitted) {
       this.handleSuccess('Done submit approval request');
@@ -387,6 +398,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   //here is the function needed to set the choosed register type
   HideAttachment: boolean;
   HideGetProductButn: boolean;
+
   SetRegisterType(e) {
     if (this.ProductDetails.controls.registerType.value == true) {
       this.ShowNotified = true;
@@ -424,6 +436,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   //here is the function needed to get all needed packing types
   PackTypes = [];
+
   GetAllPackTypes() {
     this.apiService.getPackingTypes().subscribe(
       (data) => {
@@ -461,6 +474,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   neededBase64Data: any;
   FinalneededBase64Data: any;
   lkupAttachmentsId: any;
+
   onFileSelect(event, fileControlName) {
     let cardImageBase64;
     let resForSetAttachment;
@@ -653,6 +667,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   ManucaturingCompany: any;
   ManufactureID: any;
+
   chooseManufactureData(event) {
     this.ManufactureID = event.packingRow.manufactoryId;
     this.ManucaturingCompany = event.packingRow.manufactoryName;
@@ -660,6 +675,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   //here is the function needed to get all needed measuring unit
   PackgingList = [];
+
   GetAllPackingData() {
     this.apiService.getAllPackagingList().subscribe(
       (data) => {
@@ -684,11 +700,11 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   }
 
   AllIngredients: any = [];
+
   GetAllIngredients() {
     this.apiService.getAllIngredient().subscribe(
       (data) => {
         this.AllIngredients = data;
-        console.log(this.AllIngredients);
       },
       (error) => {
         this.handleError(error);
@@ -734,11 +750,11 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   //here is the function needed to get all added attachments
   ParsedRequestAttachment = [];
+
   GetAllAttachments() {
-    console.log('this function works', this.approvaInvoice, this.approvalItem);
     //this condition means that the fetched attachments leds to request tab
     if (this.approvaInvoice == false && this.approvalItem == false) {
-      this.apiService.GetAttachmentTypes(1,this.serviceId).subscribe(
+      this.apiService.GetAttachmentTypes(1, this.serviceId).subscribe(
         (data) => {
           //fetch and filter attachments based on needed thing
           this.AllAttachments = data;
@@ -764,7 +780,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
     //this condition means that the fetched attachments leds to invoice tab
     else if (this.approvaInvoice == true) {
-      this.apiService.GetAttachmentTypes(4,this.serviceId ).subscribe(
+      this.apiService.GetAttachmentTypes(4, this.serviceId).subscribe(
         (data) => {
           //fetch and filter attachments based on needed thing
           this.AllAttachments = data;
@@ -790,7 +806,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
     //this conditions means that the fetched attachments leds to items tabs
     else if (this.approvalItem == true) {
-      this.apiService.GetAttachmentTypes(5,this.serviceId ).subscribe(
+      this.apiService.GetAttachmentTypes(5, this.serviceId).subscribe(
         (data) => {
           //fetch and filter attachments based on needed thing
           this.AllAttachments = data;
@@ -818,6 +834,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   //here is the function needed to get all the request details after save the request
   FetchedInvoice = [];
   FetchedItems = [];
+
   GetRequestDataAfterSave(ApprovalRequestID) {
     this.FetchedSavedApprovalID = ApprovalRequestID;
     this.isLoading = true;
@@ -841,9 +858,9 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
           this.registerRequestForm.controls.estimatedValue.setValue(
             data.estimatedValue
           );
-     /*      this.registerRequestForm.controls.fRefrencedCountry.setValue(
-            data.estimatedValue
-          ); */
+          /*      this.registerRequestForm.controls.fRefrencedCountry.setValue(
+                 data.estimatedValue
+               ); */
           this.isLoading = false;
           this.ShowDetails = false;
           this.serviceId = data.lkupServicesId;
@@ -936,7 +953,8 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   //here is the fucntion needed to get all uploaded attachments under the saved request
   GetAllUploadedAttachments(FetchedRequestID) {
     this.apiService.GetUploadedAttachments(FetchedRequestID).subscribe(
-      (data) => {},
+      (data) => {
+      },
       (error) => {
         this.handleError(error);
       }
@@ -990,6 +1008,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   //here is the function needed to send attachment
   IsUploaded: boolean;
+
   SendAttachment(neededBody) {
     this.isLoading = true;
     this.apiService.setAttachmentFile(neededBody).subscribe(
@@ -1035,6 +1054,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   //here is the function needed to delete the selected invoice
   IsDeleted: boolean;
   DeletedApprovalInvoiceDTO: any = {};
+
   deleteInvoice(event) {
     //check if the request in draft stage
     if (this.IsDrafted == true) {
@@ -1078,6 +1098,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   //here is the function needed to open a modal to update invoice
   ShowUpdate: boolean = false;
   UpdateIsDrafted: boolean;
+
   editInvoice(event) {
     //check if the request not saved
     if (this.IsDrafted == true) {
@@ -1232,6 +1253,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   //here is the function needed to push at least on invoice to make user be able to add list of items on it
   approvalInvoiceDTO: any;
+
   PushInVoiceToTable() {
     if (this.registerInvoiceForm.invalid) {
       this.handleError('Please fill all fields');
@@ -1242,10 +1264,10 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         invoiceDate: this.registerInvoiceForm.controls.invoiceDate.value,
         invoiceValue: this.registerInvoiceForm.controls.invoiceValue.value,
         lkupCurrencyName:
-          this.registerInvoiceForm.controls.lkupCurrencyName.value,
+        this.registerInvoiceForm.controls.lkupCurrencyName.value,
         fWithinIncluded: false,
         supplierCountryName:
-          this.registerInvoiceForm.controls.supplierCountryName.value,
+        this.registerInvoiceForm.controls.supplierCountryName.value,
         noOfItems: this.registerInvoiceForm.controls.noofitems.value,
         supplierName: this.registerInvoiceForm.controls.supplierName.value,
       });
@@ -1254,15 +1276,14 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         invoiceNo: this.registerInvoiceForm.controls.invoiceNo.value,
         invoiceType: this.registerInvoiceForm.controls.invoicetype.value,
         lkupCurrencyId:
-          this.registerInvoiceForm.controls.lkupCurrencyName.value,
+        this.registerInvoiceForm.controls.lkupCurrencyName.value,
         invoiceDate: this.registerInvoiceForm.controls.invoiceDate.value,
         requestApprovalsId: 0,
         supplierName: this.registerInvoiceForm.controls.supplierName.value,
         supplierCountryId:
-          this.registerInvoiceForm.controls.supplierCountryName.value,
+        this.registerInvoiceForm.controls.supplierCountryName.value,
         noOfItems: this.registerInvoiceForm.controls.noofitems.value,
       };
-      console.log(this.approvalInvoiceDTO);
       this.CloseInvoice();
     } else if (this.invoiceListTable.tableBody.length == 1) {
       return;
@@ -1283,10 +1304,10 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         invoiceValue: this.registerInvoiceForm.controls.invoiceValue.value,
         invoiceDate: this.registerInvoiceForm.controls.invoiceDate.value,
         lkupCurrencyName:
-          this.registerInvoiceForm.controls.lkupCurrencyName.value,
+        this.registerInvoiceForm.controls.lkupCurrencyName.value,
         supplierName: this.registerInvoiceForm.controls.supplierName.value,
         supplierCountryName:
-          this.registerInvoiceForm.controls.supplierCountryName.value,
+        this.registerInvoiceForm.controls.supplierCountryName.value,
       });
       this.invoiceListTable.tableBody[this.editInvoiceIndex] =
         this.registerInvoiceForm.value;
@@ -1296,15 +1317,14 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         invoiceNo: this.registerInvoiceForm.controls.invoiceNo.value,
         invoiceType: this.registerInvoiceForm.controls.invoicetype.value,
         lkupCurrencyId:
-          this.registerInvoiceForm.controls.lkupCurrencyName.value,
+        this.registerInvoiceForm.controls.lkupCurrencyName.value,
         invoiceDate: this.registerInvoiceForm.controls.invoiceDate.value,
         requestApprovalsId: 0,
         supplierName: this.registerInvoiceForm.controls.supplierName.value,
         supplierCountryId:
-          this.registerInvoiceForm.controls.supplierCountryName.value,
+        this.registerInvoiceForm.controls.supplierCountryName.value,
         noOfItems: this.registerInvoiceForm.controls.noofitems.value,
       };
-      console.log(this.approvalInvoiceDTO);
       this.CloseInvoice();
       this.handleSuccess('Done update invoice before save');
     }
@@ -1317,10 +1337,10 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         invoiceValue: this.registerInvoiceForm.controls.invoiceValue.value,
         invoiceDate: this.registerInvoiceForm.controls.invoiceDate.value,
         lkupCurrencyName:
-          this.registerInvoiceForm.controls.lkupCurrencyName.value,
+        this.registerInvoiceForm.controls.lkupCurrencyName.value,
         supplierName: this.registerInvoiceForm.controls.supplierName.value,
         supplierCountryName:
-          this.registerInvoiceForm.controls.supplierCountryName.value,
+        this.registerInvoiceForm.controls.supplierCountryName.value,
       });
       this.invoiceListTable.tableBody[this.editInvoiceIndex] =
         this.registerInvoiceForm.value;
@@ -1330,15 +1350,14 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         invoiceNo: this.registerInvoiceForm.controls.invoiceNo.value,
         invoiceType: this.registerInvoiceForm.controls.invoicetype.value,
         lkupCurrencyId:
-          this.registerInvoiceForm.controls.lkupCurrencyName.value,
+        this.registerInvoiceForm.controls.lkupCurrencyName.value,
         invoiceDate: this.registerInvoiceForm.controls.invoiceDate.value,
         requestApprovalsId: 0,
         supplierName: this.registerInvoiceForm.controls.supplierName.value,
         supplierCountryId:
-          this.registerInvoiceForm.controls.supplierCountryName.value,
+        this.registerInvoiceForm.controls.supplierCountryName.value,
         noOfItems: this.registerInvoiceForm.controls.noofitems.value,
       };
-      console.log(this.approvalInvoiceDTO);
 
       this.CloseInvoice();
       this.handleSuccess('Done update invoice after save');
@@ -1361,6 +1380,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   lkupPackingTypeId;
   newapprovalItemPackDto;
   packingId: any;
+
   choosePackagingData(event) {
     if (this.serviceId == 1) {
       this.packingId = event.id;
@@ -1386,6 +1406,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   fragrance: any;
   productColour: any;
   ingredientId: any;
+
   ChooseIngredientData(event: any) {
     this.ingredientId = event.packingRow.id;
     this.barcode = event.packingRow.barcode;
@@ -1394,7 +1415,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
     this.productColour = event.packingRow.productColour;
     this.ingredientDtos.push({
       inciName:
-        event.packingRow.ingredientDetailsDto[0][0].ingredientDto.inciName,
+      event.packingRow.ingredientDetailsDto[0][0].ingredientDto.inciName,
       functionId: event.packingRow.ingredientDetailsDto[0][0].functionId,
       concentration: event.packingRow.ingredientDetailsDto[0][0].concentration,
     });
@@ -1402,6 +1423,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   newSelectedItemType: any;
   ShowUpdateItembutton: boolean;
+
   editItem(event) {
     debugger;
     this.ShowUpdateItembutton = true;
@@ -1437,7 +1459,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       initialApprovalCount: +this.registerItemsForm.controls.quantity.value,
       itemName: this.registerItemsForm.controls.shortName.value,
       lkupCountryId:
-        this.registerInvoiceForm.controls.supplierCountryName.value,
+      this.registerInvoiceForm.controls.supplierCountryName.value,
       lkupUomId: this.SetSelectedUOM,
       lkupCurrencyId: this.registerInvoiceForm.controls.lkupCurrencyName.value,
       fRegisteredProduct: this.ChoosedRegisterType,
@@ -1447,7 +1469,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       approvalItemProductDto: {
         id: this.approvalItemsDto.approvalItemProductDto.id,
         approvalItemId:
-          this.approvalItemsDto.approvalItemProductDto.approvalItemId,
+        this.approvalItemsDto.approvalItemProductDto.approvalItemId,
         productId: this.neededapprovalItemProductDto.productId,
         notificationNo: this.neededapprovalItemProductDto.notificationNo,
         productName: this.neededapprovalItemProductDto.productName,
@@ -1484,9 +1506,10 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
     debugger;
     //get product by notification number without click >> call function automatic
 
-    if(this.ProductDetails.controls.notificationNo.value !=null)
-    { this.GetProductDetails(this.ProductDetails.controls.notificationNo.value);}
-   
+    if (this.ProductDetails.controls.notificationNo.value != null) {
+      this.GetProductDetails(this.ProductDetails.controls.notificationNo.value);
+    }
+
 
     // this.ProductDetails.reset();
     // this.registerItemsForm.reset();
@@ -1525,6 +1548,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   premixBatch: any;
   sourceOfRowMaterialField;
+
   EditPremix(event) {
     this.SelectedItemTypeId = 2;
     this.ProductDetails.controls.itemType.setValue(this.SelectedItemTypeId);
@@ -1567,6 +1591,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   approvalItemsDto: any = {};
   ChoosedItemList = [];
   SelectedItemTypeId;
+
   PushItems() {
     debugger;
     if (this.itemListTable.tableBody == null) {
@@ -1574,16 +1599,16 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
     }
 
     this.itemListTable.tableBody.push({
-      itemName:  this.registerItemsForm.controls.InvoiceItemName.value,
+      itemName: this.registerItemsForm.controls.InvoiceItemName.value,
       itemType: this.SelectedItemTypeId,
       //manufacturingCompany: this.registerItemsForm.controls.ManufacturingCompany.value,
       quantity: this.registerItemsForm.controls.quantity.value,
       NotificationNumber: this.notificationNo,
     });
     //sara start
-   // this.registerItemsForm.reset();
-   // this.PackagingDataForm.reset();
-    //sara end 
+    // this.registerItemsForm.reset();
+    // this.PackagingDataForm.reset();
+    //sara end
 
     // if (this.SelectedItemTypeId == 1)
     this.approvalItemsDto = {
@@ -1591,12 +1616,12 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       syslkupItemTypeId: this.SelectedItemTypeId,
       initialApprovalCount: +this.registerItemsForm.controls.quantity.value,
       itemName: this.registerItemsForm.controls.shortName.value,
-      
+
       lkupCountryId: this.registerInvoiceForm.controls.supplierCountryName.value,
       //lkupCountryId: this.ItemManufacturingCountry;
-       
-     // manufacturingCompany: this.ManufacturingCompany,
-       
+
+      // manufacturingCompany: this.ManufacturingCompany,
+
       lkupUomId: this.SetSelectedUOM,
       lkupCurrencyId: this.registerInvoiceForm.controls.lkupCurrencyName.value,
       fRegisteredProduct: this.ChoosedRegisterType,
@@ -1642,12 +1667,12 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         initialApprovalCount: +this.registerItemsForm.controls.quantity.value,
         itemName: this.registerItemsForm.controls.shortName.value,
         lkupCountryId:
-          this.registerInvoiceForm.controls.supplierCountryName.value,
+        this.registerInvoiceForm.controls.supplierCountryName.value,
         lkupUomId: this.SetSelectedUOM,
         lkupCurrencyId:
-          this.registerInvoiceForm.controls.lkupCurrencyName.value,
+        this.registerInvoiceForm.controls.lkupCurrencyName.value,
         itemNameInInvoice:
-          this.registerItemsForm.controls.InvoiceItemName.value,
+        this.registerItemsForm.controls.InvoiceItemName.value,
         noOfItems: this.registerInvoiceForm.controls.noofitems.value,
         fRegisteredProduct: this.ChoosedRegisterType,
 
@@ -1661,7 +1686,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
           flagType: 1,
           lkupManufactoryId: 1,
           manufacturingCompany:
-            this.neededapprovalItemProductDto.manufacturingCompanyId,
+          this.neededapprovalItemProductDto.manufacturingCompanyId,
           // batchNo: this.registerItemsForm.controls.batchNo.value,
           volume: this.volume,
           lkupUomId: this.SetSelectedUOM,
@@ -1685,11 +1710,13 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   }
 
   ChoosedRawmaterial: any;
+
   SetChoosedRawMaterial(e) {
     this.ChoosedRawmaterial = JSON.parse(e.value);
   }
 
   rawmaterial: any;
+
   CollectRawMaterialDataFromUI() {
     debugger;
     if (this.SelectedItemTypeId != 3) {
@@ -1708,7 +1735,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       manufacturingCompany: null,
       sourceRawMaterialId: this.sourceOfRowMaterialField,
       rawNameAsInvoice: null,
-      storageSite:this.registerItemsForm.controls.storageSite.value
+      storageSite: this.registerItemsForm.controls.storageSite.value
     };
   }
 
@@ -1727,6 +1754,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   }
 
   lkupPackingTypeName: any;
+
   CollectPackFromUI() {
     if (this.SelectedItemTypeId != 4) {
       return null;
@@ -1750,6 +1778,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   //here is the function needed to download a selected attachment
   DisableDownload: boolean;
+
   downloadFile(FileName) {
     this.isLoading = true;
     this.apiService.GetUploadedAttach(this.FetchedAttachmentID).subscribe(
@@ -1798,7 +1827,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       groupNumber: this.registerRequestForm.controls.groupNumber.value,
       fWithinIncluded: false,
       importerLicenseNo:
-        this.registerRequestForm.controls.importerLicenseNo.value,
+      this.registerRequestForm.controls.importerLicenseNo.value,
       lkupServiceTypeId: this.serviceTypeId,
       lkupServicesId: this.serviceId,
       receiptNumber: this.registerRequestForm.controls.receiptNumber.value,
@@ -1810,20 +1839,20 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
     debugger;
     this.apiService.SaveApproval(body).subscribe(
       (res) => {
-        console.log('savenewdata',res)
-        if(res.code==200)
-        {        this.isLoading = false;
+        if (res.code == 200) {
+          this.isLoading = false;
           this.handleSuccess('Done save approval request');
           this.FetchedSavedApprovalID = res.data;
           this.GetRequestDataAfterSave(this.FetchedSavedApprovalID);
           this.registerItemsForm.reset();
           this.ProductDetails.reset();
           // this.GetAllUploadedAttachments(this.FetchedSavedApprovalID);}
+        } else {
+          this.handleError(res.message);
         }
-        else{this.handleError(res.message);}
-          
-        
-    },
+
+
+      },
       (error) => {
         this.handleError(error);
       }
@@ -1832,6 +1861,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
 
   //here is the function needed to submit requst
   IsSubmitted: boolean;
+
   SubmitRequest() {
     //check also if the user edit the request form draft option
     if (this.IsDrafted == true) {
@@ -1841,11 +1871,11 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         const body = {
           id: this.DraftserviceID,
           estimatedValue:
-            this.registerRequestForm.controls.estimatedValue.value,
+          this.registerRequestForm.controls.estimatedValue.value,
           groupNumber: this.registerRequestForm.controls.groupNumber.value,
           fWithinIncluded: false,
           importerLicenseNo:
-            this.registerRequestForm.controls.importerLicenseNo.value,
+          this.registerRequestForm.controls.importerLicenseNo.value,
           lkupServiceTypeId: this.serviceTypeId,
           lkupServicesId: this.serviceId,
           receiptNumber: this.registerRequestForm.controls.receiptNumber.value,
@@ -1856,22 +1886,21 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         };
         this.apiService.SubmitApprovalRequestforService(body).subscribe(
           //sara-validation
-          (res) => 
-             {
-              console.log('savenewdata',res)
-              if(res.code==200)
-              {
-            this.IsSubmitted = true;
-            this.isLoading = false;
-            this.FetchedSavedApprovalID = res.data;
-            this.router.navigate([
-              `pages/cosmetics-product/inner/importation-services/6/11`,
-            ]);
-            // this.GetAllUploadedAttachments(this.FetchedSavedApprovalID);
+          (res) => {
+            if (res.code == 200) {
+              this.IsSubmitted = true;
+              this.isLoading = false;
+              this.FetchedSavedApprovalID = res.data;
+              this.router.navigate([
+                `pages/cosmetics-product/inner/importation-services/6/11`,
+              ]);
+              // this.GetAllUploadedAttachments(this.FetchedSavedApprovalID);
             }
             //sara-validation
-            else{this.handleError(res.message);}
-        }
+            else {
+              this.handleError(res.message);
+            }
+          }
           ,
           (error) => {
             this.isLoading = false;
@@ -1884,18 +1913,18 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         const body = {
           id: this.DraftserviceID,
           estimatedValue:
-            this.registerRequestForm.controls.estimatedValue.value,
+          this.registerRequestForm.controls.estimatedValue.value,
           groupNumber: this.registerRequestForm.controls.groupNumber.value,
           fWithinIncluded: false,
           importerLicenseNo:
-            this.registerRequestForm.controls.importerLicenseNo.value,
+          this.registerRequestForm.controls.importerLicenseNo.value,
           lkupServiceTypeId: this.serviceTypeId,
           lkupServicesId: this.serviceId,
           receiptNumber: this.registerRequestForm.controls.receiptNumber.value,
           receiptValue: this.registerRequestForm.controls.receiptValue.value,
           approvalItemsDto: this.approvalItemsDto,
-         
-          approvalInvoiceDto:this.invoiceListTable.tableBody.length==0?null: {
+
+          approvalInvoiceDto: this.invoiceListTable.tableBody.length == 0 ? null : {
             id: this.SetInvoiceIDAfterSave,
             invoiceValue: this.invoiceListTable.tableBody[0].invoiceValue,
             invoiceNo: this.invoiceListTable.tableBody[0].invoiceNo,
@@ -1905,31 +1934,32 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
             requestApprovalsId: 0,
             supplierName: this.invoiceListTable.tableBody[0].supplierName,
             supplierCountryId:
-              this.invoiceListTable.tableBody[0].supplierCountryId,
+            this.invoiceListTable.tableBody[0].supplierCountryId,
             noOfItems: this.invoiceListTable.tableBody[0].noOfItems,
           },
           listApprovalItemDtos: this.ChoosedItemList,
         };
-        console.log(body);
+
         this.apiService.SubmitApprovalRequestforService(body).subscribe(
-         //sara validation
-          (res) => {
-            
-             if(res.code==200)
-             {
-               //sara validation
-            this.IsSubmitted = true;
-            this.isLoading = false;
-            this.FetchedSavedApprovalID = res.data;
-            this.router.navigate([
-              `pages/cosmetics-product/inner/importation-services/6/11`,
-            ]);
-            // this.GetRequestDataAfterSave(this.FetchedSavedApprovalID);
-            // this.GetAllUploadedAttachments(this.FetchedSavedApprovalID);
-          }
           //sara validation
-        else{this.handleError(res.message);}
-      },
+          (res) => {
+
+            if (res.code == 200) {
+              //sara validation
+              this.IsSubmitted = true;
+              this.isLoading = false;
+              this.FetchedSavedApprovalID = res.data;
+              this.router.navigate([
+                `pages/cosmetics-product/inner/importation-services/6/11`,
+              ]);
+              // this.GetRequestDataAfterSave(this.FetchedSavedApprovalID);
+              // this.GetAllUploadedAttachments(this.FetchedSavedApprovalID);
+            }
+            //sara validation
+            else {
+              this.handleError(res.message);
+            }
+          },
           (error) => {
             this.isLoading = false;
             this.handleError(error);
@@ -1938,8 +1968,8 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       }
     }
 
-    //check if the reuqest already saved by check for the requesid after save
-    // if the request not saved , so set id to be = 0
+      //check if the reuqest already saved by check for the requesid after save
+      // if the request not saved , so set id to be = 0
     // else , so set id to be with the request id
     else {
       if (
@@ -1952,11 +1982,11 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
         const body = {
           id: this.FetchedSavedApprovalID,
           estimatedValue:
-            this.registerRequestForm.controls.estimatedValue.value,
+          this.registerRequestForm.controls.estimatedValue.value,
           groupNumber: this.registerRequestForm.controls.groupNumber.value,
           fWithinIncluded: false,
           importerLicenseNo:
-            this.registerRequestForm.controls.importerLicenseNo.value,
+          this.registerRequestForm.controls.importerLicenseNo.value,
           lkupServiceTypeId: this.serviceTypeId,
           lkupServicesId: this.serviceId,
           receiptNumber: this.registerRequestForm.controls.receiptNumber.value,
@@ -1988,14 +2018,14 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   //here is the function fired an error
   handleError(error) {
     this.alertErrorNotificationStatus = true;
-    this.alertErrorNotification = { msg: error };
+    this.alertErrorNotification = {msg: error};
     this.isLoading = false;
   }
 
   //here is the function needed to fire when a done operation occurred
   handleSuccess(donemsg) {
     this.alertSuccessNotificationStatus = true;
-    this.alertSuccessNotification = { msg: donemsg };
+    this.alertSuccessNotification = {msg: donemsg};
     this.isLoading = false;
   }
 
@@ -2065,17 +2095,19 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
   formData = null;
   premixNameList: any;
   premixBatchesList: [] = [];
+
   setAllLookupsInObservable() {
     this.filteredOptionsForRawMaterialType = this.filterLookupsFunction(
       'rowMaterialNameField',
       this.rowMaterialNameField,
       this.formData?.rawMaterialList
     );
- 
+
     this.apiService.getPremixList().subscribe((res) => {
       this.premixNameList = res;
     });
   }
+
   GetSelectedPremixBatchesList(premixName: string) {
     this.premixBatchesList = null;
     this.premixBatchesList = this.premixNameList.find(
@@ -2092,11 +2124,11 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
           map((state) =>
             state
               ? this.filterInsideListForDiffModel(
-                  whichLookup,
-                  state,
-                  list,
-                  index
-                ).slice(0, 3000)
+              whichLookup,
+              state,
+              list,
+              index
+              ).slice(0, 3000)
               : list.slice(0, 3000)
           )
         );
@@ -2108,11 +2140,11 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
           map((state) =>
             state
               ? this.filterInsideListForDiffModel(
-                  whichLookup,
-                  state,
-                  list,
-                  index
-                ).slice(0, 3000)
+              whichLookup,
+              state,
+              list,
+              index
+              ).slice(0, 3000)
               : list.slice(0, 3000)
           )
         );
@@ -2130,6 +2162,7 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   filterInsideList(lookup, value, list, index?: any): LookupState[] {
     let filterValue;
     if (value) {
@@ -2151,43 +2184,46 @@ export class CosmaticImportationComponent implements OnInit, OnDestroy {
       .filter((option) => option.inciName.toLowerCase().includes(filterValue))
       .map((x) => x);
   }
+
   itemType;
   importReason;
   disableImportReasonField: boolean = false;
+
   async getTermType(event): Promise<any> {
-  
-    if(event.value ==undefined)
-    {
+
+    if (event.value == undefined) {
       this.fillFormData();
     }
- 
-   
+
+
     this.formData.itemTypeList.filter(item => item.id === event.value.id).map(res => {
-     
+
       this.formData.importReasonList = this.formData.importReason[this.formData.itemTypeList.indexOf(res)]
       this.importReason = '';
 
       if (this.formData.importReasonList.length === 1) {
         this.importReason = this.formData.importReasonList[0];
         this.disableImportReasonField = true;
-      
+
       }
     })
-  
+
   }
-  fillFormData()
-  {       this.apiService.getAllInvoiceItemTypes().subscribe((res: any) => {
-   if (res) {
-     this.formData.itemTypeList = res;
-   }
- }), error => this.handleError(error); }
+
+  fillFormData() {
+    this.apiService.getAllInvoiceItemTypes().subscribe((res: any) => {
+      if (res) {
+        this.formData.itemTypeList = res;
+      }
+    }), error => this.handleError(error);
+  }
 
   //Reem Validation on Invoice date [Start]
-  curr_year :number= (new Date()).getFullYear();
-  curr_date:number = (new Date()).getDate();
-  curr_month:number =(new Date()) .getMonth();
-  maxDate= new Date(this.curr_year ,(this.curr_month),(this.curr_date));
-  minDate=new Date(this.curr_year-1 ,(this.curr_month),(this.curr_date));
+  curr_year: number = (new Date()).getFullYear();
+  curr_date: number = (new Date()).getDate();
+  curr_month: number = (new Date()).getMonth();
+  maxDate = new Date(this.curr_year, (this.curr_month), (this.curr_date));
+  minDate = new Date(this.curr_year - 1, (this.curr_month), (this.curr_date));
   //Reem Validation on Invoice date [End]
   //sara 11-5-2022 [End ]
 }

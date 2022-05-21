@@ -41,7 +41,7 @@ export class CardComponent implements OnInit, OnChanges {
 //custom Relese
 shown()
 {
-  
+
    debugger;
   if(this.serviceTypeId == 12)
   {
@@ -58,7 +58,6 @@ shown()
   }
 
   goToLink(link: string, serviceId?: number, serviceTypeId?: number,serviceTypeName?: string) {
-console.log('itemData',this.itemData)
     this.router.navigateByUrl(serviceId ? `${link}/${serviceId}/${serviceTypeId}/${serviceTypeName}` : link)
   }
 }

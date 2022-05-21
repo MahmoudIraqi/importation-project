@@ -12,8 +12,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { DecimalPipe } from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DecimalPipe} from '@angular/common';
 import {
   catchError,
   debounceTime,
@@ -22,14 +22,14 @@ import {
   map,
   startWith,
 } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { TranslateService } from '@ngx-translate/core';
-import { InputService } from 'src/app/services/input.service';
-import { FormService } from 'src/app/services/form.service';
-import { stringify } from 'querystring';
+import {Observable} from 'rxjs';
+import {MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {TabsetComponent} from 'ngx-bootstrap/tabs';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
+import {TranslateService} from '@ngx-translate/core';
+import {InputService} from 'src/app/services/input.service';
+import {FormService} from 'src/app/services/form.service';
+import {stringify} from 'querystring';
 
 @Component({
   selector: 'app-create-or-edit-premix',
@@ -78,14 +78,16 @@ export class CreateOrEditPremixComponent implements OnInit {
     public translateService: TranslateService,
     private modalService: BsModalService,
     private getService: FormService
-  ) {}
+  ) {
+    this.getFormAsStarting('', '');
+  }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     this.premixObj.premixIngredientsDTO = [];
     this.premixObj.premixBatchDtos = [];
     this.editedPremix.premixIngredientsDTO = [];
     this.editedPremix.premixBatchDtos = [];
-    this.inputService
+    await this.inputService
       .getInput$()
       .pipe(
         filter((x) => x.type === 'allLookups'),
@@ -95,15 +97,18 @@ export class CreateOrEditPremixComponent implements OnInit {
         this.formData = {
           ...res.payload,
         };
+
+        this.setAllLookupsInObservable();
       });
-    this.getFormAsStarting('', '');
-    this.setAllLookupsInObservable();
+
     this.isLoading = false;
 
     //saving the parameter passed ID into component
     this.route.params.subscribe((params: any) => {
       this.premixID = params.id;
-      this.getPermixById(this.premixID);
+      if (this.premixID) {
+        this.getPermixById(this.premixID);
+      }
 
       //when the user uses premix edit "ReadOnly form Disabled "
       if (
@@ -119,12 +124,12 @@ export class CreateOrEditPremixComponent implements OnInit {
       }
     });
   }
+
   // getting premix data by parameter passed ID and passing data into PremixForm
   getPermixById(id) {
     this.premixID = id;
     this.getService.getPermixById(id).subscribe((res: any) => {
       this.selectedPremix = res;
-      console.log(this.selectedPremix);
       this.PremixForm.get('id').setValue(this.selectedPremix.id),
         this.PremixForm.get('premixName').setValue(this.selectedPremix.name);
       this.PremixForm.get('notificationNumber').setValue(
@@ -189,7 +194,7 @@ export class CreateOrEditPremixComponent implements OnInit {
 
   handleError(message) {
     this.alertErrorNotificationStatus = true;
-    this.alertErrorNotification = { msg: message };
+    this.alertErrorNotification = {msg: message};
     this.isLoading = false;
   }
 
@@ -208,6 +213,7 @@ export class CreateOrEditPremixComponent implements OnInit {
       tableBody: this.Batches,
     };
   }
+
   AddIngredientToList() {
     this.selectedFunctionId = this.filteredOptionsForFunctionList.find(
       (o) => o.functionName === this.PremixForm.get('function').value
@@ -233,7 +239,6 @@ export class CreateOrEditPremixComponent implements OnInit {
       this.selectedPremix.premixIngredientsDTO.push(data);
       this.newIngredientlist = this.selectedPremix.premixIngredientsDTO;
 
-      console.log(this.selectedPremix.premixIngredientsDTO);
       this.premixIngredientsList = {
         tableHeader: ['id', 'concentration', 'functionId', 'action'],
         tableBody: this.selectedPremix.premixIngredientsDTO,
@@ -285,7 +290,7 @@ export class CreateOrEditPremixComponent implements OnInit {
     return name;
   }
 
-  setAllLookupsInObservable() {
+  setAllLookupsInObservable(): void {
     this.filteredOptionsForRawMaterialType = this.filterLookupsFunction(
       'rowMaterialNameField',
       this.PremixForm.get('rowMaterialNameField'),
@@ -340,11 +345,11 @@ export class CreateOrEditPremixComponent implements OnInit {
           '1.2-2'
         ),
       },
-      { emitEvent: false }
+      {emitEvent: false}
     );
   }
 
-  filterLookupsFunction(whichLookup, formControlValue, list, index?: any) {
+  filterLookupsFunction(whichLookup, formControlValue, list, index?: any): any {
     if (whichLookup === 'rowMaterialNameField') {
       if (formControlValue) {
         return formControlValue.valueChanges.pipe(
@@ -352,11 +357,11 @@ export class CreateOrEditPremixComponent implements OnInit {
           map((state) =>
             state
               ? this.filterInsideListForDiffModel(
-                  whichLookup,
-                  state,
-                  list,
-                  index
-                ).slice(0, 3000)
+              whichLookup,
+              state,
+              list,
+              index
+              ).slice(0, 3000)
               : list.slice(0, 3000)
           )
         );
@@ -399,11 +404,11 @@ export class CreateOrEditPremixComponent implements OnInit {
 
   //Edit premix button functionality |direct to Add-Edit Premix  component with ID in params|
   editPremix() {
-    this.route.snapshot.queryParams = { view: 'false' };
+    this.route.snapshot.queryParams = {view: 'false'};
     this.ngOnInit();
     this.router.navigate(['.'], {
       relativeTo: this.route,
-      queryParams: { view: 'false' },
+      queryParams: {view: 'false'},
       queryParamsHandling: 'merge',
     });
   }
@@ -430,8 +435,6 @@ export class CreateOrEditPremixComponent implements OnInit {
       //   };
 
       //   this.editedPremix.premixIngredientsDTO.push(input);
-      //   console.log(this.Ingredients);
-      //   console.log(this.editedPremix.premixIngredientsDTO);
       // }
       // for (let i = 0; i < this.Batches.length; i++) {
       //   const input = {
@@ -453,7 +456,6 @@ export class CreateOrEditPremixComponent implements OnInit {
       this.editedPremix.NotificationNo = data.notificationNumber;
       this.editedPremix.premixIngredientsDTO = this.newIngredientlist;
       this.editedPremix.premixBatchDtos = this.newBatchlist;
-      console.log(this.editedPremix);
       this.getService.AddNewPremix(this.editedPremix).subscribe((res) => {
         this.router.navigate([`/pages/cosmetics-product/inner/premix-list`]);
       });
@@ -521,12 +523,14 @@ export interface premix {
   premixIngredientsDTO: PremixIngredients[];
   premixBatchDtos: premixBatch[];
 }
+
 //premix patches interface
 export interface premixBatch {
   batchNo: number;
   productionDate: Date;
   validityDate: Date;
 }
+
 export interface PremixIngredients {
   id: number;
   ingredientsId: number;
