@@ -7,6 +7,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -192,94 +193,85 @@ export class CreateOrEditPremixComponent implements OnInit {
     });
   }
 
-  handleError(message) {
+  handleError(message): void {
     this.alertErrorNotificationStatus = true;
     this.alertErrorNotification = {msg: message};
     this.isLoading = false;
   }
 
-  AddBatchToList() {
+  AddBatchToList(index): void {
     const data = {
-      batchNo: this.PremixForm.get('batchNo').value,
-      productionDate: this.PremixForm.get('productionDate').value,
-      validityDate: this.PremixForm.get('validityDate').value,
+      id: this.PremixForm.get('Batches').value[index].id,
+      batchNo: this.PremixForm.get('Batches').value[index].batchNo,
+      productionDate: this.PremixForm.get('Batches').value[index].productionDate,
+      validityDate: this.PremixForm.get('Batches').value[index].validityDate,
     };
-    this.Batches.push(data);
-    this.selectedPremix.premixBatchDtos.push(data);
-    this.newBatchlist = this.selectedPremix.premixBatchDtos;
-
-    this.premixBatchesList = {
-      tableHeader: ['batchNo', 'productionDate', 'validityDate', 'action'],
-      tableBody: this.Batches,
-    };
+    this.addBatchesDetailsRows()
   }
 
-  AddIngredientToList() {
-    this.selectedFunctionId = this.filteredOptionsForFunctionList.find(
-      (o) => o.functionName === this.PremixForm.get('function').value
-    ).id;
-    this.selectedRawId = this.getIdFromLookupByNameWithDiffModel(
-      this.formData?.rawMaterialList,
-      this.PremixForm.get('rowMaterialNameField').value
-    );
-    const data = {
-      ingredientsId: this.selectedRawId,
-      // name: this.PremixForm.get('rowMaterialNameField').value,
-      concentration: Number(this.PremixForm.get('concentration').value),
-      functionId: this.selectedFunctionId,
-      // functionName: this.PremixForm.get('function').value,
-    };
-    // this.selectedPremix.premixIngredientsDTO.push(data);
+  batchesDetailsRows(): FormArray {
+    return this.PremixForm.get('Batches') as FormArray;
+  }
 
-    if (
-      data.ingredientsId != 0 &&
-      data.concentration != 0 &&
-      data.functionId != 0
-    ) {
-      this.selectedPremix.premixIngredientsDTO.push(data);
-      this.newIngredientlist = this.selectedPremix.premixIngredientsDTO;
+  addBatchesDetailsRows(): void {
+    this.batchesDetailsRows().push(this.fb.group({
+      id: this.fb.control(''),
+      batchNo: this.fb.control('', Validators.required),
+      productionDate: this.fb.control('', Validators.required),
+      validityDate: this.fb.control('', Validators.required),
+    }));
+  }
 
-      this.premixIngredientsList = {
-        tableHeader: ['id', 'concentration', 'functionId', 'action'],
-        tableBody: this.selectedPremix.premixIngredientsDTO,
-      };
-    } else {
-      this.alertErrorNotificationStatus = true;
-      this.alertErrorNotification = {
-        msg: 'Please Select Raw material and its function and enter its Concentration',
-      };
+  removeBatchesDetailsRows(index): void {
+    this.batchesDetailsRows().removeAt(index);
+    if (this.batchesDetailsRows().length === 0) {
+      this.addBatchesDetailsRows();
     }
   }
 
-  removeIngredientfromPremix(ing) {
-    const x = this.selectedPremix.premixIngredientsDTO.indexOf(ing);
-    this.selectedPremix.premixIngredientsDTO.splice(x, 1);
-    this.premixIngredientsList.tableBody = [];
-    this.premixIngredientsList.tableBody =
-      this.selectedPremix.premixIngredientsDTO;
-    this.newIngredientlist = this.selectedPremix.premixIngredientsDTO;
+  AddIngredientToList(index): void {
+    // this.selectedFunctionId = this.filteredOptionsForFunctionList.find((o) => o.functionName === this.PremixForm.get('Ingredients').value[index].functionId).id;
+    // this.selectedRawId = this.getIdFromLookupByNameWithDiffModel(this.formData?.rawMaterialList, this.PremixForm.get('Ingredients').value[index].ingredientsId);
+    const data = {
+      id: this.PremixForm.get('Ingredients').value[index].id,
+      ingredientsId: this.PremixForm.get('Ingredients').value[index].functionId,
+      concentration: Number(this.PremixForm.get('concentration').value),
+      functionId: this.PremixForm.get('Ingredients').value[index].ingredientsId,
+    };
+
+    this.addIngrediantDetailsRows();
   }
 
-  removeBatchfromPremix(batch) {
-    const x = this.Batches.indexOf(batch);
-    this.Batches.splice(x, 1);
-    this.premixBatchesList.tableBody = [];
-    this.premixBatchesList.tableBody = this.Batches;
-    this.newBatchlist = this.selectedPremix.premixBatchDtos;
+  IngrediantDetailsRows(): FormArray {
+    return this.PremixForm.get('Ingredients') as FormArray;
   }
 
-  getIdFromLookupByNameWithDiffModel(list, value) {
+  addIngrediantDetailsRows(): void {
+    this.IngrediantDetailsRows().push(this.fb.group({
+      id: this.fb.control(''),
+      ingredientsId: this.fb.control('', Validators.required),
+      concentration: this.fb.control('', Validators.required),
+      functionId: this.fb.control('', Validators.required),
+    }));
+  }
+
+  removeIngrediantDetailsRows(index): void {
+    this.IngrediantDetailsRows().removeAt(index);
+    if (this.IngrediantDetailsRows().length === 0) {
+      this.addIngrediantDetailsRows();
+    }
+  }
+
+  getIdFromLookupByNameWithDiffModel(list, value): void {
     let id;
-    list
-      .filter((option) => option.inciName === value)
-      .map((res) => {
-        id = res.id;
-      });
+    list.filter((option) => option.inciName === value).map((res) => {
+      id = res.id;
+    });
 
     return id;
   }
 
-  getNameFromLookupByIdWithDiffModel(list, value) {
+  getNameFromLookupByIdWithDiffModel(list, value): void {
     let name;
     list
       .filter((option) => option.id === value)
@@ -314,7 +306,7 @@ export class CreateOrEditPremixComponent implements OnInit {
     );
   }
 
-  getFormAsStarting(data, fromWhere) {
+  getFormAsStarting(data, fromWhere): void {
     if (data) {
     } else {
       this.PremixForm = this.fb.group({
@@ -325,19 +317,23 @@ export class CreateOrEditPremixComponent implements OnInit {
         originCountry: this.fb.control(''),
         companySupplier: this.fb.control(''),
         supplierCountry: this.fb.control(''),
-        Ingredients: this.fb.control([]),
-        Batches: this.fb.control([]),
-        batchNo: this.fb.control(''),
-        productionDate: this.fb.control(''),
-        validityDate: this.fb.control(''),
-        concentration: this.fb.control(''),
-        function: this.fb.control(''),
-        rowMaterialNameField: this.fb.control(''),
+        Ingredients: this.fb.array([this.fb.group({
+          id: this.fb.control(''),
+          ingredientsId: this.fb.control('', Validators.required),
+          concentration: this.fb.control('', Validators.required),
+          functionId: this.fb.control('', Validators.required),
+        })]),
+        Batches: this.fb.array([this.fb.group({
+          id: this.fb.control(''),
+          batchNo: this.fb.control('', Validators.required),
+          productionDate: this.fb.control('', Validators.required),
+          validityDate: this.fb.control('', Validators.required),
+        })]),
       });
     }
   }
 
-  getDecimalValue(value, fromWhere) {
+  getDecimalValue(value, fromWhere): void {
     this.PremixForm.patchValue(
       {
         concentration: this.number.transform(

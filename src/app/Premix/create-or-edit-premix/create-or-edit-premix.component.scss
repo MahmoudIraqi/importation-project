@@ -2,6 +2,19 @@
   padding: 0 !important;
 }
 
+.tabsContainer {
+  margin-top: 3rem;
+  padding: 3rem 1.5rem;
+  border: 1px solid #a66c15;
+  border-radius: 10px 0 10px 10px;
+}
+
+.rowContainer {
+  border-radius: 10px 0 10px 10px;
+  border: 0.5px solid #c28a30;
+  padding: 0em 1em;
+}
+
 .alert-danger {
   position: absolute;
   top: -15px;
