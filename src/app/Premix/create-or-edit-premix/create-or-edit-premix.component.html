@@ -32,7 +32,7 @@
                 <input type="text" id="premixName" class="form-control"
                        matInput formControlName="premixName"
                        placeholder="{{ 'premix.name' | translate }}"
-                       required readonly/>
+                       readonly/>
                 <div class="alert alert-danger"
                      *ngIf="PremixForm.get('premixName').invalid && (PremixForm.get('premixName').dirty || PremixForm.get('premixName').touched)">
                   <div *ngIf="PremixForm.get('premixName').errors.required">
@@ -76,19 +76,38 @@
               </mat-form-field>
             </div>
             <div class="col-lg-4 col-sm-6 col-12">
-              <mat-form-field class="example-full-width inputBesideSelect">
-                <mat-label>
-                  {{ "premix.notificationNumber" | translate }}
-                </mat-label>
-                <input type="text" class="form-control" matInput formControlName="notificationNumber"
-                       placeholder="{{ 'premix.notificationNumber' | translate }}" required/>
-                <div class="alert alert-danger"
-                     *ngIf="PremixForm.get('notificationNumber').invalid && (PremixForm.get('notificationNumber').dirty || PremixForm.get('notificationNumber').touched)">
-                  <div *ngIf="PremixForm.get('notificationNumber').errors.required">
-                    {{ "common.validationStatement.required" | translate }}
-                  </div>
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field class="example-full-width inputBesideSelect">
+                    <mat-label>
+                      {{ "premix.notificationNumber" | translate }}
+                    </mat-label>
+                    <input type="text" class="form-control" matInput formControlName="notificationNumber"
+                           placeholder="{{ 'premix.notificationNumber' | translate }}" required/>
+                    <div class="validationShortNameContainer" *ngIf="notificationNumberValidation">
+                      <p>
+                        <i class="fas fa-info-circle" tooltip="the value is not valid" placement="auto"
+                           *ngIf="!notificationNumberValidation"></i>
+                        <i class="fas fa-check-circle" *ngIf="notificationNumberValidation"></i>
+                      </p>
+                    </div>
+                    <div class="alert alert-danger"
+                         *ngIf="PremixForm.get('notificationNumber').invalid && (PremixForm.get('notificationNumber').dirty || PremixForm.get('notificationNumber').touched)">
+                      <div *ngIf="PremixForm.get('notificationNumber').errors.required">
+                        {{ "common.validationStatement.required" | translate }}
+                      </div>
+                    </div>
+                  </mat-form-field>
                 </div>
-              </mat-form-field>
+                <div class="col-6 d-flex">
+                  <button type="button"
+                          class="btn btn-primary ml-auto mt-sm-3"
+                          [disabled]="!PremixForm.get('notificationNumber').value"
+                          (click)="validateNotificationNumber(PremixForm.get('notificationNumber').value)">
+                    Validate notification number
+                  </button>
+                </div>
+              </div>
             </div>
             <div class="col-lg-4 col-sm-6 col-12">
               <mat-form-field class="example-full-width inputBesideSelect">
@@ -125,7 +144,7 @@
             </div>
 
             <div class="col-12">
-              <div class="tabsContainer">
+              <div class="tabsContainer" *ngIf="notificationNumberValidation">
                 <tabset class="tabs" type="pills">
                   <tab [heading]="'Ingrediants'">
                     <div class="row mt-3">
@@ -148,7 +167,7 @@
                                        formControlName="ingredientsId" [matAutocomplete]="rowMaterialNameList"
                                        required/>
                                 <mat-autocomplete #rowMaterialNameList="matAutocomplete">
-                                  <mat-option *ngFor=" let option of filteredOptionsForRawMaterialType | async "
+                                  <mat-option *ngFor=" let option of arrayOfObservablesForIngredient[index] | async"
                                               [value]="option.inciName">
                                     <span class="tooltipContainer" tooltip="{{ option.inciName }}" placement="top">
                                       {{ option.inciName }}
@@ -164,7 +183,6 @@
                                 </mat-label>
                                 <input type="text" class="form-control" matInput
                                        pattern="^(\d{1,3}(,\d{3})|\d)*(\.\d+)?$"
-                                       (change)="getDecimalValue(PremixForm.get('concentration').value,'')"
                                        formControlName="concentration"
                                        placeholder="{{ 'premix.concentration' | translate }}"
                                        required/>
@@ -178,7 +196,7 @@
                                        matInput
                                        formControlName="functionId" [matAutocomplete]="functionList" required/>
                                 <mat-autocomplete #functionList="matAutocomplete">
-                                  <mat-option *ngFor="let option of filteredOptionsForFunctionList"
+                                  <mat-option *ngFor="let option of arrayOfObservablesForFunction[index] | async"
                                               [value]="option.functionName">
                                     <span class="tooltipContainer" tooltip="{{ option.functionName }}" placement="top">
                                       {{ option.functionName }}
@@ -275,24 +293,26 @@
                 </tabset>
               </div>
             </div>
-            <div class="row buttonContainer btm-out">
-              <div class="col-12 d-flex flex-column flex-md-row mt-3">
-                <div class="{{currentLang === 'ar' ? 'mr-md-auto' : 'ml-md-auto'}}">
-                  <button *ngIf="view !== true" type="submit"
-                          class="btn btn-primary btn-sm {{currentLang === 'ar' ? 'ml-3' : 'mr-3'}} bottomButtons"
-                          [disabled]="false">
-                    {{ "common.save" | translate }}
-                  </button>
-                  <button *ngIf="view == true" (click)="editPremix()"
-                          class="btn btn-primary btn-sm {{currentLang === 'ar' ? 'ml-3' : 'mr-3'}} bottomButtons"
-                          [disabled]="false">
-                    {{ "Edit" | translate }}
-                  </button>
-                  <button *ngIf="view == true" [routerLink]="['/pages/cosmetics-product/inner/premix-list']"
-                          class="btn btn-primary btn-sm {{currentLang === 'ar' ? 'ml-3' : 'mr-3'}} bottomButtons"
-                          [disabled]="false">
-                    {{ "Exit" | translate }}
-                  </button>
+            <div class="col-12">
+              <div class="row buttonContainer btm-out">
+                <div class="col-12 d-flex flex-column flex-md-row mt-3">
+                  <div class="{{currentLang === 'ar' ? 'mr-md-auto' : 'ml-md-auto'}}">
+                    <button *ngIf="view !== true" type="submit"
+                            class="btn btn-primary btn-sm bottomButtons"
+                            [disabled]="false">
+                      {{ "common.submit" | translate }}
+                    </button>
+                    <button *ngIf="view == true" (click)="editPremix()"
+                            class="btn btn-primary btn-sm {{currentLang === 'ar' ? 'ml-3' : 'mr-3'}} bottomButtons"
+                            [disabled]="false">
+                      {{ "Edit" | translate }}
+                    </button>
+                    <button *ngIf="view == true" [routerLink]="['/pages/cosmetics-product/inner/premix-list']"
+                            class="btn btn-primary btn-sm {{currentLang === 'ar' ? 'ml-3' : 'mr-3'}} bottomButtons"
+                            [disabled]="false">
+                      {{ "Exit" | translate }}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -343,6 +363,11 @@
     </div>
   </div>
 </ng-template>
+
+<alert type="danger" class="AlertForAllRequests" dismissible="true" (onClosed)="onClosedErrorAlert()"
+       *ngIf="alertErrorNotificationStatus">
+  <strong>Error message</strong> <br> {{alertErrorNotification.msg}}
+</alert>
 
 <app-loader-component [loadingStatus]="isLoading"></app-loader-component>
 <!--  routerLink="/pages/cosmetics-product/inner/createOrEdit-premix/{{

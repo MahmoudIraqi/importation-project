@@ -138,6 +138,15 @@ export class HomeContainerComponent implements OnInit {
       }
     }), error => this.handleError(error);
 
+    await this.getService.getPremixListofFunctions().subscribe(
+      (res: any) => {
+        if (res) {
+          this.formData.function = res;
+          this.publishLookupData();
+        }
+      }, (error) => this.handleError(error)
+    );
+
     await this.inputService.getInput$().pipe(
       filter(x => x.type === 'notificationUnreadCount'),
       distinctUntilChanged()

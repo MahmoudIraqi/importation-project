@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment';
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {
   map,
   catchError,
@@ -13,9 +13,9 @@ import {
   distinctUntilChanged,
   tap,
 } from 'rxjs/operators';
-import { InputService } from './input.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Inspection } from '../comments/comments.model';
+import {InputService} from './input.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Inspection} from '../comments/comments.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +25,8 @@ export class FormService {
   apiBaseUrl = environment.apiURL;
   secondApiURL = environment.secondApiURL;
   thirdApiURL = environment.thirdApiURL;
-  cloudServerApiURL =environment.cloudServerApiURL;
-  cloudValidationServerApiURL=environment.cloudValidationServerApiURL;
+  cloudServerApiURL = environment.cloudServerApiURL;
+  cloudValidationServerApiURL = environment.cloudValidationServerApiURL;
   Token;
 
   // loginAPIURL = environment.loginAPIURL;
@@ -52,7 +52,7 @@ export class FormService {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
     });
-    const options = { headers };
+    const options = {headers};
 
     const newStructure = {
       UserName: data.username,
@@ -80,10 +80,10 @@ export class FormService {
       'Content-type': 'application/json',
       Token: token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
-      .post(`${this.cloudServerApiURL}PortalLogin/Logout`, { token: token }, options)
+      .post(`${this.cloudServerApiURL}PortalLogin/Logout`, {token: token}, options)
       .pipe(
         map((res: any) => {
           this.isLoggedIn = false;
@@ -106,7 +106,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http.get(`${this.apiBaseUrl}Lookups/Dashboard`, options).pipe(
       map((res: any) => {
@@ -121,7 +121,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}BillOfLading/ports`, options)
@@ -138,7 +138,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http.get(`${this.cloudServerApiURL}Invoice/itemTypes`, options).pipe(
       map((res: any) => {
@@ -153,7 +153,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Invoice/importReasons`, options)
@@ -170,7 +170,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Invoice/importReasons/${itemId}`, options)
@@ -187,7 +187,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Company/GetCompanyProfiles`, options)
@@ -204,7 +204,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Department/GetDepartmentsData`, options)
@@ -221,7 +221,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http.get(`${this.cloudServerApiURL}Item/Ingredients`, options).pipe(
       map((res: any) => {
@@ -236,7 +236,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Item​/Ingredients/${start}/${end}`, options)
@@ -253,7 +253,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http.get(`${this.cloudServerApiURL}Item/PackingTypes`, options).pipe(
       map((res: any) => {
@@ -268,7 +268,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Item/GetSrcRawMaterials`, options)
@@ -285,7 +285,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Product/ProductManufacture`, options)
@@ -302,7 +302,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}RequestRelease/ReleaseType`, options)
@@ -319,7 +319,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http.get(`${this.cloudServerApiURL}Shared/Countries`, options).pipe(
       map((res: any) => {
@@ -334,7 +334,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http.get(`${this.cloudServerApiURL}Shared/Currencies`, options).pipe(
       map((res: any) => {
@@ -349,7 +349,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Shared/unitsOfMeasurement`, options)
@@ -366,7 +366,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -385,9 +385,9 @@ export class FormService {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       'Token': this.Token,
-     
+
     });
-   
+
     const options = {headers};
 
     data = JSON.stringify(data);
@@ -404,19 +404,20 @@ export class FormService {
             return res;
           }),
           catchError((err) => {
-            return throwError( new Error(err.error.title )
-              );
-             })
-            ));
-        }
+            return throwError(new Error(err.error.title)
+            );
+          })
+        ));
+  }
+
   submitRequest(data) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       'Token': this.Token,
-      'Access-Control-Allow-Origin':'*'
+      'Access-Control-Allow-Origin': '*'
     });
 
-    const options = { headers };
+    const options = {headers};
 
     data = JSON.stringify(data);
 
@@ -433,12 +434,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   deleteDraftRequest(requestId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Requests/DeleteRequest/${requestId}`, options)
@@ -449,12 +451,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   getInvoicesByBilOfLanding(bolId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -474,7 +477,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Item/Ingredients/Count`, options)
@@ -491,7 +494,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Item/invoiceItems/${invoiceId}`, options)
@@ -508,7 +511,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -528,7 +531,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Requests/${requestId}`, options)
@@ -545,7 +548,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http.get(`${this.cloudServerApiURL}Requests`, options).pipe(
       map((res: any) => {
@@ -560,7 +563,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(`${this.cloudServerApiURL}Requests/DeleteRequest/${requestId}`, options)
@@ -577,7 +580,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     const JSONData = JSON.stringify(event);
 
@@ -596,7 +599,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     const JSONData = JSON.stringify(event);
 
@@ -615,7 +618,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -635,7 +638,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -649,12 +652,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   getCompanyDraftRequestsCount(companyRoleId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -668,12 +672,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   getCompanyApprovedRequestsCount(companyRoleId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -687,12 +692,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   getTotalRequestsCount(companyRoleId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -712,7 +718,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -726,12 +732,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   getAllApprovedRequestCount(companyRoleId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -751,7 +758,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -771,7 +778,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -791,7 +798,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -811,7 +818,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -831,7 +838,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -851,7 +858,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -871,7 +878,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -891,7 +898,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}RequestRelease/GetReleaseRequestData/${id}`, options)
@@ -1020,7 +1027,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.apiBaseUrl}Lookups/notificationlog`, options)
@@ -1031,12 +1038,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   GetNotificationsList() {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Notification/GetNotificationsList`, options)
@@ -1053,7 +1061,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Notification/GetNotificationCount`, options)
@@ -1070,7 +1078,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(`${this.apiBaseUrl}product/SeenNotificaion?id=${id}`, {}, options)
@@ -1087,7 +1095,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Attachments/GetAttachmentTypes`, options)
@@ -1106,7 +1114,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: localStorage.getItem('privateData'),
     });
-    const options = { headers };
+    const options = {headers};
 
     const JSONData = JSON.stringify(event);
 
@@ -1124,13 +1132,13 @@ export class FormService {
       );
   }
 
-  
+
   uploadOnOpenText(event) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     const JSONData = JSON.stringify(event);
 
@@ -1149,7 +1157,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -1170,7 +1178,7 @@ export class FormService {
       Token: this.Token,
     });
 
-    const options = { headers };
+    const options = {headers};
 
     data = JSON.stringify(data);
 
@@ -1187,12 +1195,30 @@ export class FormService {
         )
     );
   }
+
+  validateNotificationNumberForPremix(notificationNumber): any {
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json',
+      Token: this.Token,
+    });
+    const options = {headers};
+
+    return this.http
+      .get(`${this.cloudServerApiURL}Product/ValidateNotificationsNumber/${notificationNumber}`, options)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   getPremixList() {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Premix/GetListOfPremix`, options)
@@ -1203,12 +1229,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   getPremixListofFunctions() {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Premix/GetListOfFunction`, options)
@@ -1225,7 +1252,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.secondApiURL}Premix/GetPremixById/${id}`, options)
@@ -1243,7 +1270,7 @@ export class FormService {
       'Content-type': 'application/json',
       // Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -1264,7 +1291,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Approval/GetApprovalRequestData/${SelecteDRequestID}`, options)
@@ -1281,7 +1308,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Lookup/GetLkupManufactory`, options)
@@ -1292,12 +1319,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   removePremix(id) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(`${this.cloudServerApiURL}Premix/DeltePremix/${id}`, options)
@@ -1308,12 +1336,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   getPackingTypes() {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http.get(`${this.cloudServerApiURL}Item/PackingTypes`, options).pipe(
       map((res: any) => {
@@ -1322,6 +1351,7 @@ export class FormService {
       catchError(this.handleError)
     );
   }
+
   //
   // getVariablesPricesLookUp() {
   //   const headers = new HttpHeaders({
@@ -1352,12 +1382,13 @@ export class FormService {
       );
     }
   }
+
   GetCompanyInfo(companyProfileId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -1371,12 +1402,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
-  GetApprovalInvoice(approvalNo,serviceId) {
+
+  GetApprovalInvoice(approvalNo, serviceId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -1390,13 +1422,14 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   //////////////imported verna
   postRequestCountImported(companyProfileId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(
@@ -1410,12 +1443,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   postImportedApprovedRequestsCount(companyProfileId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(
@@ -1430,12 +1464,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   postImportedAllRequest(companyProfileId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(
@@ -1450,12 +1485,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   postImportedPendingRequestsCount(companyProfileId, serviceId, serviceTypeId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(
@@ -1469,12 +1505,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   postImportedRejectedRequestCount(companyProfileId, serviceId, serviceTypeId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(
@@ -1494,7 +1531,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
     //  = JSON.stringify(importedpending);
     // const  importedpendingconverted ={
     //     "serviceTypeId": 0,
@@ -1515,12 +1552,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   postImportedRequestCount(companyProfileId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Requests/GetAllRequestsForView`, options)
@@ -1531,12 +1569,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   postImportedApprovedRequestForView(importedApproved) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
     const importedoptionconverted = JSON.stringify(importedApproved);
     return this.http
       .post(
@@ -1551,13 +1590,14 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   postImportedDraftRequestForView(importedoption) {
-  
+
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     const importedoptionconverted = JSON.stringify(importedoption);
 
@@ -1574,12 +1614,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   postImportedRejectedRequestForView(companyProfileId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .post(
@@ -1594,13 +1635,14 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   ApprovalImportedRequest(data) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
 
-    const options = { headers };
+    const options = {headers};
 
     data = JSON.stringify(data);
 
@@ -1610,16 +1652,17 @@ export class FormService {
         map((res: any) => {
           return res;
         }),
-        catchError((err)=>this.handleError(err))
+        catchError((err) => this.handleError(err))
       );
   }
+
   //here is the fucntion needed to get all added roles based on company id
   GetAllRoles(id: any) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
     return this.http
       .get(`${this.cloudServerApiURL}Company/GetCompanyRoles/${id}`, options)
       .pipe(
@@ -1636,7 +1679,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
     return this.http
       .get(`${this.cloudServerApiURL}Company/GetCompanyServices/${id}`, options)
       .pipe(
@@ -1654,7 +1697,7 @@ export class FormService {
       Token: this.Token,
     });
 
-    const options = { headers };
+    const options = {headers};
 
     body = JSON.stringify(body);
 
@@ -1676,7 +1719,7 @@ export class FormService {
       Token: this.Token,
     });
 
-    const options = { headers };
+    const options = {headers};
 
     body = JSON.stringify(body);
 
@@ -1689,12 +1732,13 @@ export class FormService {
         catchError(this.handleError)
       );
   }
+
   getRequestComments(RequestId) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(`${this.cloudServerApiURL}Requests/GetStepComments/${RequestId}`, options)
@@ -1711,11 +1755,11 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
     return this.http
       .post(
         `${this.thirdApiURL}Inspection/GetStepComments`,
-        { requestId },
+        {requestId},
         options
       )
       .pipe(
@@ -1728,6 +1772,7 @@ export class FormService {
         )
       );
   }
+
   //here is the function needed to save approval
   SaveApproval(body) {
     const headers = new HttpHeaders({
@@ -1735,7 +1780,7 @@ export class FormService {
       Token: this.Token,
     });
     debugger;
-    const options = { headers };
+    const options = {headers};
     body = JSON.stringify(body);
     return this.http
       .post(`${this.cloudServerApiURL}Approval/SaveRequestApproved`, body, options)
@@ -1743,101 +1788,104 @@ export class FormService {
         map((res: any) => {
           return res;
         }),
-      catchError((err) => {
-      return throwError( new Error(err.error.title )
-        );
-       })
+        catchError((err) => {
+          return throwError(new Error(err.error.title)
+          );
+        })
       );
   }
-  getWithinIncludedBols(){
+
+  getWithinIncludedBols() {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       'Token': this.Token
     });
     const options = {headers};
     return this.http.get(`${this.cloudServerApiURL}BillOfLading/GetWithinIncludedBols`)
-    .pipe(map((res: any) => {
-      return res;
-    }),
-    catchError(this.handleError));
+      .pipe(map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError));
   }
-  getBillOfLading(BolNo:string){
+
+  getBillOfLading(BolNo: string) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       'Token': this.Token
     });
     const options = {headers};
     return this.http.get(`${this.cloudServerApiURL}BillOfLading/GetBillOfLading/${BolNo}`)
-    .pipe(map((res: any) => {
-      return res;
-    }),
-    catchError(this.handleError));
+      .pipe(map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError));
   }
-  getWithinIncludedInvoices(BolNo:string){
+
+  getWithinIncludedInvoices(BolNo: string) {
 
     return this.http.get(`${this.cloudServerApiURL}Invoice/GetWithInIncludedInvoices/${BolNo}`)
-  
-    .pipe(map((res: any) => {
-  
-      return res;
-  
-    }),
-  
-    catchError(this.handleError));
-  
-  }
-  
-  getInvoiceByInvoiceNo(InvoiceNo:string){
-  
-    return this.http.get(`${this.cloudServerApiURL}Invoice/InvoiceByInvoiceNo/${InvoiceNo}`)
-  
-    .pipe(map((res: any) => {
-  
-      return res;
-  
-    }),
-  
-    catchError(this.handleError));
-  
-  }
-    //here is the function needed to submit the approval request for a service
 
-    SubmitApprovalRequestforService(body) {
-      const headers = new HttpHeaders({
-        'Content-type': 'application/json',
-        Token: this.Token,
-      });
-      const options = { headers };
-      body = JSON.stringify(body);
-      return this.http
-      
-      //.post(`${this.cloudServerApiURL}Approval/SubmitRequestApproved`, body, options)
-        .post(`${this.cloudValidationServerApiURL}Approval/SubmitRequestApproved`, body, options)
-        .pipe(
-          map((res: any) => {
-            return res;
-          }),
-          catchError(this.handleError)
-        );
-    }
-
-    //get attachment by Id
-    GetDocumentAsBase64(attachId):any
-    { 
-      const headers = new HttpHeaders({
-        'Content-type': 'application/json',
-        Token: this.Token,
-      });
-      const options = { headers};
-
-      return this.http.get( `${this.cloudServerApiURL}Attachments/GetDocumentAsBase64/${attachId}`,{responseType: 'json'})
-    
       .pipe(map((res: any) => {
-        return res;
-      }),
-    
-      catchError(this.handleError));
-       
+
+          return res;
+
+        }),
+
+        catchError(this.handleError));
+
+  }
+
+  getInvoiceByInvoiceNo(InvoiceNo: string) {
+
+    return this.http.get(`${this.cloudServerApiURL}Invoice/InvoiceByInvoiceNo/${InvoiceNo}`)
+
+      .pipe(map((res: any) => {
+
+          return res;
+
+        }),
+
+        catchError(this.handleError));
+
+  }
+
+  //here is the function needed to submit the approval request for a service
+
+  SubmitApprovalRequestforService(body) {
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json',
+      Token: this.Token,
+    });
+    const options = {headers};
+    body = JSON.stringify(body);
+    return this.http
+
+      //.post(`${this.cloudServerApiURL}Approval/SubmitRequestApproved`, body, options)
+      .post(`${this.cloudValidationServerApiURL}Approval/SubmitRequestApproved`, body, options)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  //get attachment by Id
+  GetDocumentAsBase64(attachId): any {
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json',
+      Token: this.Token,
+    });
+    const options = {headers};
+
+    return this.http.get(`${this.cloudServerApiURL}Attachments/GetDocumentAsBase64/${attachId}`, {responseType: 'json'})
+
+      .pipe(map((res: any) => {
+          return res;
+        }),
+
+        catchError(this.handleError));
+
   }
 
   //here is the function needed to get the uploaded attachments under the fetched request
@@ -1846,7 +1894,7 @@ export class FormService {
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(
@@ -1860,14 +1908,15 @@ export class FormService {
         catchError(this.handleError)
       );
   }
-  replaceForLost(data){
+
+  replaceForLost(data) {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
     return (
-      this.http.post( `${this.cloudServerApiURL}Requests/ReplacementForLost`,data, options)
+      this.http.post(`${this.cloudServerApiURL}Requests/ReplacementForLost`, data, options)
         .pipe(
           map((res: any) => {
             return res;
@@ -1876,13 +1925,14 @@ export class FormService {
         )
     );
   }
-  GetAttachmentTypes(syslkupAttachTabId,lkupServicesId){
- 
+
+  GetAttachmentTypes(syslkupAttachTabId, lkupServicesId) {
+
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
     });
-    const options = { headers };
+    const options = {headers};
 
     return this.http
       .get(

@@ -15,6 +15,25 @@
   padding: 0em 1em;
 }
 
+.validationShortNameContainer {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  font-size: 16px;
+  color: #f00;
+  opacity: 1;
+  font-weight: 600;
+
+  p {
+    position: relative;
+    z-index: 100;
+  }
+
+  .fa-check-circle {
+    color: green;
+  }
+}
+
 .alert-danger {
   position: absolute;
   top: -15px;
@@ -24,18 +43,18 @@
   background: none;
   border: none;
   font-size: 11px;
-}
 
-.alert-danger.RelativeAlert {
-  margin-top: 2em;
-  width: 100%;
-  height: 40px;
-  line-height: 40px;
-  display: block;
-  position: relative;
-  background: rgba(255, 0, 0, 0.55);
-  color: #fff;
-  border: none;
-  text-align: center;
-  font-size: 14px;
+  &.RelativeAlert {
+    margin-top: 2em;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    position: relative;
+    background: rgba(255, 0, 0, 0.55);
+    color: #fff;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+  }
 }
