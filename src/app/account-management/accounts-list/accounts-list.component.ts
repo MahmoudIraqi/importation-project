@@ -200,7 +200,6 @@ export class AccountsListComponent implements OnInit {
 
   Sentservices = [];
   GetSelectedService(service: any) {
-    // debugger;
     // // this.Sentservices = [];
     // let foundServiceId = this.Sentservices.find((element) => {
     //   element.id === service.id;

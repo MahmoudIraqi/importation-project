@@ -45,7 +45,7 @@ export class DraftImportRequestsComponent implements OnInit {
     private inputService: InputService
   ) {
     this.route.params.subscribe(res => {
-      if (res) 
+      if (res)
       { this.serviceId=res.serviceId;
         this.serviceTypeId=res.serviceTypeId;
         this.serviceTypeName=res.serviceTypeName;
@@ -66,13 +66,12 @@ export class DraftImportRequestsComponent implements OnInit {
     this.getDraftProductsList();
   }
   getDraftProductsList() {
-    debugger;
     const serviceObj = {serviceId: this.serviceId,
       serviceTypeId: this.serviceTypeId
     };
     this.getService.postImportedDraftRequestForView(serviceObj).subscribe(
       (res: any) => {
-       
+
         this.draftList = {
           tableHeader: [
             'requestid',

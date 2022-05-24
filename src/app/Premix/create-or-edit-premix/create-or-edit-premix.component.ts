@@ -78,14 +78,10 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
 
         this.route.params.subscribe((params: any) => {
             this.premixID = params.id;
-            if (this.premixID) {
-                this.getPermixById(this.premixID);
-            }
             if (!this.route.snapshot.queryParams.view) {
                 this.view = false;
             } else if (this.route.snapshot.queryParams.view) {
                 this.view = true;
-                this.PremixForm.disable();
             }
         });
     }
@@ -106,6 +102,10 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
                 };
 
                 this.setAllLookupsInObservable();
+
+                if (this.premixID) {
+                    this.getPermixById(this.premixID);
+                }
             });
 
         this.isLoading = false;
@@ -121,7 +121,7 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
     getPermixById(id): void {
         this.premixID = id;
         this.getService.getPermixById(id).subscribe((res: any) => {
-            console.log('res', res);
+            this.getFormAsStarting(res, '');
         });
     }
 
@@ -147,7 +147,7 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
 
     addBatchesDetailsRows(): void {
         this.batchesDetailsRows().push(this.fb.group({
-            id: this.fb.control(''),
+            id: this.fb.control(0),
             batchNo: this.fb.control('', Validators.required),
             productionDate: this.fb.control('', Validators.required),
             validityDate: this.fb.control('', Validators.required),
@@ -185,7 +185,7 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
 
     addIngrediantDetailsRows(): void {
         this.IngrediantDetailsRows().push(this.fb.group({
-            id: this.fb.control(''),
+            id: this.fb.control(0),
             ingredientsId: this.fb.control('', Validators.required),
             concentration: this.fb.control('', Validators.required),
             functionId: this.fb.control('', Validators.required),
@@ -206,7 +206,6 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
     validateNotificationNumber(value): void {
         this.getService.validateNotificationNumberForPremix(value).subscribe(res => {
             this.notificationNumberValidation = true;
-            console.log('res', res);
 
             this.formData.rawMaterialList = res;
             this.renderObservableForIngredientsLookups(0);
@@ -218,7 +217,6 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
             this.subscription.unsubscribe();
         }
         list ? list.subscribe(y => {
-            debugger;
             if (y && y.length === 0) {
                 this.IngrediantDetailsRows().controls.map((x, i) => {
                     if (i === index) {
@@ -279,6 +277,74 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
 
     getFormAsStarting(data, fromWhere): void {
         if (data) {
+            data.premixIngredientsDTO.length > 1 ?
+                data.premixIngredientsDTO.map((row, i) => {
+                    if (i > 0 && this.IngrediantDetailsRows().length < data.premixIngredientsDTO.length) {
+                        this.addIngrediantDetailsRows();
+                    }
+                }) : null;
+
+            data.premixBatchDtos.length > 1 ?
+                data.premixBatchDtos.map((row, i) => {
+                    if (i > 0 && this.batchesDetailsRows().length < data.premixBatchDtos.length) {
+                        this.addBatchesDetailsRows();
+                    }
+                }) : null;
+
+            this.formData?.countries
+                .filter(option => option.id === data.lkupCountryOrigin)
+                .map(x => data.lkupCountryOrigin = x.name[this.currentLang]);
+            this.formData?.countries
+                .filter(option => option.id === data.lkupCountrySupplier)
+                .map(x => data.lkupCountrySupplier = x.name[this.currentLang]);
+            data.premixIngredientsDTO.map(y => {
+                this.formData?.rawMaterialList
+                    .filter(option => option.id === y?.ingredientsId)
+                    .map(item => y.ingredientsId = item.inciName);
+                y.concentration = this.number.transform(y.concentration, '1.8-12', 'en-EN').replace(',', '')
+                this.formData?.function
+                    .filter(option => option.id === y?.functionId)
+                    .map(item => y.functionId = item.functionName);
+            });
+
+            const dataAfterAdapting = {
+                id: data.id,
+                premixName: data.name,
+                notificationNumber: data.notificationNo,
+                originCompany: data.companyOrigin,
+                originCountry: data.lkupCountryOrigin,
+                companySupplier: data.companySupplier,
+                supplierCountry: data.lkupCountrySupplier,
+                Ingredients: data.premixIngredientsDTO?.map(y => {
+                    return {
+                        id: y?.id,
+                        ingredientsId: y?.ingredientsId,
+                        concentration: y?.concentration,
+                        functionId: y?.functionId,
+                    };
+                }),
+                Batches: data.premixBatchDtos?.map(y => {
+                    return {
+                        id: y?.id,
+                        batchNo: y?.batchNo,
+                        productionDate: y?.productionDate,
+                        validityDate: y?.validityDate,
+                    };
+                }),
+            };
+
+
+            this.PremixForm.patchValue({
+                ...dataAfterAdapting
+            });
+
+            this.validateNotificationNumber(this.PremixForm.get('notificationNumber').value);
+            this.notificationNumberValidation = true;
+
+            if (this.view) {
+                this.PremixForm.disable();
+            }
+
         } else {
             this.PremixForm = this.fb.group({
                 id: 0,
@@ -304,16 +370,10 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
         }
     }
 
-    getDecimalValue(value, fromWhere): void {
-        this.PremixForm.patchValue(
-            {
-                concentration: this.number.transform(
-                    this.PremixForm.get('concentration').value,
-                    '1.2-2'
-                ),
-            },
-            {emitEvent: false}
-        );
+    getDecimalValue(event, index): void {
+        // this.IngrediantDetailsRows().controls[index].patchValue(
+        //     {concentration: },
+        // );
     }
 
     filterLookupsFunction(whichLookup, formControlValue, list, index?: any): any {
@@ -372,12 +432,16 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
 
     filterInsideListForDiffModel(lookup, value, list, index?: any): any[] {
         let filterValue;
-        if (value) {
-            filterValue = value.toLowerCase() ? value.toLowerCase() : '';
+        if (list.length) {
+            if (value) {
+                filterValue = value?.toLowerCase() ? value.toLowerCase() : '';
+            }
+            return list
+                .filter((option) => option.inciName.toLowerCase().includes(filterValue))
+                .map((x) => x);
+        } else {
+            return [];
         }
-        return list
-            .filter((option) => option.inciName.toLowerCase().includes(filterValue))
-            .map((x) => x);
     }
 
     filterInsideListForDiffModelForFunction(lookup, value, list, index?: any): any[] {
@@ -401,7 +465,6 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
     }
 
     checkControllerValueWithList(list, formControlKey, formControlValue): void {
-        debugger;
         let value;
         if (list.filter(option => option.name[this.currentLang] === formControlValue).length > 0) {
             list.filter(option => option.name[this.currentLang] === formControlValue).map(x => {

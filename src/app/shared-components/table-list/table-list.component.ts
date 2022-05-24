@@ -121,8 +121,6 @@ export class TableListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log('data', this.data)
-
     if (this.data) {
       if (this.data.tableBody && this.data.tableBody?.length > 0) {
         if (
@@ -199,7 +197,6 @@ export class TableListComponent implements OnInit, OnChanges {
     this.contentArray = [];
     this.returnedArray = [];
 
-    console.log('12', this.staticFilterKey[columnName]);
     this.sortStatus = !status;
     if (!this.sortStatus) {
       if (this.staticFilterKey[columnName] === 'createdDate') {
@@ -540,7 +537,7 @@ export class TableListComponent implements OnInit, OnChanges {
   editProduct(request) {
     const isTrackProduct = this.route.snapshot.routeConfig.data.animation;
     const editFrom = this.route.snapshot.routeConfig.path;
-    console.log('editform', editFrom);
+
     if (editFrom === 'tell_do_variation') {
       this.router.navigate([
         `/new-request/tell_do_variation/${Number(request.ID)}/${
@@ -648,7 +645,6 @@ export class TableListComponent implements OnInit, OnChanges {
   }
 
   deleteDraftrequest(requestId) {
-    console.log('requestId', requestId)
     this.removeDraftProduct.emit(requestId);
   }
 
@@ -706,7 +702,6 @@ export class TableListComponent implements OnInit, OnChanges {
       if (event.target.files[0].type === 'application/pdf' && event.target.files[0].size <= 5000000) {
         const fileStructure = event.target.files[0].name;
         const reader = new FileReader();
-        console.log('reader', reader)
         reader.readAsDataURL(fileStructure);
         reader.onload = (res: any) => {
           const targetResult = res.target.result

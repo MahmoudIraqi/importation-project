@@ -161,7 +161,6 @@ export class HomeContainerComponent implements OnInit {
 
       this.isLoading = false;
     }), error => this.handleError(error);
-    console.log('formdate', this.formData)
   }
 
   async publishLookupData(): Promise<any> {
