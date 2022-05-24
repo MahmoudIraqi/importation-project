@@ -1184,8 +1184,6 @@ export class FormService {
 
     return (
       this.http
-
-        //premix add api changed from "Premix/AddPremix" to "Premix/SavePremix"
         .post(`${this.secondApiURL}Premix/SavePremix`, data, options)
         .pipe(
           map((res: any) => {

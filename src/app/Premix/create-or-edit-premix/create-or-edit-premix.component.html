@@ -302,11 +302,6 @@
                             [disabled]="false">
                       {{ "common.submit" | translate }}
                     </button>
-                    <button *ngIf="view == true" (click)="editPremix()"
-                            class="btn btn-primary btn-sm {{currentLang === 'ar' ? 'ml-3' : 'mr-3'}} bottomButtons"
-                            [disabled]="false">
-                      {{ "Edit" | translate }}
-                    </button>
                     <button *ngIf="view == true" [routerLink]="['/pages/cosmetics-product/inner/premix-list']"
                             class="btn btn-primary btn-sm {{currentLang === 'ar' ? 'ml-3' : 'mr-3'}} bottomButtons"
                             [disabled]="false">

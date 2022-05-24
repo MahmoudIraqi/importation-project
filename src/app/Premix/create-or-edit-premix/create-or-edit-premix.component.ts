@@ -75,6 +75,19 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
         private getService: FormService
     ) {
         this.getFormAsStarting('', '');
+
+        this.route.params.subscribe((params: any) => {
+            this.premixID = params.id;
+            if (this.premixID) {
+                this.getPermixById(this.premixID);
+            }
+            if (!this.route.snapshot.queryParams.view) {
+                this.view = false;
+            } else if (this.route.snapshot.queryParams.view) {
+                this.view = true;
+                this.PremixForm.disable();
+            }
+        });
     }
 
     async ngOnInit(): Promise<any> {
@@ -96,19 +109,6 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
             });
 
         this.isLoading = false;
-
-        this.route.params.subscribe((params: any) => {
-            this.premixID = params.id;
-            if (this.premixID) {
-                this.getPermixById(this.premixID);
-            }
-            if (!this.route.snapshot.queryParams.view) {
-                this.view = false;
-            } else if (this.route.snapshot.queryParams.view) {
-                this.view = true;
-                this.PremixForm.disable();
-            }
-        });
     }
 
     ngOnDestroy(): void {
@@ -121,66 +121,7 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
     getPermixById(id): void {
         this.premixID = id;
         this.getService.getPermixById(id).subscribe((res: any) => {
-            this.selectedPremix = res;
-            this.PremixForm.get('id').setValue(this.selectedPremix.id),
-                this.PremixForm.get('premixName').setValue(this.selectedPremix.name);
-            this.PremixForm.get('notificationNumber').setValue(
-                this.selectedPremix.notificationNo
-            );
-            this.PremixForm.get('originCompany').setValue(
-                this.selectedPremix.companyOrigin
-            );
-
-            this.PremixForm.get('originCountry').setValue(
-                this.selectedPremix.countryOriginDTO.name.en
-            );
-
-            this.PremixForm.get('companySupplier').setValue(
-                this.selectedPremix.companySupplier
-            );
-            this.PremixForm.get('supplierCountry').setValue(
-                this.selectedPremix.countrySupplierDTO.name.en
-            );
-            // prenting coming Ingredients into table
-            for (
-                let i = 0;
-                i < this.selectedPremix.premixIngredientsDTO.length;
-                i++
-            ) {
-                this.premixIngredientsList = {
-                    tableHeader: [
-                        'id',
-                        'name',
-                        'concentration',
-                        'functionName',
-                        'functionId',
-                        'action',
-                    ],
-                    tableBody: this.selectedPremix.premixIngredientsDTO,
-                };
-
-                // this.PremixForm.get('IngredientId').setValue(
-                //   this.selectedPremix.premixIngredientsDTO[i].id
-                // );
-                // this.PremixForm.get('concentration').setValue(
-                //   this.selectedPremix.premixIngredientsDTO[i].concentration
-                // );
-                // this.PremixForm.get('functionId').setValue(
-                //   this.selectedPremix.premixIngredientsDTO[i].functionId
-                // );
-                this.PremixForm.get('rowMaterialNameField').setValue(
-                    this.selectedPremix.premixIngredientsDTO[i].ingredientsId
-                );
-            }
-            //prenting incoming patches into table
-            for (let i = 0; i < this.selectedPremix.premixBatchDtos.length; i++) {
-                this.premixBatchesList = {
-                    tableHeader: ['batchNo', 'productionDate', 'validityDate', 'action'],
-                    tableBody: this.selectedPremix.premixBatchDtos,
-                };
-            }
-
-            //
+            console.log('res', res);
         });
     }
 
@@ -231,7 +172,7 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
         this.addIngrediantDetailsRows();
     }
 
-    rerenderSubscribtionForClosingActionForDetailsForm(index): void {
+    renderObservableForIngredientsLookups(index): void {
         this.getLookupForFormArray(index);
 
         // this._subscribeToClosingActionsForDetailsFormArray('ingredientsId', this.arrayOfObservablesForIngredient[index], index);
@@ -250,7 +191,7 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
             functionId: this.fb.control('', Validators.required),
         }));
 
-        this.rerenderSubscribtionForClosingActionForDetailsForm(this.IngrediantDetailsRows().controls.length - 1);
+        this.renderObservableForIngredientsLookups(this.IngrediantDetailsRows().controls.length - 1);
     }
 
     removeIngrediantDetailsRows(index): void {
@@ -268,7 +209,7 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
             console.log('res', res);
 
             this.formData.rawMaterialList = res;
-            this.rerenderSubscribtionForClosingActionForDetailsForm(0);
+            this.renderObservableForIngredientsLookups(0);
         });
     }
 
@@ -348,13 +289,13 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
                 companySupplier: this.fb.control(''),
                 supplierCountry: this.fb.control(''),
                 Ingredients: this.fb.array([this.fb.group({
-                    id: this.fb.control(''),
+                    id: this.fb.control(0),
                     ingredientsId: this.fb.control('', Validators.required),
                     concentration: this.fb.control('', Validators.required),
                     functionId: this.fb.control('', Validators.required),
                 })]),
                 Batches: this.fb.array([this.fb.group({
-                    id: this.fb.control(''),
+                    id: this.fb.control(0),
                     batchNo: this.fb.control('', Validators.required),
                     productionDate: this.fb.control('', Validators.required),
                     validityDate: this.fb.control('', Validators.required),
@@ -484,7 +425,17 @@ export class CreateOrEditPremixComponent implements OnInit, OnDestroy {
                 this.formData.function.filter(option => option.functionName === y.functionId).map(item => y.functionId = item.id);
             });
 
-            this.getService.AddNewPremix(data).subscribe((res) => {
+            const specificObjectForBE = {
+                id: data.id,
+                notificationNo: data.notificationNumber,
+                lkupCountrySupplier: data.supplierCountry,
+                companyOrigin: data.originCompany,
+                companySupplier: data.companySupplier,
+                lkupCountryOrigin: data.supplierCountry,
+                premixBatchDtos: data.Batches,
+                premixIngredientsDTO: data.Ingredients
+            };
+            this.getService.AddNewPremix(specificObjectForBE).subscribe((res) => {
                 this.router.navigate([`/pages/cosmetics-product/inner/premix-list`]);
             });
         } else {
