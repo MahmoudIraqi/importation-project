@@ -747,12 +747,7 @@
             </td>
             <td colspan="8" *ngIf="whichTable === 'usersList'">
               <mat-accordion>
-                <mat-expansion-panel
-                  class="areaContainer"
-                  [expanded]="step === i"
-                  (opened)="setStep(i)"
-                  hideToggle
-                >
+                <mat-expansion-panel class="areaContainer" [expanded]="step === i" (opened)="setStep(i)" disabled>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <table class="table table-sm tableDetailsCont">
@@ -762,23 +757,11 @@
                           <td>{{ request.userName }}</td>
                           <td>{{ request.address }}</td>
                           <td>{{ request.mobile }}</td>
-                          <td>{{ request.ip }}</td>
-                          <td>{{ request.sessionEndTime }}</td>
+                          <td>{{ request.email }}</td>
+                          <td>{{ request.sessionEndTime | date }}</td>
                           <td>
-                            <span
-                              (click)="removePremixfunction(request)"
-                              class="icons-span"
-                            >
-                              <i class="fa fa-trash"></i>
-                            </span>
-                            <span
-                              (click)="removePremixfunction(request)"
-                              class="icons-span"
-                            >
-                              <i class="fa fa-edit"></i>
-                            </span>
-                            <span (click)="AddUserRole(request)">
-                              <i class="fa fa-plus"></i>
+                            <span (click)="addServiceForUser(request)" class="icons-span ml-2">
+                              <i class="fas fa-sitemap"></i>
                             </span>
                           </td>
                         </tr>
@@ -791,12 +774,7 @@
 
             <td colspan="2" *ngIf="whichTable === 'companyTypes'">
               <mat-accordion>
-                <mat-expansion-panel
-                  class="areaContainer"
-                  [expanded]="step === i"
-                  (opened)="setStep(i)"
-                  hideToggle
-                >
+                <mat-expansion-panel class="areaContainer" [expanded]="step === i" (opened)="setStep(i)" disabled>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <table class="table table-sm tableDetailsCont">

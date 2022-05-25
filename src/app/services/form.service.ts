@@ -1688,8 +1688,8 @@ export class FormService {
       );
   }
 
-  //here is the function needed to add roles and services
-  AssignRolesToServices(body) {
+  /* here is the function needed to add roles and services */
+  AssignRolesToServices(body): any {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
@@ -1709,9 +1709,8 @@ export class FormService {
       );
   }
 
-  //here is the function needed to add role for a selected user
-  AddRoleUser(body) {
-    //Company/SaveRoleUser
+  /* here is the function needed to add role for a selected user */
+  AddRoleUser(body): any {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
@@ -1731,7 +1730,50 @@ export class FormService {
       );
   }
 
-  getRequestComments(RequestId) {
+  AddNewUser(body): any {
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json',
+      Token: this.Token,
+    });
+
+    const options = {headers};
+
+    body = JSON.stringify(body);
+
+    return this.http
+      .post(`${this.cloudServerApiURL}Company/AddUserToCompany`, body, options)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  setServicesInUser(body, id): any {
+    const headers = new HttpHeaders({
+      'Content-type': 'application/json',
+      Token: this.Token,
+    });
+
+    const options = {headers};
+
+    const data = {
+      services: body,
+      portalUserId: id
+    };
+
+    return this.http
+      .post(`${this.cloudServerApiURL}Company/SaveUserServices`, JSON.stringify(data), options)
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  getRequestComments(RequestId): any {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
@@ -1771,8 +1813,8 @@ export class FormService {
       );
   }
 
-  //here is the function needed to save approval
-  SaveApproval(body) {
+  /* here is the function needed to save approval */
+  SaveApproval(body): any {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
       Token: this.Token,
@@ -1793,10 +1835,10 @@ export class FormService {
       );
   }
 
-  getWithinIncludedBols() {
+  getWithinIncludedBols(): any {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
-      'Token': this.Token
+      Token: this.Token
     });
     const options = {headers};
     return this.http.get(`${this.cloudServerApiURL}BillOfLading/GetWithinIncludedBols`)
@@ -1806,10 +1848,10 @@ export class FormService {
         catchError(this.handleError));
   }
 
-  getBillOfLading(BolNo: string) {
+  getBillOfLading(BolNo: string): any {
     const headers = new HttpHeaders({
       'Content-type': 'application/json',
-      'Token': this.Token
+      Token: this.Token
     });
     const options = {headers};
     return this.http.get(`${this.cloudServerApiURL}BillOfLading/GetBillOfLading/${BolNo}`)

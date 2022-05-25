@@ -11,10 +11,10 @@ import {InputService} from '../services/input.service';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  alertNotificationStatus: boolean = false;
-  alertErrorNotificationStatus: boolean = false;
+  alertNotificationStatus = false;
+  alertErrorNotificationStatus = false;
   alertErrorNotification: any;
-  isLoading: boolean = false;
+  isLoading = false;
   returnUrl: string;
 
   constructor(private fb: FormBuilder,
@@ -28,11 +28,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  submit() {
+  submit(): void {
     if (this.form.valid) {
       this.isLoading = true;
       this.getService.loginAPIToken(this.form.value).subscribe((res: any) => {
@@ -41,17 +41,20 @@ export class LoginComponent implements OnInit {
           this.alertNotificationStatus = true;
           this.inputService.publish({type: 'Token', payload: res.token});
           this.inputService.publish({
-            type: 'CompanyData', payload: {
+            type: 'CompanyData',
+            payload: {
               companyId: res.company_Profile_ID,
               CompanyName: res.companyName,
               CompanyRoleID: res.companyRoleID,
+              mainUser: res.isMain === '1'
             }
           });
           localStorage.setItem('CompanyData', JSON.stringify({
             companyId: res.company_Profile_ID,
             CompanyName: res.companyName,
             CompanyRoleID: res.companyRoleID,
-          }))
+            mainUser: res.isMain === '1'
+          }));
           localStorage.setItem('privateData', res.token); // Verna
           this.router.navigateByUrl('/pages/home');
         }
@@ -59,7 +62,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  handleError(message) {
+  handleError(message): void {
     this.isLoading = false;
     this.alertErrorNotificationStatus = true;
     this.alertErrorNotification = {msg: message};

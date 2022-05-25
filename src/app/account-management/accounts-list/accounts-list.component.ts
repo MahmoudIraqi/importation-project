@@ -1,12 +1,13 @@
-import { DecimalPipe } from '@angular/common';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { FormService } from 'src/app/services/form.service';
-import { InputService } from 'src/app/services/input.service';
+import {DecimalPipe} from '@angular/common';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap/modal';
+import {TabsetComponent} from 'ngx-bootstrap/tabs';
+import {FormService} from 'src/app/services/form.service';
+import {InputService} from 'src/app/services/input.service';
+import {distinctUntilChanged, filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-accounts-list',
@@ -14,45 +15,45 @@ import { InputService } from 'src/app/services/input.service';
   styleUrls: ['./accounts-list.component.scss'],
 })
 export class AccountsListComponent implements OnInit {
-  @ViewChild('ComapnyTabs', { static: false }) formTabs: TabsetComponent;
-  @ViewChild('addRoleUserModal') modalDeletedTemplate: TemplateRef<any>;
-
+  @ViewChild('addRoleUserModal') addUserInCompanyProfile: TemplateRef<any>;
+  @ViewChild('addServicesForSpecificUser') addServicesForSpecificUserInCompanyProfile: TemplateRef<any>;
   modalRef: BsModalRef;
-  modalOptions: ModalOptions = {
-    backdrop: 'static',
-    keyboard: false,
-    class: 'modal-xl packagingModal',
-  };
+  modalServiceRef: BsModalRef;
+  modalOptions: ModalOptions = {backdrop: 'static', keyboard: false, class: 'modal-xl packagingModal'};
   companyForm: FormGroup;
   UserRoleForm: FormGroup;
   AddRoles: FormGroup;
+  addUserForm: FormGroup;
   AllRoles = [];
   AllServiceList: any;
   usersList;
   companyTypes: any;
-  alertErrorNotificationStatus: boolean = false;
+  alertErrorNotificationStatus = false;
   alertErrorNotification: any;
-  isLoading: boolean = false;
-  currentLang = this.translateService.currentLang
-    ? this.translateService.currentLang
-    : 'en';
+  isLoading = false;
+  currentLang = this.translateService.currentLang ? this.translateService.currentLang : 'en';
+  alertSuccessNotificationStatus = false;
+  alertSuccessNotification: any;
+  serviceList: any[];
+  sentServices = [];
+  selectedUser: any;
+  selectedService: any[] = [];
+  mainUserStatus = false;
 
-  constructor(
-    private fb: FormBuilder,
-    private number: DecimalPipe,
-    private router: Router,
-    private route: ActivatedRoute,
-    private inputService: InputService,
-    public translateService: TranslateService,
-    private getService: FormService,
-    private modalService: BsModalService
-  ) {}
-  ngOnInit(): void {
-    this.isLoading = false;
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private route: ActivatedRoute,
+              private inputService: InputService,
+              public translateService: TranslateService,
+              private getService: FormService,
+              private modalService: BsModalService) {
     this.getFormAsStarting('', '');
-    this.isLoading = false;
-    //company info function call go here
-    this.GetAllComapnyInfo();
+    this.getAddUserFormAsStarting('', '');
+  }
+
+  ngOnInit(): void {
+    this.isLoading = true;
+    this.GetAllCompanyInfo();
     this.GetCompanyTypes();
     this.GetCompanyRoles();
     this.GetServices();
@@ -63,8 +64,18 @@ export class AccountsListComponent implements OnInit {
     this.UserRoleForm = this.fb.group({
       Roles: [null, Validators.required],
     });
+    this.companyForm.disable();
+
+    this.inputService.getInput$().pipe(
+      filter(x => x.type === 'CompanyData'),
+      distinctUntilChanged()
+    ).subscribe(res => {
+      this.mainUserStatus = res.payload.mainUser;
+    });
+    this.isLoading = false;
   }
-  getFormAsStarting(data, fromWhere) {
+
+  getFormAsStarting(data, fromWhere): void {
     if (data) {
     } else {
       this.companyForm = this.fb.group({
@@ -77,43 +88,45 @@ export class AccountsListComponent implements OnInit {
     }
   }
 
-  alertSuccessNotificationStatus: boolean = false;
-  alertSuccessNotification: any;
-  handleError(message) {
+  getAddUserFormAsStarting(data, fromWhere): void {
+    if (data) {
+    } else {
+      this.addUserForm = this.fb.group({
+        username: this.fb.control('', Validators.required),
+        password: this.fb.control('', Validators.required),
+        ip: this.fb.control('')
+      });
+    }
+  }
+
+  handleError(message): void {
     this.alertErrorNotificationStatus = true;
-    this.alertErrorNotification = { msg: message };
+    this.alertErrorNotification = {msg: message};
     this.isLoading = false;
   }
 
-  handleSuccess(message) {
+  handleSuccess(message): void {
     this.alertSuccessNotificationStatus = true;
-    this.alertSuccessNotification = { msg: message };
+    this.alertSuccessNotification = {msg: message};
     this.isLoading = false;
   }
 
-  onClosedErrorAlert() {
+  onClosedErrorAlert(): void {
     setTimeout(() => {
       this.alertErrorNotificationStatus = false;
     }, 2000);
   }
-  removePremix(premix) {
+
+  removePremix(premix): void {
     this.getService.removePremix(premix.id).subscribe(
-      (res: any) => {},
+      (res: any) => {
+      },
       (error) => this.handleError(error)
     );
     this.getService.GetCompanyInfo(4).subscribe(
       (res: any) => {
         this.usersList = {
-          tableHeader: [
-            'id',
-            'name',
-            'userName',
-            'address',
-            'phone',
-            'ip',
-            'lastLogin',
-            'action',
-          ],
+          tableHeader: ['id', 'name', 'userName', 'address', 'phone', 'email', 'lastLogin', 'action'],
           tableBody: res,
         };
         this.isLoading = false;
@@ -122,8 +135,8 @@ export class AccountsListComponent implements OnInit {
     );
   }
 
-  //here is the function needed to get all company info
-  GetAllComapnyInfo() {
+  /*here is the function needed to get all company info*/
+  GetAllCompanyInfo(): void {
     this.getService.GetCompanyInfo(4).subscribe(
       (res: any) => {
         if (res) {
@@ -134,16 +147,7 @@ export class AccountsListComponent implements OnInit {
             companyEmail: res.companyProfileDto.email,
           });
           this.usersList = {
-            tableHeader: [
-              'id',
-              'name',
-              'userName',
-              'address',
-              'phone',
-              'ip',
-              'lastLogin',
-              'action',
-            ],
+            tableHeader: ['id', 'name', 'userName', 'address', 'phone', 'email', 'lastLogin', 'action'],
             tableBody: res.portalUserDTOs,
           };
           this.isLoading = false;
@@ -153,8 +157,8 @@ export class AccountsListComponent implements OnInit {
     );
   }
 
-  //here is the function needed to get the company types
-  GetCompanyTypes() {
+  /*here is the function needed to get the company types*/
+  GetCompanyTypes(): void {
     this.getService.GetCompanyInfo(4).subscribe(
       (data: any) => {
         this.companyTypes = {
@@ -167,8 +171,8 @@ export class AccountsListComponent implements OnInit {
     );
   }
 
-  //here is the function needed to fetch the list of roles added
-  GetCompanyRoles() {
+  /*here is the function needed to fetch the list of roles added*/
+  GetCompanyRoles(): void {
     this.getService.GetAllRoles(4).subscribe(
       (data) => {
         this.AllRoles = data;
@@ -180,15 +184,11 @@ export class AccountsListComponent implements OnInit {
     );
   }
 
-  //here is the function needed to fetch all list of services
-  ServiceList;
-  GetServices() {
+  /*here is the function needed to fetch all list of services*/
+  GetServices(): void {
     this.getService.GetAllServiceList(4).subscribe(
       (data) => {
-        this.ServiceList = {
-          tableHeader: ['ServiceId', 'ServiceName', 'ServiceCode', 'action'],
-          tableBody: data,
-        };
+        this.serviceList = data;
         this.isLoading = false;
       },
       (error) => {
@@ -198,39 +198,22 @@ export class AccountsListComponent implements OnInit {
     );
   }
 
-  Sentservices = [];
-  GetSelectedService(service: any) {
-    // // this.Sentservices = [];
-    // let foundServiceId = this.Sentservices.find((element) => {
-    //   element.id === service.id;
-    // });
-    // if (this.Sentservices.length == 0) {
-    //   this.Sentservices.push(service.id);
-    // } else if (this.Sentservices.length > 0) {
-    //   if (foundServiceId) {
-    //     this.handleError('This service is found');
-    //   } else {
-    //     this.Sentservices.push(service.id);
-    //   }
-    // }
-    this.Sentservices.push(service.id);
+  GetSelectedService(service: any): void {
+    this.sentServices.push(service.id);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.AddRoles.invalid) {
       this.handleError('Please choose role');
-    } else if (this.Sentservices.length == 0) {
+    } else if (this.sentServices.length === 0) {
       this.handleError('Please choose services');
     } else {
-      let body = {
-        role: this.AddRoles.controls.Roles.value,
-        services: this.Sentservices,
-      };
+      const body = {role: this.AddRoles.controls.Roles.value, services: this.sentServices};
       this.getService.AssignRolesToServices(body).subscribe(
         (data) => {
           this.isLoading = false;
           this.handleSuccess('Done add services for selected role');
-          this.ServiceList = [];
+          this.serviceList = [];
           this.AddRoles.reset();
         },
         (error) => this.handleError(error)
@@ -238,29 +221,41 @@ export class AccountsListComponent implements OnInit {
     }
   }
 
-  //here is the function needed to open a modal needed to add a role to the selected user
-  SelectedUser: any;
-  OpenAddRoleModal(event) {
-    this.modalRef = this.modalService.show(
-      this.modalDeletedTemplate,
-      (this.modalOptions = event)
-    );
-    this.SelectedUser = event.id;
-    this.GetCompanyRoles();
+  /*here is the function needed to open a modal needed to add a role to the selected user*/
+  OpenAddRoleModal(): void {
+    this.modalRef = this.modalService.show(this.addUserInCompanyProfile, this.modalOptions);
   }
 
-  //here is the function needed to submit added role for the user
-  SubmitAdduserRole() {
-    let body = {
-      role: this.UserRoleForm.controls.Roles.value,
-      portalUserId: this.SelectedUser,
-    };
-    this.getService.AddRoleUser(body).subscribe(
-      (data) => {
-        this.handleSuccess('Successful add role for selected user');
-        this.isLoading = false;
-        this.modalRef.hide();
-        this.GetAllComapnyInfo();
+  OpenAddServicesInUser(event): void {
+    this.selectedUser = event;
+
+    this.modalServiceRef = this.modalService.show(this.addServicesForSpecificUserInCompanyProfile, this.modalOptions);
+  }
+
+  selectService(event, serviceData): void {
+    if (event.checked) {
+      this.selectedService.push(serviceData.id);
+    } else {
+      if (this.selectedService.filter(item => item === serviceData.id).length) {
+        const indexOfSelectedServices = this.selectedService.indexOf(serviceData.id);
+        this.selectedService.splice(indexOfSelectedServices, 1);
+      }
+    }
+  }
+
+  /*here is the function needed to submit added role for the user*/
+  submitAddNewUser(): void {
+    this.getService.AddNewUser(this.addUserForm.value).subscribe(res => {
+        if (res) {
+          this.handleSuccess('Successful add role for selected user');
+          this.isLoading = false;
+          this.modalRef.hide();
+          this.GetAllCompanyInfo();
+        } else {
+          this.handleError('Invalid use');
+          this.isLoading = false;
+          this.modalRef.hide();
+        }
       },
       (error) => {
         this.handleError(error);
@@ -268,12 +263,17 @@ export class AccountsListComponent implements OnInit {
     );
   }
 
-  //here is the function needed to delete the selected role
-  DeleteSelectedRole() {}
-
-  //here is the function needed to update the selected role
-  UpdateSelectedRole() {}
-
-  //here is the function needed to add a new role
-  AddNewRole() {}
+  addServicesForUser(portalUserId): void {
+    this.isLoading = true;
+    this.getService.setServicesInUser(this.selectedService, portalUserId).subscribe(res => {
+        if (res) {
+          this.modalServiceRef.hide();
+          this.isLoading = false;
+        }
+      },
+      (error) => {
+        this.handleError(error);
+      }
+    );
+  }
 }

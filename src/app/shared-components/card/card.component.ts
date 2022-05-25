@@ -15,7 +15,8 @@ export class CardComponent implements OnInit, OnChanges {
   @Input() serviceTypeId: number;
   currentLang = this.translateService.currentLang ? this.translateService.currentLang : 'en';
   showCardDetails: boolean;
-  showRelese:boolean = false ;
+  showRelese: boolean = false;
+
   constructor(public translateService: TranslateService,
               private inputService: InputService,
               private router: Router) {
@@ -32,23 +33,22 @@ export class CardComponent implements OnInit, OnChanges {
       this.currentLang = res.payload;
     });
 
-    if(this.serviceTypeId == 12)
-    {
-      this.showRelese=!this.showRelese;
-    }else if(this.serviceTypeId == 11)
-    {this.showRelese= this.showRelese;}
+    if (this.serviceTypeId == 12) {
+      this.showRelese = !this.showRelese;
+    } else if (this.serviceTypeId == 11) {
+      this.showRelese = this.showRelese;
+    }
   }
-//custom Relese
-shown()
-{
 
-   debugger;
-  if(this.serviceTypeId == 12)
-  {
-    this.showRelese=!this.showRelese;
-  }else if(this.serviceTypeId == 11)
-  {this.showRelese= this.showRelese;}
-}
+//custom Relese
+  shown() {
+    if (this.serviceTypeId == 12) {
+      this.showRelese = !this.showRelese;
+    } else if (this.serviceTypeId == 11) {
+      this.showRelese = this.showRelese;
+    }
+  }
+
   showDetails() {
     this.showCardDetails = true;
   }
@@ -57,7 +57,7 @@ shown()
     this.showCardDetails = false;
   }
 
-  goToLink(link: string, serviceId?: number, serviceTypeId?: number,serviceTypeName?: string) {
+  goToLink(link: string, serviceId?: number, serviceTypeId?: number, serviceTypeName?: string) {
     this.router.navigateByUrl(serviceId ? `${link}/${serviceId}/${serviceTypeId}/${serviceTypeName}` : link)
   }
 }

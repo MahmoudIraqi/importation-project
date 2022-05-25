@@ -13,17 +13,14 @@ import {InputService} from 'src/app/services/input.service';
 })
 export class PremixListComponent implements OnInit {
   premixList;
-
-  alertErrorNotificationStatus: boolean = false;
+  alertErrorNotificationStatus = false;
   alertErrorNotification: any;
-  isLoading: boolean = false;
-  currentLang = this.translateService.currentLang
-    ? this.translateService.currentLang
-    : 'en';
+  isLoading = false;
+  currentLang = this.translateService.currentLang ? this.translateService.currentLang : 'en';
 
   constructor(
     private fb: FormBuilder,
-    private number: DecimalPipe,
+    private numberTransform: DecimalPipe,
     private router: Router,
     private route: ActivatedRoute,
     private inputService: InputService,
@@ -59,20 +56,20 @@ export class PremixListComponent implements OnInit {
     );
   }
 
-  handleError(message) {
+  handleError(message): void {
     this.alertErrorNotificationStatus = true;
     this.alertErrorNotification = {msg: message};
     this.isLoading = false;
   }
 
-  onClosedErrorAlert() {
+  onClosedErrorAlert(): void {
     setTimeout(() => {
       this.alertErrorNotificationStatus = false;
     }, 2000);
   }
 
-  // Remove premix button Functionality
-  removePremix(premix) {
+  /* Remove premix button Functionality */
+  removePremix(premix): void {
     this.getService.removePremix(premix.id).subscribe(
       (res: any) => {
       },
@@ -81,15 +78,15 @@ export class PremixListComponent implements OnInit {
     this.ngOnInit();
   }
 
-  //Edit premix button functionality |direct to addNewPremix component with ID in params|
-  editPremix(id) {
+  /* Edit premix button functionality |direct to addNewPremix component with ID in params */
+  editPremix(id): void {
     this.router.navigate([
       `/pages/cosmetics-product/inner/createOrEdit-premix/${id}`,
     ]);
   }
 
-  //View premix button functionality
-  viewPremix(id) {
+  /* View premix button functionality */
+  viewPremix(id): void {
     this.router.navigate(
       [`/pages/cosmetics-product/inner/createOrEdit-premix/${id}`],
       {queryParams: {view: 'true'}}

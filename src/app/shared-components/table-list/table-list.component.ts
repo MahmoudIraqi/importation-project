@@ -85,6 +85,9 @@ export class TableListComponent implements OnInit, OnChanges {
   @Output() deleteItemData = new EventEmitter();
   @Output() deleteInvoice = new EventEmitter();
   @Output() editInvoiceData = new EventEmitter();
+  @Output() editUserData = new EventEmitter();
+  @Output() deleteUserData = new EventEmitter();
+  @Output() addServicesForUserData = new EventEmitter();
   @Output() editCustomReleaseRequest = new EventEmitter();
   @Output() replaceCustomReleaseRequest = new EventEmitter();
   @Output() choosePackagingRow = new EventEmitter();
@@ -313,6 +316,17 @@ export class TableListComponent implements OnInit, OnChanges {
     this.editInvoiceData.emit({index, item});
   }
 
+  editUser(request): void {
+    this.editUserData.emit(request)
+  }
+
+  deleteUser(request): void {
+    this.deleteUserData.emit(request);
+  }
+
+  addServiceForUser(request): void {
+    this.addServicesForUserData.emit(request);
+  }
 
   removeProductFromKitFunction(index) {
     this.removeProductFromKit.emit(index);

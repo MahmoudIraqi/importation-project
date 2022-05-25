@@ -7,7 +7,6 @@
     "pharmaceuticalProducts": "Pharmaceutical Products",
     "biologicalProducts": "Biological Products",
     "narcotics": "Narcotics",
-
     "detergentsAndPesticides": "DISINFECTANTS_PESTICIDES",
     "cosmeticsProducts": "Cosmetics Products",
     "pharmaceuticalExemption": "Pharmaceutical Exemption",
@@ -43,7 +42,7 @@
     "function": "Function"
   },
   "common": {
-    "resetForm":"Reset Form",
+    "resetForm": "Reset Form",
     "requests": "requests",
     "request": "request",
     "back": "Back",
@@ -68,7 +67,6 @@
       "maxSizeMessage": "this file must be as PDF and less than 5MB.",
       "decimalNumberMessage": "this field must be Decimal number as 00.0."
     }
-   
   },
   "customRelease": {
     "wizardSteps": {
@@ -79,15 +77,15 @@
       "bolDetails": "BOL Details",
       "invoiceDetails": "Invoice Details",
       "itemsDetails": "Items Details",
-      "replacementForLost":"Replacement For Lost"
+      "replacementForLost": "Replacement For Lost"
     },
     "formLabel": {
-      "replacementReportNo":"replacementReportNo",
-      "replacementReportIssueSite":"replacementReportIssueSite",
-      "replacementReportDate":"replacementReportDate",
+      "replacementReportNo": "replacementReportNo",
+      "replacementReportIssueSite": "replacementReportIssueSite",
+      "replacementReportDate": "replacementReportDate",
       "bol": "BOL",
-      "noOfItems":"Number of items",
-      "customCertificate":"Custom Certificate",
+      "noOfItems": "Number of items",
+      "customCertificate": "Custom Certificate",
       "withinIncluded": "Within included",
       "requestedReleaseType": "Requested Release Type",
       "applicant": "Applicant",
@@ -147,19 +145,19 @@
       "importReason": "Import reason",
       "itemType": "Item Type",
       "BOLPOLICY": "BOL Policy",
-      "InvApprovalNo":"Importation Approval Number",
-      "InvoiceItemName":"Invoice Item Name",
-      "unitPrice":"Unit Price",
-      "customsCertificate":"Customs Certificate",
-      "MSDS":"MSDS",
-      "customsInspection":"Customs Inspection",
-      "useInsideFacility":"Use Inside Facility",
-      "ProductTypeList":"ProductTypeList",
-      "OTHER":"Other",
-      "CUSTOMRELEASEREQUEST":"Custom Release Request",
-      "ProductReferenced":"Product Referenced",
-      "workingStandard":"Working Standard",
-      "foc":"FOC",
+      "InvApprovalNo": "Importation Approval Number",
+      "InvoiceItemName": "Invoice Item Name",
+      "unitPrice": "Unit Price",
+      "customsCertificate": "Customs Certificate",
+      "MSDS": "MSDS",
+      "customsInspection": "Customs Inspection",
+      "useInsideFacility": "Use Inside Facility",
+      "ProductTypeList": "ProductTypeList",
+      "OTHER": "Other",
+      "CUSTOMRELEASEREQUEST": "Custom Release Request",
+      "ProductReferenced": "Product Referenced",
+      "workingStandard": "Working Standard",
+      "foc": "FOC",
       "inciname": "INCINAME"
     },
     "specificStatement": {
@@ -179,7 +177,7 @@
     }
   },
   "tables": {
-    "originalRequest":"Original Request",
+    "originalRequest": "Original Request",
     "invoiceNo": "Invoice no",
     "invoiceDate": "Invoice Date",
     "invoiceValue": "Invoice Value",
@@ -194,6 +192,7 @@
     "emptyRows": "There is no data ...",
     "name": "Name",
     "type": "Type",
+    "email": "Email",
     "companyName": "Company Name",
     "companyCountry": "Company Country",
     "requestType": "Request type",
@@ -244,9 +243,9 @@
     "requestid": "Request Id",
     "CreatedBy": "Created by",
     "SubmissionDate": "Submission date",
-    "itemName":"Item Name",
-    "approvalNo":"Approval No",
-    "notificationNumber":"Notification Number"
+    "itemName": "Item Name",
+    "approvalNo": "Approval No",
+    "notificationNumber": "Notification Number"
   },
   "Importation": {
     "wizardSteps": {
@@ -276,7 +275,7 @@
       "securityplan": "Security Plan Quantity",
       "TradeName": "Trade Name",
       "Productregistration": "Product registration information",
-      "registrationExpireDate":"Registration Expire Date",
+      "registrationExpireDate": "Registration Expire Date",
       "ItemInvoiceName": "Item Invoice Name",
       "Productintheinvoice": "Product in the invoice",
       "withinIncluded": "Within included",
